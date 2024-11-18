@@ -1,0 +1,2 @@
+# Parlant Client (Typescript)
+
