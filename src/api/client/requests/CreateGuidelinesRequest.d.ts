@@ -9,7 +9,7 @@ import * as Parlant from "../../index";
  *                 payload: {
  *                     kind: "guideline",
  *                     content: {
- *                         predicate: "predicate",
+ *                         condition: "condition",
  *                         action: "action"
  *                     },
  *                     operation: Parlant.GuidelinePayloadOperationDto.Add,
@@ -22,11 +22,11 @@ import * as Parlant from "../../index";
  *                     coherenceChecks: [{
  *                             kind: Parlant.CoherenceCheckKindDto.ContradictionWithExistingGuideline,
  *                             first: {
- *                                 predicate: "predicate",
+ *                                 condition: "condition",
  *                                 action: "action"
  *                             },
  *                             second: {
- *                                 predicate: "predicate",
+ *                                 condition: "condition",
  *                                 action: "action"
  *                             },
  *                             issue: "issue",

@@ -29,6 +29,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineContent = void 0;
 const core = __importStar(require("../../core"));
 exports.GuidelineContent = core.serialization.object({
-    predicate: core.serialization.string(),
+    condition: core.serialization.string(),
     action: core.serialization.string(),
 });

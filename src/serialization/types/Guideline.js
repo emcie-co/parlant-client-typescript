@@ -30,6 +30,6 @@ exports.Guideline = void 0;
 const core = __importStar(require("../../core"));
 exports.Guideline = core.serialization.object({
     id: core.serialization.string(),
-    predicate: core.serialization.string(),
+    condition: core.serialization.string(),
     action: core.serialization.string(),
 });

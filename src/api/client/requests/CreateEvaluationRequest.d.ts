@@ -9,7 +9,7 @@ import * as Parlant from "../../index";
  *         payloads: [{
  *                 kind: "guideline",
  *                 content: {
- *                     predicate: "predicate",
+ *                     condition: "condition",
  *                     action: "action"
  *                 },
  *                 operation: Parlant.GuidelinePayloadOperationDto.Add,

@@ -3,6 +3,6 @@
  */
 export interface Guideline {
     id: string;
-    predicate: string;
+    condition: string;
     action: string;
 }

@@ -87,7 +87,7 @@ export declare class ParlantClient {
      *                 payload: {
      *                     kind: "guideline",
      *                     content: {
-     *                         predicate: "predicate",
+     *                         condition: "condition",
      *                         action: "action"
      *                     },
      *                     operation: Parlant.GuidelinePayloadOperationDto.Add,
@@ -100,11 +100,11 @@ export declare class ParlantClient {
      *                     coherenceChecks: [{
      *                             kind: Parlant.CoherenceCheckKindDto.ContradictionWithExistingGuideline,
      *                             first: {
-     *                                 predicate: "predicate",
+     *                                 condition: "condition",
      *                                 action: "action"
      *                             },
      *                             second: {
-     *                                 predicate: "predicate",
+     *                                 condition: "condition",
      *                                 action: "action"
      *                             },
      *                             issue: "issue",
@@ -453,7 +453,7 @@ export declare class ParlantClient {
      *         payloads: [{
      *                 kind: "guideline",
      *                 content: {
-     *                     predicate: "predicate",
+     *                     condition: "condition",
      *                     action: "action"
      *                 },
      *                 operation: Parlant.GuidelinePayloadOperationDto.Add,

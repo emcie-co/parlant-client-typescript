@@ -30,7 +30,7 @@ exports.GuidelineProposition = void 0;
 const core = __importStar(require("../../core"));
 exports.GuidelineProposition = core.serialization.object({
     guidelineId: core.serialization.property("guideline_id", core.serialization.string()),
-    predicate: core.serialization.string(),
+    condition: core.serialization.string(),
     action: core.serialization.string(),
     score: core.serialization.number(),
     rationale: core.serialization.string(),

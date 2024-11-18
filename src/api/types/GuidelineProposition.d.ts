@@ -3,7 +3,7 @@
  */
 export interface GuidelineProposition {
     guidelineId: string;
-    predicate: string;
+    condition: string;
     action: string;
     score: number;
     rationale: string;

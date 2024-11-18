@@ -7,7 +7,7 @@ import * as core from "../../core";
 export declare const GuidelineContent: core.serialization.ObjectSchema<serializers.GuidelineContent.Raw, Parlant.GuidelineContent>;
 export declare namespace GuidelineContent {
     interface Raw {
-        predicate: string;
+        condition: string;
         action: string;
     }
 }

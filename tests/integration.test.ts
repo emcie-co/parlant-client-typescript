@@ -31,12 +31,12 @@ async function makeGuideline(
     client: ParlantClient,
     agentId: string,
     action: string,
-    predicate: string
+    condition: string
 ): Promise<GuidelineWithConnectionsAndToolAssociations> {
     const guidelinePayload: GuidelinePayload = {
         content: {
             action,
-            predicate
+            condition
         } as GuidelineContent,
         kind: 'guideline',
         operation: 'add',

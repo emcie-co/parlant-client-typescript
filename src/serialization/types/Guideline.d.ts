@@ -8,7 +8,7 @@ export declare const Guideline: core.serialization.ObjectSchema<serializers.Guid
 export declare namespace Guideline {
     interface Raw {
         id: string;
-        predicate: string;
+        condition: string;
         action: string;
     }
 }

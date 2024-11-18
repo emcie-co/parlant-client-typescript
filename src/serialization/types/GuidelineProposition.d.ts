@@ -8,7 +8,7 @@ export declare const GuidelineProposition: core.serialization.ObjectSchema<seria
 export declare namespace GuidelineProposition {
     interface Raw {
         guideline_id: string;
-        predicate: string;
+        condition: string;
         action: string;
         score: number;
         rationale: string;
