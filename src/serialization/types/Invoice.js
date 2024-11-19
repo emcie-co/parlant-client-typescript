@@ -28,12 +28,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Invoice = void 0;
 const core = __importStar(require("../../core"));
-const GuidelinePayload_1 = require("./GuidelinePayload");
-const GuidelineInvoiceData_1 = require("./GuidelineInvoiceData");
+const Payload_1 = require("./Payload");
+const InvoiceData_1 = require("./InvoiceData");
 exports.Invoice = core.serialization.object({
-    payload: GuidelinePayload_1.GuidelinePayload,
+    payload: Payload_1.Payload,
     checksum: core.serialization.string(),
     approved: core.serialization.boolean(),
-    data: GuidelineInvoiceData_1.GuidelineInvoiceData.optional(),
+    data: InvoiceData_1.InvoiceData.optional(),
     error: core.serialization.string().optional(),
 });

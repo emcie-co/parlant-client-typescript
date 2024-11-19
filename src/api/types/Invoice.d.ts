@@ -3,9 +3,9 @@
  */
 import * as Parlant from "../index";
 export interface Invoice {
-    payload: Parlant.GuidelinePayload;
+    payload: Parlant.Payload;
     checksum: string;
     approved: boolean;
-    data?: Parlant.GuidelineInvoiceData;
+    data?: Parlant.InvoiceData;
     error?: string;
 }

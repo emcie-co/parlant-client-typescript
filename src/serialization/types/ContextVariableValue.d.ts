@@ -4,12 +4,11 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { Data } from "./Data";
 export declare const ContextVariableValue: core.serialization.ObjectSchema<serializers.ContextVariableValue.Raw, Parlant.ContextVariableValue>;
 export declare namespace ContextVariableValue {
     interface Raw {
         id: string;
         last_modified: string;
-        data: Data.Raw;
+        data?: unknown;
     }
 }

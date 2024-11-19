@@ -28,9 +28,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContextVariableValue = void 0;
 const core = __importStar(require("../../core"));
-const Data_1 = require("./Data");
 exports.ContextVariableValue = core.serialization.object({
     id: core.serialization.string(),
     lastModified: core.serialization.property("last_modified", core.serialization.date()),
-    data: Data_1.Data,
+    data: core.serialization.unknown(),
 });

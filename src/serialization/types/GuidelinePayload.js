@@ -28,11 +28,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelinePayload = void 0;
 const core = __importStar(require("../../core"));
-const PayloadKindDto_1 = require("./PayloadKindDto");
 const GuidelineContent_1 = require("./GuidelineContent");
 const GuidelinePayloadOperationDto_1 = require("./GuidelinePayloadOperationDto");
 exports.GuidelinePayload = core.serialization.object({
-    kind: PayloadKindDto_1.PayloadKindDto,
     content: GuidelineContent_1.GuidelineContent,
     operation: GuidelinePayloadOperationDto_1.GuidelinePayloadOperationDto,
     updatedId: core.serialization.property("updated_id", core.serialization.string().optional()),

@@ -3,7 +3,6 @@
  */
 import * as Parlant from "../index";
 export interface GuidelinePayload {
-    kind: Parlant.PayloadKindDto;
     content: Parlant.GuidelineContent;
     operation: Parlant.GuidelinePayloadOperationDto;
     updatedId?: string;

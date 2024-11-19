@@ -4,15 +4,15 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { GuidelinePayload } from "./GuidelinePayload";
-import { GuidelineInvoiceData } from "./GuidelineInvoiceData";
+import { Payload } from "./Payload";
+import { InvoiceData } from "./InvoiceData";
 export declare const Invoice: core.serialization.ObjectSchema<serializers.Invoice.Raw, Parlant.Invoice>;
 export declare namespace Invoice {
     interface Raw {
-        payload: GuidelinePayload.Raw;
+        payload: Payload.Raw;
         checksum: string;
         approved: boolean;
-        data?: GuidelineInvoiceData.Raw | null;
+        data?: InvoiceData.Raw | null;
         error?: string | null;
     }
 }

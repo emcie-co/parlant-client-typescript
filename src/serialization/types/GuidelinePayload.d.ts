@@ -4,13 +4,11 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { PayloadKindDto } from "./PayloadKindDto";
 import { GuidelineContent } from "./GuidelineContent";
 import { GuidelinePayloadOperationDto } from "./GuidelinePayloadOperationDto";
 export declare const GuidelinePayload: core.serialization.ObjectSchema<serializers.GuidelinePayload.Raw, Parlant.GuidelinePayload>;
 export declare namespace GuidelinePayload {
     interface Raw {
-        kind: PayloadKindDto.Raw;
         content: GuidelineContent.Raw;
         operation: GuidelinePayloadOperationDto.Raw;
         updated_id?: string | null;
