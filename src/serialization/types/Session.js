@@ -32,7 +32,7 @@ const ConsumptionOffsets_1 = require("./ConsumptionOffsets");
 exports.Session = core.serialization.object({
     id: core.serialization.string(),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
-    endUserId: core.serialization.property("end_user_id", core.serialization.string()),
+    customerId: core.serialization.property("customer_id", core.serialization.string()),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     title: core.serialization.string().optional(),
     consumptionOffsets: core.serialization.property("consumption_offsets", ConsumptionOffsets_1.ConsumptionOffsets),

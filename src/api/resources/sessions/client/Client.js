@@ -70,13 +70,13 @@ class Sessions {
      */
     list(request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { agentId, endUserId } = request;
+            const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
                 _queryParams["agent_id"] = agentId;
             }
-            if (endUserId != null) {
-                _queryParams["end_user_id"] = endUserId;
+            if (customerId != null) {
+                _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
@@ -140,7 +140,6 @@ class Sessions {
      *
      * @example
      *     await client.sessions.create({
-     *         endUserId: "end_user_id",
      *         agentId: "agent_id"
      *     })
      */
@@ -217,13 +216,13 @@ class Sessions {
      */
     deleteMany(request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { agentId, endUserId } = request;
+            const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
                 _queryParams["agent_id"] = agentId;
             }
-            if (endUserId != null) {
-                _queryParams["end_user_id"] = endUserId;
+            if (customerId != null) {
+                _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
@@ -550,7 +549,7 @@ class Sessions {
      * @example
      *     await client.sessions.createEvent("session_id", {
      *         kind: Parlant.EventKindDto.Message,
-     *         source: Parlant.EventSourceDto.EndUser,
+     *         source: Parlant.EventSourceDto.Customer,
      *         content: "content"
      *     })
      */
@@ -697,7 +696,7 @@ class Sessions {
      * @example
      *     await client.sessions.listInteractions("session_id", {
      *         minEventOffset: 1,
-     *         source: Parlant.EventSourceDto.EndUser
+     *         source: Parlant.EventSourceDto.Customer
      *     })
      */
     listInteractions(sessionId, request, requestOptions) {

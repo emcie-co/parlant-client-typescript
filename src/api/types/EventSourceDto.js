@@ -5,8 +5,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventSourceDto = void 0;
 exports.EventSourceDto = {
-    EndUser: "end_user",
-    EndUserUi: "end_user_ui",
+    Customer: "customer",
+    CustomerUi: "customer_ui",
     HumanAgent: "human_agent",
     HumanAgentOnBehalfOfAiAgent: "human_agent_on_behalf_of_ai_agent",
     AiAgent: "ai_agent",

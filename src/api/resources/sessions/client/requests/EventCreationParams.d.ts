@@ -6,7 +6,7 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         kind: Parlant.EventKindDto.Message,
- *         source: Parlant.EventSourceDto.EndUser,
+ *         source: Parlant.EventSourceDto.Customer,
  *         content: "content"
  *     }
  */

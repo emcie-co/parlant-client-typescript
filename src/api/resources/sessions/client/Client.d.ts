@@ -37,7 +37,6 @@ export declare class Sessions {
      *
      * @example
      *     await client.sessions.create({
-     *         endUserId: "end_user_id",
      *         agentId: "agent_id"
      *     })
      */
@@ -104,7 +103,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.createEvent("session_id", {
      *         kind: Parlant.EventKindDto.Message,
-     *         source: Parlant.EventSourceDto.EndUser,
+     *         source: Parlant.EventSourceDto.Customer,
      *         content: "content"
      *     })
      */
@@ -132,7 +131,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.listInteractions("session_id", {
      *         minEventOffset: 1,
-     *         source: Parlant.EventSourceDto.EndUser
+     *         source: Parlant.EventSourceDto.Customer
      *     })
      */
     listInteractions(sessionId: string, request: Parlant.SessionsListInteractionsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.InteractionListResponse>;

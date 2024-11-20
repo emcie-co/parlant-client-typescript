@@ -1,3 +1,5 @@
+export * as customers from "./customers";
+export * from "./customers/types";
 export * as agents from "./agents";
 export * from "./agents/client/requests";
 export * as guidelines from "./guidelines";
@@ -12,3 +14,6 @@ export * as evaluations from "./evaluations";
 export * from "./evaluations/client/requests";
 export * as services from "./services";
 export * from "./services/client/requests";
+export * as tags from "./tags";
+export * from "./tags/client/requests";
+export * from "./customers/client/requests";

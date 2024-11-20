@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateSessionRequest = void 0;
 const core = __importStar(require("../../../../../core"));
 exports.CreateSessionRequest = core.serialization.object({
-    endUserId: core.serialization.property("end_user_id", core.serialization.string()),
     agentId: core.serialization.property("agent_id", core.serialization.string()),
+    customerId: core.serialization.property("customer_id", core.serialization.string().optional()),
     title: core.serialization.string().optional(),
 });

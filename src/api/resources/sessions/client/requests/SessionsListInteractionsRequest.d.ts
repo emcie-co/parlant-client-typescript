@@ -6,7 +6,7 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         minEventOffset: 1,
- *         source: Parlant.EventSourceDto.EndUser
+ *         source: Parlant.EventSourceDto.Customer
  *     }
  */
 export interface SessionsListInteractionsRequest {

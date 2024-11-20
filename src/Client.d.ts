@@ -9,6 +9,8 @@ import { ContextVariables } from "./api/resources/contextVariables/client/Client
 import { Sessions } from "./api/resources/sessions/client/Client";
 import { Evaluations } from "./api/resources/evaluations/client/Client";
 import { Services } from "./api/resources/services/client/Client";
+import { Tags } from "./api/resources/tags/client/Client";
+import { Customers } from "./api/resources/customers/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
@@ -46,4 +48,8 @@ export declare class ParlantClient {
     get evaluations(): Evaluations;
     protected _services: Services | undefined;
     get services(): Services;
+    protected _tags: Tags | undefined;
+    get tags(): Tags;
+    protected _customers: Customers | undefined;
+    get customers(): Customers;
 }

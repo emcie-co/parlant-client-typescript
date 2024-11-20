@@ -6,5 +6,5 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 export declare const EventSourceDto: core.serialization.Schema<serializers.EventSourceDto.Raw, Parlant.EventSourceDto>;
 export declare namespace EventSourceDto {
-    type Raw = "end_user" | "end_user_ui" | "human_agent" | "human_agent_on_behalf_of_ai_agent" | "ai_agent";
+    type Raw = "customer" | "customer_ui" | "human_agent" | "human_agent_on_behalf_of_ai_agent" | "ai_agent";
 }

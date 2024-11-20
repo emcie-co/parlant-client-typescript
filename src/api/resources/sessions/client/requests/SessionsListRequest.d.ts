@@ -7,5 +7,5 @@
  */
 export interface SessionsListRequest {
     agentId?: string;
-    endUserId?: string;
+    customerId?: string;
 }

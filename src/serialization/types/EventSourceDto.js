@@ -29,8 +29,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventSourceDto = void 0;
 const core = __importStar(require("../../core"));
 exports.EventSourceDto = core.serialization.enum_([
-    "end_user",
-    "end_user_ui",
+    "customer",
+    "customer_ui",
     "human_agent",
     "human_agent_on_behalf_of_ai_agent",
     "ai_agent",

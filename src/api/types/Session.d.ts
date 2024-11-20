@@ -5,7 +5,7 @@ import * as Parlant from "../index";
 export interface Session {
     id: string;
     agentId: string;
-    endUserId: string;
+    customerId: string;
     creationUtc: Date;
     title?: string;
     consumptionOffsets: Parlant.ConsumptionOffsets;

@@ -4,13 +4,12 @@
 /**
  * @example
  *     {
- *         endUserId: "end_user_id",
  *         agentId: "agent_id"
  *     }
  */
 export interface CreateSessionRequest {
     allowGreeting?: boolean;
-    endUserId: string;
     agentId: string;
+    customerId?: string;
     title?: string;
 }

@@ -7,8 +7,8 @@ import * as core from "../../../../../core";
 export declare const CreateSessionRequest: core.serialization.Schema<serializers.CreateSessionRequest.Raw, Omit<Parlant.CreateSessionRequest, "allowGreeting">>;
 export declare namespace CreateSessionRequest {
     interface Raw {
-        end_user_id: string;
         agent_id: string;
+        customer_id?: string | null;
         title?: string | null;
     }
 }

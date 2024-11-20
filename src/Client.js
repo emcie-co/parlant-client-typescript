@@ -45,6 +45,8 @@ const Client_4 = require("./api/resources/contextVariables/client/Client");
 const Client_5 = require("./api/resources/sessions/client/Client");
 const Client_6 = require("./api/resources/evaluations/client/Client");
 const Client_7 = require("./api/resources/services/client/Client");
+const Client_8 = require("./api/resources/tags/client/Client");
+const Client_9 = require("./api/resources/customers/client/Client");
 class ParlantClient {
     constructor(_options) {
         this._options = _options;
@@ -122,6 +124,14 @@ class ParlantClient {
     get services() {
         var _a;
         return ((_a = this._services) !== null && _a !== void 0 ? _a : (this._services = new Client_7.Services(this._options)));
+    }
+    get tags() {
+        var _a;
+        return ((_a = this._tags) !== null && _a !== void 0 ? _a : (this._tags = new Client_8.Tags(this._options)));
+    }
+    get customers() {
+        var _a;
+        return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_9.Customers(this._options)));
     }
 }
 exports.ParlantClient = ParlantClient;

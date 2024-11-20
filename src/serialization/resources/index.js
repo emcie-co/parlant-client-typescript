@@ -26,7 +26,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.services = exports.evaluations = exports.sessions = exports.contextVariables = exports.glossary = exports.guidelines = exports.agents = void 0;
+exports.tags = exports.services = exports.evaluations = exports.sessions = exports.contextVariables = exports.glossary = exports.guidelines = exports.agents = exports.customers = void 0;
+exports.customers = __importStar(require("./customers"));
+__exportStar(require("./customers/types"), exports);
 exports.agents = __importStar(require("./agents"));
 __exportStar(require("./agents/client/requests"), exports);
 exports.guidelines = __importStar(require("./guidelines"));
@@ -41,3 +43,6 @@ exports.evaluations = __importStar(require("./evaluations"));
 __exportStar(require("./evaluations/client/requests"), exports);
 exports.services = __importStar(require("./services"));
 __exportStar(require("./services/client/requests"), exports);
+exports.tags = __importStar(require("./tags"));
+__exportStar(require("./tags/client/requests"), exports);
+__exportStar(require("./customers/client/requests"), exports);
