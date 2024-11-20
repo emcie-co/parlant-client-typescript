@@ -9,8 +9,8 @@ import {
   Payload,
 } from "../src/api/types";
 
-const SERVER_ADDRESS = "http://localhost:8000"; // adjust as needed
-const PLUGIN_ADDRESS = "http://host.docker.internal:8010"; // adjust as needed
+const SERVER_ADDRESS = 'http://localhost:8012'; // adjust as needed
+const PLUGIN_ADDRESS = 'http://localhost:8002'; // adjust as needed
 
 function makeParlantClient(baseUrl: string): ParlantClient {
   const client = new ParlantClient({ environment: baseUrl });
@@ -208,5 +208,5 @@ describe("Parlant Client Integration", () => {
       expect(interaction.data).toBeDefined();
       console.log(interaction.data);
     }
-  }, 30000); // Increased timeout for integration test
+  }, 60000); // Increased timeout for integration test
 });

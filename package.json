@@ -3,7 +3,7 @@
   "version": "0.2.3",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "MCNatsu@emcie-co",
