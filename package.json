@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "qs": "^6.13.1",
-    "url-join": "^5.0.0"
+    "url-join": "^4.0.1"
   }
 }
