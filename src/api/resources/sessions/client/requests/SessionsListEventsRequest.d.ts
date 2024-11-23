@@ -12,5 +12,5 @@ export interface SessionsListEventsRequest {
      * If set, only list events of the specified kinds (separated by commas)
      */
     kinds?: string;
-    wait?: boolean;
+    waitForData?: number;
 }

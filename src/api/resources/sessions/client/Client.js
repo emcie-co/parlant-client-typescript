@@ -469,7 +469,7 @@ class Sessions {
      */
     listEvents(sessionId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { minOffset, correlationId, kinds, wait } = request;
+            const { minOffset, correlationId, kinds, waitForData } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
@@ -480,8 +480,8 @@ class Sessions {
             if (kinds != null) {
                 _queryParams["kinds"] = kinds;
             }
-            if (wait != null) {
-                _queryParams["wait"] = wait.toString();
+            if (waitForData != null) {
+                _queryParams["wait_for_data"] = waitForData.toString();
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
