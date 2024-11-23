@@ -3,6 +3,7 @@
  */
 import * as Parlant from "../index";
 export interface PreparationIteration {
+    generations: Parlant.PreparationIterationGenerations;
     guidelinePropositions: Parlant.GuidelineProposition[];
     toolCalls: Parlant.ToolCall[];
     terms: Parlant.Term[];

@@ -71,7 +71,7 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ListTagsResponse.parseOrThrow(_response.body, {
+                return serializers.tags.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -100,7 +100,7 @@ class Tags {
         });
     }
     /**
-     * @param {Parlant.CreateTagRequest} request
+     * @param {Parlant.TagCreationParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -122,13 +122,13 @@ class Tags {
                 },
                 contentType: "application/json",
                 requestType: "json",
-                body: serializers.CreateTagRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.TagCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.CreateTagResponse.parseOrThrow(_response.body, {
+                return serializers.Tag.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -256,12 +256,7 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.DeleteTagResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -296,7 +291,7 @@ class Tags {
     }
     /**
      * @param {string} tagId
-     * @param {Parlant.UpdateTagRequest} request
+     * @param {Parlant.TagUpdateParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -318,13 +313,13 @@ class Tags {
                 },
                 contentType: "application/json",
                 requestType: "json",
-                body: serializers.UpdateTagRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.TagUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return _response.body;
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {

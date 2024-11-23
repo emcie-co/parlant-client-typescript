@@ -28,7 +28,7 @@ export declare class ContextVariables {
      * @example
      *     await client.contextVariables.list("agent_id")
      */
-    list(agentId: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableListResponse>;
+    list(agentId: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable[]>;
     /**
      * @param {string} agentId
      * @param {Parlant.ContextVariableCreationParams} request
@@ -41,7 +41,7 @@ export declare class ContextVariables {
      *         name: "name"
      *     })
      */
-    create(agentId: string, request: Parlant.ContextVariableCreationParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableCreationResponse>;
+    create(agentId: string, request: Parlant.ContextVariableCreationParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable>;
     /**
      * @param {string} agentId
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -63,7 +63,7 @@ export declare class ContextVariables {
      * @example
      *     await client.contextVariables.retrieve("agent_id", "variable_id")
      */
-    retrieve(agentId: string, variableId: string, request?: Parlant.ContextVariablesRetrieveRequest, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableReadResponse>;
+    retrieve(agentId: string, variableId: string, request?: Parlant.ContextVariablesRetrieveRequest, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableReadResult>;
     /**
      * @param {string} agentId
      * @param {string} variableId
@@ -74,7 +74,7 @@ export declare class ContextVariables {
      * @example
      *     await client.contextVariables.delete("agent_id", "variable_id")
      */
-    delete(agentId: string, variableId: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableDeletionResponse>;
+    delete(agentId: string, variableId: string, requestOptions?: ContextVariables.RequestOptions): Promise<void>;
     /**
      * @param {string} agentId
      * @param {string} variableId
@@ -103,7 +103,7 @@ export declare class ContextVariables {
      *         }
      *     })
      */
-    setValue(agentId: string, variableId: string, key: string, request: Parlant.ContextVariableValueUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValueUpdateResponse>;
+    setValue(agentId: string, variableId: string, key: string, request: Parlant.ContextVariableValueUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValue>;
     /**
      * @param {string} agentId
      * @param {string} variableId
@@ -115,5 +115,5 @@ export declare class ContextVariables {
      * @example
      *     await client.contextVariables.deleteValue("agent_id", "variable_id", "key")
      */
-    deleteValue(agentId: string, variableId: string, key: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValueDeletionResponse>;
+    deleteValue(agentId: string, variableId: string, key: string, requestOptions?: ContextVariables.RequestOptions): Promise<void>;
 }

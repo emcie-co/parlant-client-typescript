@@ -25,9 +25,9 @@ export declare class Tags {
      * @example
      *     await client.tags.list()
      */
-    list(requestOptions?: Tags.RequestOptions): Promise<Parlant.ListTagsResponse>;
+    list(requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
     /**
-     * @param {Parlant.CreateTagRequest} request
+     * @param {Parlant.TagCreationParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -37,7 +37,7 @@ export declare class Tags {
      *         name: "name"
      *     })
      */
-    create(request: Parlant.CreateTagRequest, requestOptions?: Tags.RequestOptions): Promise<Parlant.CreateTagResponse>;
+    create(request: Parlant.TagCreationParams, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
     /**
      * @param {string} tagId
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
@@ -57,10 +57,10 @@ export declare class Tags {
      * @example
      *     await client.tags.delete("tag_id")
      */
-    delete(tagId: string, requestOptions?: Tags.RequestOptions): Promise<Parlant.DeleteTagResponse>;
+    delete(tagId: string, requestOptions?: Tags.RequestOptions): Promise<void>;
     /**
      * @param {string} tagId
-     * @param {Parlant.UpdateTagRequest} request
+     * @param {Parlant.TagUpdateParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -70,5 +70,5 @@ export declare class Tags {
      *         name: "name"
      *     })
      */
-    update(tagId: string, request: Parlant.UpdateTagRequest, requestOptions?: Tags.RequestOptions): Promise<unknown>;
+    update(tagId: string, request: Parlant.TagUpdateParams, requestOptions?: Tags.RequestOptions): Promise<void>;
 }

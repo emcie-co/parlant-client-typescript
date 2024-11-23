@@ -6,13 +6,12 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         kind: Parlant.EventKindDto.Message,
- *         source: Parlant.EventSourceDto.Customer,
- *         content: "content"
+ *         source: Parlant.EventSourceDto.Customer
  *     }
  */
 export interface EventCreationParams {
     moderation?: Parlant.Moderation;
     kind: Parlant.EventKindDto;
     source: Parlant.EventSourceDto;
-    content: string;
+    data?: string;
 }

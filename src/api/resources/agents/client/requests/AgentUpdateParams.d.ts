@@ -6,6 +6,7 @@
  *     {}
  */
 export interface AgentUpdateParams {
+    name?: string;
     description?: string;
     maxEngineIterations?: number;
 }

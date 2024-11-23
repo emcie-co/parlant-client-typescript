@@ -10,4 +10,5 @@ exports.EventSourceDto = {
     HumanAgent: "human_agent",
     HumanAgentOnBehalfOfAiAgent: "human_agent_on_behalf_of_ai_agent",
     AiAgent: "ai_agent",
+    System: "system",
 };

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateTagRequest = exports.CreateTagRequest = void 0;
-var CreateTagRequest_1 = require("./CreateTagRequest");
-Object.defineProperty(exports, "CreateTagRequest", { enumerable: true, get: function () { return CreateTagRequest_1.CreateTagRequest; } });
-var UpdateTagRequest_1 = require("./UpdateTagRequest");
-Object.defineProperty(exports, "UpdateTagRequest", { enumerable: true, get: function () { return UpdateTagRequest_1.UpdateTagRequest; } });
+exports.TagUpdateParams = exports.TagCreationParams = void 0;
+var TagCreationParams_1 = require("./TagCreationParams");
+Object.defineProperty(exports, "TagCreationParams", { enumerable: true, get: function () { return TagCreationParams_1.TagCreationParams; } });
+var TagUpdateParams_1 = require("./TagUpdateParams");
+Object.defineProperty(exports, "TagUpdateParams", { enumerable: true, get: function () { return TagUpdateParams_1.TagUpdateParams; } });

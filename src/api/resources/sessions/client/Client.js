@@ -94,7 +94,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ListSessionsResponse.parseOrThrow(_response.body, {
+                return serializers.sessions.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -133,7 +133,7 @@ class Sessions {
         });
     }
     /**
-     * @param {Parlant.CreateSessionRequest} request
+     * @param {Parlant.SessionCreationParams} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -161,13 +161,13 @@ class Sessions {
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
-                body: serializers.CreateSessionRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.SessionCreationParams.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.CreateSessionResponse.parseOrThrow(_response.body, {
+                return serializers.Session.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -363,12 +363,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.DeleteSessionResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -429,7 +424,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return _response.body;
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -474,10 +469,13 @@ class Sessions {
      */
     listEvents(sessionId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { minOffset, kinds, wait } = request;
+            const { minOffset, correlationId, kinds, wait } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
+            }
+            if (correlationId != null) {
+                _queryParams["correlation_id"] = correlationId;
             }
             if (kinds != null) {
                 _queryParams["kinds"] = kinds;
@@ -501,7 +499,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.EventListResponse.parseOrThrow(_response.body, {
+                return serializers.sessions.listEvents.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -549,8 +547,7 @@ class Sessions {
      * @example
      *     await client.sessions.createEvent("session_id", {
      *         kind: Parlant.EventKindDto.Message,
-     *         source: Parlant.EventSourceDto.Customer,
-     *         content: "content"
+     *         source: Parlant.EventSourceDto.Customer
      *     })
      */
     createEvent(sessionId, request, requestOptions) {
@@ -577,7 +574,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.EventCreationResponse.parseOrThrow(_response.body, {
+                return serializers.Event.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -648,12 +645,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.EventDeletionResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -688,165 +680,18 @@ class Sessions {
     }
     /**
      * @param {string} sessionId
-     * @param {Parlant.SessionsListInteractionsRequest} request
+     * @param {string} eventId
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.listInteractions("session_id", {
-     *         minEventOffset: 1,
-     *         source: Parlant.EventSourceDto.Customer
-     *     })
+     *     await client.sessions.inspectEvent("session_id", "event_id")
      */
-    listInteractions(sessionId, request, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { minEventOffset, source, wait } = request;
-            const _queryParams = {};
-            _queryParams["min_event_offset"] = minEventOffset.toString();
-            _queryParams["source"] = source;
-            if (wait != null) {
-                _queryParams["wait"] = wait.toString();
-            }
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/interactions`),
-                method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.InteractionListResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    default:
-                        throw new errors.ParlantError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.ParlantError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.ParlantTimeoutError();
-                case "unknown":
-                    throw new errors.ParlantError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
-     * @param {string} sessionId
-     * @param {Parlant.SessionsCreateInteractionRequest} request
-     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Parlant.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sessions.createInteraction("session_id")
-     */
-    createInteraction(sessionId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { moderation } = request;
-            const _queryParams = {};
-            if (moderation != null) {
-                _queryParams["moderation"] = moderation;
-            }
-            const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/interactions`),
-                method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
-                contentType: "application/json",
-                queryParameters: _queryParams,
-                requestType: "json",
-                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
-                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
-            });
-            if (_response.ok) {
-                return serializers.InteractionCreationResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
-            }
-            if (_response.error.reason === "status-code") {
-                switch (_response.error.statusCode) {
-                    case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
-                    default:
-                        throw new errors.ParlantError({
-                            statusCode: _response.error.statusCode,
-                            body: _response.error.body,
-                        });
-                }
-            }
-            switch (_response.error.reason) {
-                case "non-json":
-                    throw new errors.ParlantError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.rawBody,
-                    });
-                case "timeout":
-                    throw new errors.ParlantTimeoutError();
-                case "unknown":
-                    throw new errors.ParlantError({
-                        message: _response.error.errorMessage,
-                    });
-            }
-        });
-    }
-    /**
-     * @param {string} sessionId
-     * @param {string} correlationId
-     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Parlant.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sessions.retrieveInteraction("session_id", "correlation_id")
-     */
-    retrieveInteraction(sessionId, correlationId, requestOptions) {
+    inspectEvent(sessionId, eventId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/interactions/${encodeURIComponent(correlationId)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -860,7 +705,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.InteractionReadResponse.parseOrThrow(_response.body, {
+                return serializers.EventInspectionResult.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

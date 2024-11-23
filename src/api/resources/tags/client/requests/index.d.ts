@@ -1,2 +1,2 @@
-export { type CreateTagRequest } from "./CreateTagRequest";
-export { type UpdateTagRequest } from "./UpdateTagRequest";
+export { type TagCreationParams } from "./TagCreationParams";
+export { type TagUpdateParams } from "./TagUpdateParams";

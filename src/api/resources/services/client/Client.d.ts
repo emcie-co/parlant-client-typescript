@@ -41,7 +41,7 @@ export declare class Services {
      *         kind: Parlant.ToolServiceKindDto.Sdk
      *     })
      */
-    createOrUpdate(name: string, request: Parlant.ServiceUpdateParams, requestOptions?: Services.RequestOptions): Promise<Parlant.ServiceUpdateResponse>;
+    createOrUpdate(name: string, request: Parlant.ServiceUpdateParams, requestOptions?: Services.RequestOptions): Promise<Parlant.Service>;
     /**
      * @param {string} name
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
@@ -51,12 +51,12 @@ export declare class Services {
      * @example
      *     await client.services.delete("name")
      */
-    delete(name: string, requestOptions?: Services.RequestOptions): Promise<Parlant.ServiceDeletionResponse>;
+    delete(name: string, requestOptions?: Services.RequestOptions): Promise<void>;
     /**
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await client.services.list()
      */
-    list(requestOptions?: Services.RequestOptions): Promise<Parlant.ServiceListResponse>;
+    list(requestOptions?: Services.RequestOptions): Promise<Parlant.Service[]>;
 }
