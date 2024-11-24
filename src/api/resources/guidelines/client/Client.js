@@ -123,31 +123,10 @@ class Guidelines {
      *     await client.guidelines.create("agent_id", {
      *         invoices: [{
      *                 payload: {
-     *                     content: {
-     *                         condition: "condition",
-     *                         action: "action"
-     *                     },
-     *                     operation: Parlant.GuidelinePayloadOperationDto.Add,
-     *                     coherenceCheck: true,
-     *                     connectionProposition: true
+     *                     kind: "guideline"
      *                 },
      *                 checksum: "checksum",
-     *                 approved: true,
-     *                 data: {
-     *                     coherenceChecks: [{
-     *                             kind: Parlant.CoherenceCheckKindDto.ContradictionWithExistingGuideline,
-     *                             first: {
-     *                                 condition: "condition",
-     *                                 action: "action"
-     *                             },
-     *                             second: {
-     *                                 condition: "condition",
-     *                                 action: "action"
-     *                             },
-     *                             issue: "issue",
-     *                             severity: 1
-     *                         }]
-     *                 }
+     *                 approved: true
      *             }]
      *     })
      */

@@ -4,10 +4,10 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { GuidelineInvoice } from "../../../../types/GuidelineInvoice";
+import { Invoice } from "../../../../types/Invoice";
 export declare const GuidelineCreationParams: core.serialization.Schema<serializers.GuidelineCreationParams.Raw, Parlant.GuidelineCreationParams>;
 export declare namespace GuidelineCreationParams {
     interface Raw {
-        invoices: GuidelineInvoice.Raw[];
+        invoices: Invoice.Raw[];
     }
 }

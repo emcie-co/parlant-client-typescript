@@ -28,7 +28,6 @@ export * from "./GuidelineConnectionUpdateParams";
 export * from "./GuidelineContent";
 export * from "./GuidelineCreationResult";
 export * from "./Guideline";
-export * from "./GuidelineInvoice";
 export * from "./GuidelineInvoiceData";
 export * from "./GuidelinePayload";
 export * from "./GuidelinePayloadOperationDto";

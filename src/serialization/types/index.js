@@ -44,7 +44,6 @@ __exportStar(require("./GuidelineConnectionUpdateParams"), exports);
 __exportStar(require("./GuidelineContent"), exports);
 __exportStar(require("./GuidelineCreationResult"), exports);
 __exportStar(require("./Guideline"), exports);
-__exportStar(require("./GuidelineInvoice"), exports);
 __exportStar(require("./GuidelineInvoiceData"), exports);
 __exportStar(require("./GuidelinePayload"), exports);
 __exportStar(require("./GuidelinePayloadOperationDto"), exports);
