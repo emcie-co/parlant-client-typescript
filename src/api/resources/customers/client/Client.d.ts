@@ -68,5 +68,5 @@ export declare class Customers {
      * @example
      *     await client.customers.update("customer_id")
      */
-    update(customerId: string, request?: Parlant.CustomerUpdateParams, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
+    update(customerId: string, request?: Parlant.CustomerUpdateParams, requestOptions?: Customers.RequestOptions): Promise<void>;
 }

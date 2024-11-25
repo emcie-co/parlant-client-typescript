@@ -1,12 +1,12 @@
 {
-  "name": "parlant-client",
-  "version": "0.2.3",
+  "name": "parlant",
+  "version": "0.4.3",
   "main": "index.js",
   "scripts": {
     "test": "jest --detectOpenHandles"
   },
   "keywords": [],
-  "author": "MCNatsu@emcie-co",
+  "author": "yam@emcie.co",
   "license": "MIT",
   "description": "",
   "devDependencies": {
