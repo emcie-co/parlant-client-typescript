@@ -33,7 +33,7 @@ export declare class Evaluations {
      *             }]
      *     })
      */
-    create(request: Parlant.EvaluationCreationParams, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.EvaluationCreationResponse>;
+    create(request: Parlant.EvaluationCreationParams, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
     /**
      * @param {string} evaluationId
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
@@ -43,5 +43,5 @@ export declare class Evaluations {
      * @example
      *     await client.evaluations.retrieve("evaluation_id")
      */
-    retrieve(evaluationId: string, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.EvaluationReadResponse>;
+    retrieve(evaluationId: string, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
 }

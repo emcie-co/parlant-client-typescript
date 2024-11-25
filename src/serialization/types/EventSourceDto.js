@@ -34,4 +34,5 @@ exports.EventSourceDto = core.serialization.enum_([
     "human_agent",
     "human_agent_on_behalf_of_ai_agent",
     "ai_agent",
+    "system",
 ]);

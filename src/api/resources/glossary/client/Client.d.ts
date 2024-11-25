@@ -28,7 +28,7 @@ export declare class Glossary {
      * @example
      *     await client.glossary.listTerms("agent_id")
      */
-    listTerms(agentId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.TermListResponse>;
+    listTerms(agentId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term[]>;
     /**
      * @param {string} agentId
      * @param {Parlant.TermCreationParams} request
@@ -42,7 +42,7 @@ export declare class Glossary {
      *         description: "description"
      *     })
      */
-    createTerm(agentId: string, request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.CreateTermResponse>;
+    createTerm(agentId: string, request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
      * @param {string} agentId
      * @param {string} termId
@@ -64,7 +64,7 @@ export declare class Glossary {
      * @example
      *     await client.glossary.deleteTerm("agent_id", "term_id")
      */
-    deleteTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.TermDeletionResponse>;
+    deleteTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<void>;
     /**
      * @param {string} agentId
      * @param {string} termId

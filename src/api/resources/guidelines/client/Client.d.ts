@@ -28,7 +28,7 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.list("agent_id")
      */
-    list(agentId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineListResponse>;
+    list(agentId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline[]>;
     /**
      * @param {string} agentId
      * @param {Parlant.GuidelineCreationParams} request
@@ -40,35 +40,14 @@ export declare class Guidelines {
      *     await client.guidelines.create("agent_id", {
      *         invoices: [{
      *                 payload: {
-     *                     content: {
-     *                         condition: "condition",
-     *                         action: "action"
-     *                     },
-     *                     operation: Parlant.GuidelinePayloadOperationDto.Add,
-     *                     coherenceCheck: true,
-     *                     connectionProposition: true
+     *                     kind: "guideline"
      *                 },
      *                 checksum: "checksum",
-     *                 approved: true,
-     *                 data: {
-     *                     coherenceChecks: [{
-     *                             kind: Parlant.CoherenceCheckKindDto.ContradictionWithExistingGuideline,
-     *                             first: {
-     *                                 condition: "condition",
-     *                                 action: "action"
-     *                             },
-     *                             second: {
-     *                                 condition: "condition",
-     *                                 action: "action"
-     *                             },
-     *                             issue: "issue",
-     *                             severity: 1
-     *                         }]
-     *                 }
+     *                 approved: true
      *             }]
      *     })
      */
-    create(agentId: string, request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineCreationResponse>;
+    create(agentId: string, request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineCreationResult>;
     /**
      * @param {string} agentId
      * @param {string} guidelineId
@@ -90,7 +69,7 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.delete("agent_id", "guideline_id")
      */
-    delete(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineDeletionResponse>;
+    delete(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
     /**
      * @param {string} agentId
      * @param {string} guidelineId

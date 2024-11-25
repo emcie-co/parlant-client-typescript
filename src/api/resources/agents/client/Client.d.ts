@@ -25,7 +25,7 @@ export declare class Agents {
      * @example
      *     await client.agents.list()
      */
-    list(requestOptions?: Agents.RequestOptions): Promise<Parlant.AgentListResponse>;
+    list(requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent[]>;
     /**
      * @param {Parlant.AgentCreationParams} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
@@ -37,7 +37,7 @@ export declare class Agents {
      *         name: "name"
      *     })
      */
-    create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.AgentCreationResponse>;
+    create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
      * @param {string} agentId
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
@@ -50,6 +50,16 @@ export declare class Agents {
     retrieve(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
      * @param {string} agentId
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.agents.delete("agent_id")
+     */
+    delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<void>;
+    /**
+     * @param {string} agentId
      * @param {Parlant.AgentUpdateParams} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -58,5 +68,5 @@ export declare class Agents {
      * @example
      *     await client.agents.update("agent_id")
      */
-    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<unknown>;
+    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
 }

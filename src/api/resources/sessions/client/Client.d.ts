@@ -28,9 +28,9 @@ export declare class Sessions {
      * @example
      *     await client.sessions.list()
      */
-    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.ListSessionsResponse>;
+    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session[]>;
     /**
-     * @param {Parlant.CreateSessionRequest} request
+     * @param {Parlant.SessionCreationParams} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -40,7 +40,7 @@ export declare class Sessions {
      *         agentId: "agent_id"
      *     })
      */
-    create(request: Parlant.CreateSessionRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.CreateSessionResponse>;
+    create(request: Parlant.SessionCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
     /**
      * @param {Parlant.SessionsDeleteManyRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -70,7 +70,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.delete("session_id")
      */
-    delete(sessionId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.DeleteSessionResponse>;
+    delete(sessionId: string, requestOptions?: Sessions.RequestOptions): Promise<void>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionUpdateParams} request
@@ -81,7 +81,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.update("session_id")
      */
-    update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<unknown>;
+    update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionsListEventsRequest} request
@@ -92,7 +92,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.listEvents("session_id")
      */
-    listEvents(sessionId: string, request?: Parlant.SessionsListEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventListResponse>;
+    listEvents(sessionId: string, request?: Parlant.SessionsListEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event[]>;
     /**
      * @param {string} sessionId
      * @param {Parlant.EventCreationParams} request
@@ -103,11 +103,10 @@ export declare class Sessions {
      * @example
      *     await client.sessions.createEvent("session_id", {
      *         kind: Parlant.EventKindDto.Message,
-     *         source: Parlant.EventSourceDto.Customer,
-     *         content: "content"
+     *         source: Parlant.EventSourceDto.Customer
      *     })
      */
-    createEvent(sessionId: string, request: Parlant.EventCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventCreationResponse>;
+    createEvent(sessionId: string, request: Parlant.EventCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionsDeleteEventsRequest} request
@@ -120,41 +119,16 @@ export declare class Sessions {
      *         minOffset: 1
      *     })
      */
-    deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventDeletionResponse>;
+    deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
     /**
      * @param {string} sessionId
-     * @param {Parlant.SessionsListInteractionsRequest} request
+     * @param {string} eventId
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.listInteractions("session_id", {
-     *         minEventOffset: 1,
-     *         source: Parlant.EventSourceDto.Customer
-     *     })
+     *     await client.sessions.inspectEvent("session_id", "event_id")
      */
-    listInteractions(sessionId: string, request: Parlant.SessionsListInteractionsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.InteractionListResponse>;
-    /**
-     * @param {string} sessionId
-     * @param {Parlant.SessionsCreateInteractionRequest} request
-     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Parlant.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sessions.createInteraction("session_id")
-     */
-    createInteraction(sessionId: string, request?: Parlant.SessionsCreateInteractionRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.InteractionCreationResponse>;
-    /**
-     * @param {string} sessionId
-     * @param {string} correlationId
-     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Parlant.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sessions.retrieveInteraction("session_id", "correlation_id")
-     */
-    retrieveInteraction(sessionId: string, correlationId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.InteractionReadResponse>;
+    inspectEvent(sessionId: string, eventId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventInspectionResult>;
 }

@@ -1,2 +1,2 @@
-export { type CreateCustomerRequest } from "./CreateCustomerRequest";
-export { type UpdateCustomerRequest } from "./UpdateCustomerRequest";
+export { type CustomerCreationParams } from "./CustomerCreationParams";
+export { type CustomerUpdateParams } from "./CustomerUpdateParams";

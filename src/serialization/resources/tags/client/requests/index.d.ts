@@ -1,2 +1,2 @@
-export { CreateTagRequest } from "./CreateTagRequest";
-export { UpdateTagRequest } from "./UpdateTagRequest";
+export { TagCreationParams } from "./TagCreationParams";
+export { TagUpdateParams } from "./TagUpdateParams";

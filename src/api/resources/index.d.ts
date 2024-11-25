@@ -1,5 +1,3 @@
-export * as customers from "./customers";
-export * from "./customers/types";
 export * as agents from "./agents";
 export * as guidelines from "./guidelines";
 export * as glossary from "./glossary";
@@ -8,6 +6,7 @@ export * as sessions from "./sessions";
 export * as evaluations from "./evaluations";
 export * as services from "./services";
 export * as tags from "./tags";
+export * as customers from "./customers";
 export * from "./agents/client/requests";
 export * from "./guidelines/client/requests";
 export * from "./glossary/client/requests";

@@ -28,11 +28,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Customer = void 0;
 const core = __importStar(require("../../core"));
-const CustomerDtoExtraValue_1 = require("./CustomerDtoExtraValue");
 exports.Customer = core.serialization.object({
     id: core.serialization.string(),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     name: core.serialization.string(),
-    extra: core.serialization.record(core.serialization.string(), CustomerDtoExtraValue_1.CustomerDtoExtraValue),
+    extra: core.serialization.record(core.serialization.string(), core.serialization.string()),
     tags: core.serialization.list(core.serialization.string()),
 });
