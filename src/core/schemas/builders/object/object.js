@@ -1,27 +1,24 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getObjectUtils = exports.object = void 0;
-const Schema_1 = require("../../Schema");
-const entries_1 = require("../../utils/entries");
-const filterObject_1 = require("../../utils/filterObject");
-const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
-const isPlainObject_1 = require("../../utils/isPlainObject");
-const keys_1 = require("../../utils/keys");
-const maybeSkipValidation_1 = require("../../utils/maybeSkipValidation");
-const partition_1 = require("../../utils/partition");
-const object_like_1 = require("../object-like");
-const schema_utils_1 = require("../schema-utils");
-const property_1 = require("./property");
-function object(schemas) {
+import { SchemaType } from "../../Schema";
+import { entries } from "../../utils/entries";
+import { filterObject } from "../../utils/filterObject";
+import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
+import { isPlainObject } from "../../utils/isPlainObject";
+import { keys } from "../../utils/keys";
+import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
+import { partition } from "../../utils/partition";
+import { getObjectLikeUtils } from "../object-like";
+import { getSchemaUtils } from "../schema-utils";
+import { isProperty } from "./property";
+export function object(schemas) {
     const baseSchema = {
-        _getRawProperties: () => Object.entries(schemas).map(([parsedKey, propertySchema]) => (0, property_1.isProperty)(propertySchema) ? propertySchema.rawKey : parsedKey),
-        _getParsedProperties: () => (0, keys_1.keys)(schemas),
+        _getRawProperties: () => Object.entries(schemas).map(([parsedKey, propertySchema]) => isProperty(propertySchema) ? propertySchema.rawKey : parsedKey),
+        _getParsedProperties: () => keys(schemas),
         parse: (raw, opts) => {
             const rawKeyToProperty = {};
             const requiredKeys = [];
-            for (const [parsedKey, schemaOrObjectProperty] of (0, entries_1.entries)(schemas)) {
-                const rawKey = (0, property_1.isProperty)(schemaOrObjectProperty) ? schemaOrObjectProperty.rawKey : parsedKey;
-                const valueSchema = (0, property_1.isProperty)(schemaOrObjectProperty)
+            for (const [parsedKey, schemaOrObjectProperty] of entries(schemas)) {
+                const rawKey = isProperty(schemaOrObjectProperty) ? schemaOrObjectProperty.rawKey : parsedKey;
+                const valueSchema = isProperty(schemaOrObjectProperty)
                     ? schemaOrObjectProperty.valueSchema
                     : schemaOrObjectProperty;
                 const property = {
@@ -58,8 +55,8 @@ function object(schemas) {
         },
         json: (parsed, opts) => {
             const requiredKeys = [];
-            for (const [parsedKey, schemaOrObjectProperty] of (0, entries_1.entries)(schemas)) {
-                const valueSchema = (0, property_1.isProperty)(schemaOrObjectProperty)
+            for (const [parsedKey, schemaOrObjectProperty] of entries(schemas)) {
+                const valueSchema = isProperty(schemaOrObjectProperty)
                     ? schemaOrObjectProperty.valueSchema
                     : schemaOrObjectProperty;
                 if (isSchemaRequired(valueSchema)) {
@@ -75,7 +72,7 @@ function object(schemas) {
                     if (property == null) {
                         return undefined;
                     }
-                    if ((0, property_1.isProperty)(property)) {
+                    if (isProperty(property)) {
                         return {
                             transformedKey: property.rawKey,
                             transform: (propertyValue) => {
@@ -100,19 +97,18 @@ function object(schemas) {
                 omitUndefined: opts === null || opts === void 0 ? void 0 : opts.omitUndefined,
             });
         },
-        getType: () => Schema_1.SchemaType.OBJECT,
+        getType: () => SchemaType.OBJECT,
     };
-    return Object.assign(Object.assign(Object.assign(Object.assign({}, (0, maybeSkipValidation_1.maybeSkipValidation)(baseSchema)), (0, schema_utils_1.getSchemaUtils)(baseSchema)), (0, object_like_1.getObjectLikeUtils)(baseSchema)), getObjectUtils(baseSchema));
+    return Object.assign(Object.assign(Object.assign(Object.assign({}, maybeSkipValidation(baseSchema)), getSchemaUtils(baseSchema)), getObjectLikeUtils(baseSchema)), getObjectUtils(baseSchema));
 }
-exports.object = object;
 function validateAndTransformObject({ value, requiredKeys, getProperty, unrecognizedObjectKeys = "fail", skipValidation = false, breadcrumbsPrefix = [], }) {
-    if (!(0, isPlainObject_1.isPlainObject)(value)) {
+    if (!isPlainObject(value)) {
         return {
             ok: false,
             errors: [
                 {
                     path: breadcrumbsPrefix,
-                    message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(value, "object"),
+                    message: getErrorMessageForIncorrectType(value, "object"),
                 },
             ],
         };
@@ -168,7 +164,7 @@ function validateAndTransformObject({ value, requiredKeys, getProperty, unrecogn
         };
     }
 }
-function getObjectUtils(schema) {
+export function getObjectUtils(schema) {
     return {
         extend: (extension) => {
             const baseSchema = {
@@ -190,18 +186,17 @@ function getObjectUtils(schema) {
                         transformExtension: (parsedExtension) => extension.json(parsedExtension, opts),
                     });
                 },
-                getType: () => Schema_1.SchemaType.OBJECT,
+                getType: () => SchemaType.OBJECT,
             };
-            return Object.assign(Object.assign(Object.assign(Object.assign({}, baseSchema), (0, schema_utils_1.getSchemaUtils)(baseSchema)), (0, object_like_1.getObjectLikeUtils)(baseSchema)), getObjectUtils(baseSchema));
+            return Object.assign(Object.assign(Object.assign(Object.assign({}, baseSchema), getSchemaUtils(baseSchema)), getObjectLikeUtils(baseSchema)), getObjectUtils(baseSchema));
         },
     };
 }
-exports.getObjectUtils = getObjectUtils;
 function validateAndTransformExtendedObject({ extensionKeys, value, transformBase, transformExtension, }) {
     const extensionPropertiesSet = new Set(extensionKeys);
-    const [extensionProperties, baseProperties] = (0, partition_1.partition)((0, keys_1.keys)(value), (key) => extensionPropertiesSet.has(key));
-    const transformedBase = transformBase((0, filterObject_1.filterObject)(value, baseProperties));
-    const transformedExtension = transformExtension((0, filterObject_1.filterObject)(value, extensionProperties));
+    const [extensionProperties, baseProperties] = partition(keys(value), (key) => extensionPropertiesSet.has(key));
+    const transformedBase = transformBase(filterObject(value, baseProperties));
+    const transformedExtension = transformExtension(filterObject(value, extensionProperties));
     if (transformedBase.ok && transformedExtension.ok) {
         return {
             ok: true,
@@ -223,9 +218,9 @@ function isSchemaRequired(schema) {
 }
 function isSchemaOptional(schema) {
     switch (schema.getType()) {
-        case Schema_1.SchemaType.ANY:
-        case Schema_1.SchemaType.UNKNOWN:
-        case Schema_1.SchemaType.OPTIONAL:
+        case SchemaType.ANY:
+        case SchemaType.UNKNOWN:
+        case SchemaType.OPTIONAL:
             return true;
         default:
             return false;

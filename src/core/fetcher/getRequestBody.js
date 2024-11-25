@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,9 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRequestBody = void 0;
-function getRequestBody({ body, type }) {
+export function getRequestBody({ body, type }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (type.includes("json")) {
             return JSON.stringify(body);
@@ -20,4 +17,3 @@ function getRequestBody({ body, type }) {
         }
     });
 }
-exports.getRequestBody = getRequestBody;

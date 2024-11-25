@@ -14,6 +14,8 @@ export declare namespace Guidelines {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Guidelines {
@@ -28,7 +30,7 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.list("agent_id")
      */
-    list(agentId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline[]>;
+    list(agentId: string, requestOptions?: Guidelines.RequestOptions): core.APIPromise<Parlant.Guideline[]>;
     /**
      * @param {string} agentId
      * @param {Parlant.GuidelineCreationParams} request
@@ -47,7 +49,7 @@ export declare class Guidelines {
      *             }]
      *     })
      */
-    create(agentId: string, request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineCreationResult>;
+    create(agentId: string, request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): core.APIPromise<Parlant.GuidelineCreationResult>;
     /**
      * @param {string} agentId
      * @param {string} guidelineId
@@ -58,7 +60,7 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.retrieve("agent_id", "guideline_id")
      */
-    retrieve(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    retrieve(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): core.APIPromise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
     /**
      * @param {string} agentId
      * @param {string} guidelineId
@@ -69,7 +71,7 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.delete("agent_id", "guideline_id")
      */
-    delete(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
+    delete(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): core.APIPromise<void>;
     /**
      * @param {string} agentId
      * @param {string} guidelineId
@@ -81,5 +83,5 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.update("agent_id", "guideline_id")
      */
-    update(agentId: string, guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    update(agentId: string, guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): core.APIPromise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
 }

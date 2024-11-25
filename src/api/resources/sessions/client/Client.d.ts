@@ -14,6 +14,8 @@ export declare namespace Sessions {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Sessions {
@@ -28,7 +30,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.list()
      */
-    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session[]>;
+    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): core.APIPromise<Parlant.Session[]>;
     /**
      * @param {Parlant.SessionCreationParams} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -40,7 +42,7 @@ export declare class Sessions {
      *         agentId: "agent_id"
      *     })
      */
-    create(request: Parlant.SessionCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
+    create(request: Parlant.SessionCreationParams, requestOptions?: Sessions.RequestOptions): core.APIPromise<Parlant.Session>;
     /**
      * @param {Parlant.SessionsDeleteManyRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -50,7 +52,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.deleteMany()
      */
-    deleteMany(request?: Parlant.SessionsDeleteManyRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    deleteMany(request?: Parlant.SessionsDeleteManyRequest, requestOptions?: Sessions.RequestOptions): core.APIPromise<void>;
     /**
      * @param {string} sessionId
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -60,7 +62,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.retrieve("session_id")
      */
-    retrieve(sessionId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
+    retrieve(sessionId: string, requestOptions?: Sessions.RequestOptions): core.APIPromise<Parlant.Session>;
     /**
      * @param {string} sessionId
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -70,7 +72,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.delete("session_id")
      */
-    delete(sessionId: string, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    delete(sessionId: string, requestOptions?: Sessions.RequestOptions): core.APIPromise<void>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionUpdateParams} request
@@ -81,7 +83,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.update("session_id")
      */
-    update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): core.APIPromise<void>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionsListEventsRequest} request
@@ -92,7 +94,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.listEvents("session_id")
      */
-    listEvents(sessionId: string, request?: Parlant.SessionsListEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event[]>;
+    listEvents(sessionId: string, request?: Parlant.SessionsListEventsRequest, requestOptions?: Sessions.RequestOptions): core.APIPromise<Parlant.Event[]>;
     /**
      * @param {string} sessionId
      * @param {Parlant.EventCreationParams} request
@@ -102,11 +104,11 @@ export declare class Sessions {
      *
      * @example
      *     await client.sessions.createEvent("session_id", {
-     *         kind: Parlant.EventKindDto.Message,
-     *         source: Parlant.EventSourceDto.Customer
+     *         kind: "message",
+     *         source: "customer"
      *     })
      */
-    createEvent(sessionId: string, request: Parlant.EventCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event>;
+    createEvent(sessionId: string, request: Parlant.EventCreationParams, requestOptions?: Sessions.RequestOptions): core.APIPromise<Parlant.Event>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionsDeleteEventsRequest} request
@@ -119,7 +121,7 @@ export declare class Sessions {
      *         minOffset: 1
      *     })
      */
-    deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): core.APIPromise<void>;
     /**
      * @param {string} sessionId
      * @param {string} eventId
@@ -130,5 +132,5 @@ export declare class Sessions {
      * @example
      *     await client.sessions.inspectEvent("session_id", "event_id")
      */
-    inspectEvent(sessionId: string, eventId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventInspectionResult>;
+    inspectEvent(sessionId: string, eventId: string, requestOptions?: Sessions.RequestOptions): core.APIPromise<Parlant.EventInspectionResult>;
 }

@@ -5,7 +5,7 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         kind: Parlant.ToolServiceKindDto.Sdk
+ *         kind: "sdk"
  *     }
  */
 export interface ServiceUpdateParams {

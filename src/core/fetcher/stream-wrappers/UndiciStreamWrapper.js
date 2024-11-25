@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,9 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UndiciStreamWrapper = void 0;
-class UndiciStreamWrapper {
+export class UndiciStreamWrapper {
     constructor(readableStream) {
         this.readableStream = readableStream;
         this.reader = this.readableStream.getReader();
@@ -147,10 +144,12 @@ class UndiciStreamWrapper {
             const chunks = [];
             while (true) {
                 const { done, value } = yield this.reader.read();
-                if (done)
+                if (done) {
                     break;
-                if (value)
+                }
+                if (value) {
                     chunks.push(value);
+                }
             }
             const decoder = new TextDecoder(this.encoding || "utf-8");
             return decoder.decode(yield new Blob(chunks).arrayBuffer());
@@ -224,4 +223,3 @@ class UndiciStreamWrapper {
         };
     }
 }
-exports.UndiciStreamWrapper = UndiciStreamWrapper;

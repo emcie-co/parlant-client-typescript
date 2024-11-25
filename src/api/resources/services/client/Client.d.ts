@@ -14,6 +14,8 @@ export declare namespace Services {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Services {
@@ -28,7 +30,7 @@ export declare class Services {
      * @example
      *     await client.services.retrieve("name")
      */
-    retrieve(name: string, requestOptions?: Services.RequestOptions): Promise<Parlant.Service>;
+    retrieve(name: string, requestOptions?: Services.RequestOptions): core.APIPromise<Parlant.Service>;
     /**
      * @param {string} name
      * @param {Parlant.ServiceUpdateParams} request
@@ -38,10 +40,10 @@ export declare class Services {
      *
      * @example
      *     await client.services.createOrUpdate("name", {
-     *         kind: Parlant.ToolServiceKindDto.Sdk
+     *         kind: "sdk"
      *     })
      */
-    createOrUpdate(name: string, request: Parlant.ServiceUpdateParams, requestOptions?: Services.RequestOptions): Promise<Parlant.Service>;
+    createOrUpdate(name: string, request: Parlant.ServiceUpdateParams, requestOptions?: Services.RequestOptions): core.APIPromise<Parlant.Service>;
     /**
      * @param {string} name
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
@@ -51,12 +53,12 @@ export declare class Services {
      * @example
      *     await client.services.delete("name")
      */
-    delete(name: string, requestOptions?: Services.RequestOptions): Promise<void>;
+    delete(name: string, requestOptions?: Services.RequestOptions): core.APIPromise<void>;
     /**
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
      *     await client.services.list()
      */
-    list(requestOptions?: Services.RequestOptions): Promise<Parlant.Service[]>;
+    list(requestOptions?: Services.RequestOptions): core.APIPromise<Parlant.Service[]>;
 }

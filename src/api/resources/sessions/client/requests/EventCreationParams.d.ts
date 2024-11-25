@@ -5,8 +5,8 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         kind: Parlant.EventKindDto.Message,
- *         source: Parlant.EventSourceDto.Customer
+ *         kind: "message",
+ *         source: "customer"
  *     }
  */
 export interface EventCreationParams {

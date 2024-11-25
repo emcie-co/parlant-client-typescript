@@ -22,6 +22,8 @@ export declare namespace ParlantClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class ParlantClient {
@@ -33,7 +35,7 @@ export declare class ParlantClient {
      * @example
      *     await client.rootGet()
      */
-    rootGet(requestOptions?: ParlantClient.RequestOptions): Promise<unknown>;
+    rootGet(requestOptions?: ParlantClient.RequestOptions): core.APIPromise<unknown>;
     protected _agents: Agents | undefined;
     get agents(): Agents;
     protected _guidelines: Guidelines | undefined;
