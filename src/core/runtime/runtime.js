@@ -1,4 +1,7 @@
+"use strict";
 var _a, _b, _c, _d, _e;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RUNTIME = void 0;
 /**
  * A constant that indicates whether the environment the code is running is a Web Browser.
  */
@@ -42,7 +45,7 @@ const isCloudflare = typeof globalThis !== "undefined" && ((_e = globalThis === 
 /**
  * A constant that indicates which environment and version the SDK is running in.
  */
-export const RUNTIME = evaluateRuntime();
+exports.RUNTIME = evaluateRuntime();
 function evaluateRuntime() {
     if (isBrowser) {
         return {

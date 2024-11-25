@@ -1,16 +1,20 @@
-import { filterObject } from "../../utils/filterObject";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-import { isPlainObject } from "../../utils/isPlainObject";
-import { getSchemaUtils } from "../schema-utils";
-export function getObjectLikeUtils(schema) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.withParsedProperties = exports.getObjectLikeUtils = void 0;
+const filterObject_1 = require("../../utils/filterObject");
+const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
+const isPlainObject_1 = require("../../utils/isPlainObject");
+const schema_utils_1 = require("../schema-utils");
+function getObjectLikeUtils(schema) {
     return {
         withParsedProperties: (properties) => withParsedProperties(schema, properties),
     };
 }
+exports.getObjectLikeUtils = getObjectLikeUtils;
 /**
  * object-like utils are defined in one file to resolve issues with circular imports
  */
-export function withParsedProperties(objectLike, properties) {
+function withParsedProperties(objectLike, properties) {
     const objectSchema = {
         parse: (raw, opts) => {
             const parsedObject = objectLike.parse(raw, opts);
@@ -27,23 +31,24 @@ export function withParsedProperties(objectLike, properties) {
         },
         json: (parsed, opts) => {
             var _a;
-            if (!isPlainObject(parsed)) {
+            if (!(0, isPlainObject_1.isPlainObject)(parsed)) {
                 return {
                     ok: false,
                     errors: [
                         {
                             path: (_a = opts === null || opts === void 0 ? void 0 : opts.breadcrumbsPrefix) !== null && _a !== void 0 ? _a : [],
-                            message: getErrorMessageForIncorrectType(parsed, "object"),
+                            message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(parsed, "object"),
                         },
                     ],
                 };
             }
             // strip out added properties
             const addedPropertyKeys = new Set(Object.keys(properties));
-            const parsedWithoutAddedProperties = filterObject(parsed, Object.keys(parsed).filter((key) => !addedPropertyKeys.has(key)));
+            const parsedWithoutAddedProperties = (0, filterObject_1.filterObject)(parsed, Object.keys(parsed).filter((key) => !addedPropertyKeys.has(key)));
             return objectLike.json(parsedWithoutAddedProperties, opts);
         },
         getType: () => objectLike.getType(),
     };
-    return Object.assign(Object.assign(Object.assign({}, objectSchema), getSchemaUtils(objectSchema)), getObjectLikeUtils(objectSchema));
+    return Object.assign(Object.assign(Object.assign({}, objectSchema), (0, schema_utils_1.getSchemaUtils)(objectSchema)), getObjectLikeUtils(objectSchema));
 }
+exports.withParsedProperties = withParsedProperties;

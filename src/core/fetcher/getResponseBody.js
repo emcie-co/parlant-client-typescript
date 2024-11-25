@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,8 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { chooseStreamWrapper } from "./stream-wrappers/chooseStreamWrapper";
-export function getResponseBody(response, responseType) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getResponseBody = void 0;
+const chooseStreamWrapper_1 = require("./stream-wrappers/chooseStreamWrapper");
+function getResponseBody(response, responseType) {
     return __awaiter(this, void 0, void 0, function* () {
         if (response.body != null && responseType === "blob") {
             return yield response.blob();
@@ -20,7 +23,7 @@ export function getResponseBody(response, responseType) {
             return response.body;
         }
         else if (response.body != null && responseType === "streaming") {
-            return chooseStreamWrapper(response.body);
+            return (0, chooseStreamWrapper_1.chooseStreamWrapper)(response.body);
         }
         else if (response.body != null && responseType === "text") {
             return yield response.text();
@@ -49,3 +52,4 @@ export function getResponseBody(response, responseType) {
         }
     });
 }
+exports.getResponseBody = getResponseBody;

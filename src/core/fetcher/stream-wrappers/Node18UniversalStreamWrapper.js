@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,7 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export class Node18UniversalStreamWrapper {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Node18UniversalStreamWrapper = void 0;
+class Node18UniversalStreamWrapper {
     constructor(readableStream) {
         this.readableStream = readableStream;
         this.reader = this.readableStream.getReader();
@@ -241,3 +244,4 @@ export class Node18UniversalStreamWrapper {
         };
     }
 }
+exports.Node18UniversalStreamWrapper = Node18UniversalStreamWrapper;

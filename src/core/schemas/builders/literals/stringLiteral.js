@@ -1,8 +1,11 @@
-import { SchemaType } from "../../Schema";
-import { createIdentitySchemaCreator } from "../../utils/createIdentitySchemaCreator";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-export function stringLiteral(literal) {
-    const schemaCreator = createIdentitySchemaCreator(SchemaType.STRING_LITERAL, (value, { breadcrumbsPrefix = [] } = {}) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.stringLiteral = void 0;
+const Schema_1 = require("../../Schema");
+const createIdentitySchemaCreator_1 = require("../../utils/createIdentitySchemaCreator");
+const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
+function stringLiteral(literal) {
+    const schemaCreator = (0, createIdentitySchemaCreator_1.createIdentitySchemaCreator)(Schema_1.SchemaType.STRING_LITERAL, (value, { breadcrumbsPrefix = [] } = {}) => {
         if (value === literal) {
             return {
                 ok: true,
@@ -15,7 +18,7 @@ export function stringLiteral(literal) {
                 errors: [
                     {
                         path: breadcrumbsPrefix,
-                        message: getErrorMessageForIncorrectType(value, `"${literal}"`),
+                        message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(value, `"${literal}"`),
                     },
                 ],
             };
@@ -23,3 +26,4 @@ export function stringLiteral(literal) {
     });
     return schemaCreator();
 }
+exports.stringLiteral = stringLiteral;

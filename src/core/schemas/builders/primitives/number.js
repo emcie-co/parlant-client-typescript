@@ -1,7 +1,10 @@
-import { SchemaType } from "../../Schema";
-import { createIdentitySchemaCreator } from "../../utils/createIdentitySchemaCreator";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-export const number = createIdentitySchemaCreator(SchemaType.NUMBER, (value, { breadcrumbsPrefix = [] } = {}) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.number = void 0;
+const Schema_1 = require("../../Schema");
+const createIdentitySchemaCreator_1 = require("../../utils/createIdentitySchemaCreator");
+const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
+exports.number = (0, createIdentitySchemaCreator_1.createIdentitySchemaCreator)(Schema_1.SchemaType.NUMBER, (value, { breadcrumbsPrefix = [] } = {}) => {
     if (typeof value === "number") {
         return {
             ok: true,
@@ -14,7 +17,7 @@ export const number = createIdentitySchemaCreator(SchemaType.NUMBER, (value, { b
             errors: [
                 {
                     path: breadcrumbsPrefix,
-                    message: getErrorMessageForIncorrectType(value, "number"),
+                    message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(value, "number"),
                 },
             ],
         };

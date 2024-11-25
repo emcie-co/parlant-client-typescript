@@ -1,7 +1,10 @@
-import { SchemaType } from "../../Schema";
-import { createIdentitySchemaCreator } from "../../utils/createIdentitySchemaCreator";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-export const boolean = createIdentitySchemaCreator(SchemaType.BOOLEAN, (value, { breadcrumbsPrefix = [] } = {}) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.boolean = void 0;
+const Schema_1 = require("../../Schema");
+const createIdentitySchemaCreator_1 = require("../../utils/createIdentitySchemaCreator");
+const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
+exports.boolean = (0, createIdentitySchemaCreator_1.createIdentitySchemaCreator)(Schema_1.SchemaType.BOOLEAN, (value, { breadcrumbsPrefix = [] } = {}) => {
     if (typeof value === "boolean") {
         return {
             ok: true,
@@ -14,7 +17,7 @@ export const boolean = createIdentitySchemaCreator(SchemaType.BOOLEAN, (value, {
             errors: [
                 {
                     path: breadcrumbsPrefix,
-                    message: getErrorMessageForIncorrectType(value, "boolean"),
+                    message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(value, "boolean"),
                 },
             ],
         };

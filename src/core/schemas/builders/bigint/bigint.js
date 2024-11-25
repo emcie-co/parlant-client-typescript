@@ -1,8 +1,11 @@
-import { SchemaType } from "../../Schema";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
-import { getSchemaUtils } from "../schema-utils";
-export function bigint() {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.bigint = void 0;
+const Schema_1 = require("../../Schema");
+const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
+const maybeSkipValidation_1 = require("../../utils/maybeSkipValidation");
+const schema_utils_1 = require("../schema-utils");
+function bigint() {
     const baseSchema = {
         parse: (raw, { breadcrumbsPrefix = [] } = {}) => {
             if (typeof raw !== "string") {
@@ -11,7 +14,7 @@ export function bigint() {
                     errors: [
                         {
                             path: breadcrumbsPrefix,
-                            message: getErrorMessageForIncorrectType(raw, "string"),
+                            message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(raw, "string"),
                         },
                     ],
                 };
@@ -34,13 +37,14 @@ export function bigint() {
                     errors: [
                         {
                             path: breadcrumbsPrefix,
-                            message: getErrorMessageForIncorrectType(bigint, "bigint"),
+                            message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(bigint, "bigint"),
                         },
                     ],
                 };
             }
         },
-        getType: () => SchemaType.BIGINT,
+        getType: () => Schema_1.SchemaType.BIGINT,
     };
-    return Object.assign(Object.assign({}, maybeSkipValidation(baseSchema)), getSchemaUtils(baseSchema));
+    return Object.assign(Object.assign({}, (0, maybeSkipValidation_1.maybeSkipValidation)(baseSchema)), (0, schema_utils_1.getSchemaUtils)(baseSchema));
 }
+exports.bigint = bigint;

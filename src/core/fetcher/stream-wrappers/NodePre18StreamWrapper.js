@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -14,7 +15,9 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-export class NodePre18StreamWrapper {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodePre18StreamWrapper = void 0;
+class NodePre18StreamWrapper {
     constructor(readableStream) {
         this.readableStream = readableStream;
     }
@@ -118,3 +121,4 @@ export class NodePre18StreamWrapper {
         };
     }
 }
+exports.NodePre18StreamWrapper = NodePre18StreamWrapper;

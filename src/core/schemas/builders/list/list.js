@@ -1,8 +1,11 @@
-import { SchemaType } from "../../Schema";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
-import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
-import { getSchemaUtils } from "../schema-utils";
-export function list(schema) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.list = void 0;
+const Schema_1 = require("../../Schema");
+const getErrorMessageForIncorrectType_1 = require("../../utils/getErrorMessageForIncorrectType");
+const maybeSkipValidation_1 = require("../../utils/maybeSkipValidation");
+const schema_utils_1 = require("../schema-utils");
+function list(schema) {
     const baseSchema = {
         parse: (raw, opts) => validateAndTransformArray(raw, (item, index) => {
             var _a;
@@ -12,17 +15,18 @@ export function list(schema) {
             var _a;
             return schema.json(item, Object.assign(Object.assign({}, opts), { breadcrumbsPrefix: [...((_a = opts === null || opts === void 0 ? void 0 : opts.breadcrumbsPrefix) !== null && _a !== void 0 ? _a : []), `[${index}]`] }));
         }),
-        getType: () => SchemaType.LIST,
+        getType: () => Schema_1.SchemaType.LIST,
     };
-    return Object.assign(Object.assign({}, maybeSkipValidation(baseSchema)), getSchemaUtils(baseSchema));
+    return Object.assign(Object.assign({}, (0, maybeSkipValidation_1.maybeSkipValidation)(baseSchema)), (0, schema_utils_1.getSchemaUtils)(baseSchema));
 }
+exports.list = list;
 function validateAndTransformArray(value, transformItem) {
     if (!Array.isArray(value)) {
         return {
             ok: false,
             errors: [
                 {
-                    message: getErrorMessageForIncorrectType(value, "list"),
+                    message: (0, getErrorMessageForIncorrectType_1.getErrorMessageForIncorrectType)(value, "list"),
                     path: [],
                 },
             ],
