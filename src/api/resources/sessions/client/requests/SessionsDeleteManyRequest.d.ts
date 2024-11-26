@@ -6,6 +6,12 @@
  *     {}
  */
 export interface SessionsDeleteManyRequest {
+    /**
+     * Unique identifier of the agent
+     */
     agentId?: string;
+    /**
+     * Unique identifier of the customers
+     */
     customerId?: string;
 }

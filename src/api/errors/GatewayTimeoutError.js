@@ -26,10 +26,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentCreationParams = void 0;
-const core = __importStar(require("../../../../../core"));
-exports.AgentCreationParams = core.serialization.object({
-    name: core.serialization.string().optional(),
-    description: core.serialization.string().optional(),
-    maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
-});
+exports.GatewayTimeoutError = void 0;
+const errors = __importStar(require("../../errors/index"));
+class GatewayTimeoutError extends errors.ParlantError {
+    constructor(body) {
+        super({
+            message: "GatewayTimeoutError",
+            statusCode: 504,
+            body: body,
+        });
+        Object.setPrototypeOf(this, GatewayTimeoutError.prototype);
+    }
+}
+exports.GatewayTimeoutError = GatewayTimeoutError;

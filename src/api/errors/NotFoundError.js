@@ -26,10 +26,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentCreationParams = void 0;
-const core = __importStar(require("../../../../../core"));
-exports.AgentCreationParams = core.serialization.object({
-    name: core.serialization.string().optional(),
-    description: core.serialization.string().optional(),
-    maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
-});
+exports.NotFoundError = void 0;
+const errors = __importStar(require("../../errors/index"));
+class NotFoundError extends errors.ParlantError {
+    constructor(body) {
+        super({
+            message: "NotFoundError",
+            statusCode: 404,
+            body: body,
+        });
+        Object.setPrototypeOf(this, NotFoundError.prototype);
+    }
+}
+exports.NotFoundError = NotFoundError;

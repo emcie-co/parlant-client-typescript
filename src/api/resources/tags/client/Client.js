@@ -49,6 +49,8 @@ class Tags {
         this._options = _options;
     }
     /**
+     * List all tags.
+     *
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -100,6 +102,8 @@ class Tags {
         });
     }
     /**
+     * Creates a new `Tag` with the provided `name`.
+     *
      * @param {Parlant.TagCreationParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -138,12 +142,7 @@ class Tags {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -167,9 +166,12 @@ class Tags {
         });
     }
     /**
-     * @param {string} tagId
+     * Retrieves the `Tag` with the provided `id`.
+     *
+     * @param {string} tagId - Unique identifier for the tag
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -201,13 +203,10 @@ class Tags {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -234,6 +233,7 @@ class Tags {
      * @param {string} tagId
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -260,13 +260,10 @@ class Tags {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -290,10 +287,13 @@ class Tags {
         });
     }
     /**
-     * @param {string} tagId
+     * Updates an existing `Tag`'s fields (namely: `name`).
+     *
+     * @param {string} tagId - Unique identifier for the tag
      * @param {Parlant.TagUpdateParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -323,13 +323,10 @@ class Tags {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

@@ -11,15 +11,12 @@
     "test": "jest --detectOpenHandles"
   },
   "keywords": [],
-  "author": "yam@emcie.co",
+  "author": "MCNatsu@emcie-co",
   "license": "MIT",
   "description": "",
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@types/qs": "^6.9.17",
-    "@types/readable-stream": "^4.0.18",
     "jest": "^29.7.0",
-    "readable-stream": "^4.5.2",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.3"
   },

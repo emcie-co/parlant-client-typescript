@@ -7,7 +7,7 @@ import * as core from "../../../../../core";
 export declare const AgentCreationParams: core.serialization.Schema<serializers.AgentCreationParams.Raw, Parlant.AgentCreationParams>;
 export declare namespace AgentCreationParams {
     interface Raw {
-        name: string;
+        name?: string | null;
         description?: string | null;
         max_engine_iterations?: number | null;
     }

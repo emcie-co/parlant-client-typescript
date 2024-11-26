@@ -138,12 +138,7 @@ class Customers {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -167,7 +162,7 @@ class Customers {
         });
     }
     /**
-     * @param {string} customerId
+     * @param {string} customerId - Unique identifer of a customer.
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -202,12 +197,7 @@ class Customers {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -261,12 +251,7 @@ class Customers {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -290,7 +275,7 @@ class Customers {
         });
     }
     /**
-     * @param {string} customerId
+     * @param {string} customerId - Unique identifer of a customer.
      * @param {Parlant.CustomerUpdateParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -327,12 +312,7 @@ class Customers {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

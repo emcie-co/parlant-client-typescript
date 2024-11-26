@@ -29,10 +29,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Event = void 0;
 const core = __importStar(require("../../core"));
 const EventSourceDto_1 = require("./EventSourceDto");
+const EventKindDto_1 = require("./EventKindDto");
 exports.Event = core.serialization.object({
     id: core.serialization.string(),
     source: EventSourceDto_1.EventSourceDto,
-    kind: core.serialization.string(),
+    kind: EventKindDto_1.EventKindDto,
     offset: core.serialization.number(),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     correlationId: core.serialization.property("correlation_id", core.serialization.string()),

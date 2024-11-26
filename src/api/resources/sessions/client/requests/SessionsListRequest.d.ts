@@ -6,6 +6,12 @@
  *     {}
  */
 export interface SessionsListRequest {
+    /**
+     * Unique identifier of the agent
+     */
     agentId?: string;
+    /**
+     * Unique identifier of the customers
+     */
     customerId?: string;
 }

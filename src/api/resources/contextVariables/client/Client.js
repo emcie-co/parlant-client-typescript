@@ -84,12 +84,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -152,12 +147,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -211,12 +201,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -283,12 +268,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -343,12 +323,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -410,12 +385,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -476,12 +446,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -550,12 +515,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -611,12 +571,7 @@ class ContextVariables {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

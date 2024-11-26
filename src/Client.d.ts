@@ -27,13 +27,6 @@ export declare namespace ParlantClient {
 export declare class ParlantClient {
     protected readonly _options: ParlantClient.Options;
     constructor(_options: ParlantClient.Options);
-    /**
-     * @param {ParlantClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.rootGet()
-     */
-    rootGet(requestOptions?: ParlantClient.RequestOptions): Promise<unknown>;
     protected _agents: Agents | undefined;
     get agents(): Agents;
     protected _guidelines: Guidelines | undefined;

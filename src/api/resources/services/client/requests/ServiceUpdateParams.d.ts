@@ -10,6 +10,8 @@ import * as Parlant from "../../../../index";
  */
 export interface ServiceUpdateParams {
     kind: Parlant.ToolServiceKindDto;
+    /** `SDKServiceParams` in case `kind` is `'sdk'`. */
     sdk?: Parlant.SdkServiceParams;
+    /** `OpenAPIServiceParams` in case `kind` is `'openapi '`. */
     openapi?: Parlant.OpenApiServiceParams;
 }
