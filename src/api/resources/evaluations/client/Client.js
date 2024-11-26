@@ -42,7 +42,7 @@ exports.Evaluations = void 0;
 const core = __importStar(require("../../../../core"));
 const Parlant = __importStar(require("../../../index"));
 const serializers = __importStar(require("../../../../serialization/index"));
-const url_join_1 = __importDefault(import("url-join"));
+const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Evaluations {
     constructor(_options) {
