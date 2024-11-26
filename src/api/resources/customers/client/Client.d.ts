@@ -14,8 +14,6 @@ export declare namespace Customers {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
     }
 }
 export declare class Customers {
@@ -27,7 +25,7 @@ export declare class Customers {
      * @example
      *     await client.customers.list()
      */
-    list(requestOptions?: Customers.RequestOptions): core.APIPromise<Parlant.Customer[]>;
+    list(requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer[]>;
     /**
      * @param {Parlant.CustomerCreationParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
@@ -39,7 +37,7 @@ export declare class Customers {
      *         name: "name"
      *     })
      */
-    create(request: Parlant.CustomerCreationParams, requestOptions?: Customers.RequestOptions): core.APIPromise<Parlant.Customer>;
+    create(request: Parlant.CustomerCreationParams, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
     /**
      * @param {string} customerId
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
@@ -49,7 +47,7 @@ export declare class Customers {
      * @example
      *     await client.customers.retrieve("customer_id")
      */
-    retrieve(customerId: string, requestOptions?: Customers.RequestOptions): core.APIPromise<Parlant.Customer>;
+    retrieve(customerId: string, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
     /**
      * @param {string} customerId
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
@@ -59,7 +57,7 @@ export declare class Customers {
      * @example
      *     await client.customers.delete("customer_id")
      */
-    delete(customerId: string, requestOptions?: Customers.RequestOptions): core.APIPromise<void>;
+    delete(customerId: string, requestOptions?: Customers.RequestOptions): Promise<void>;
     /**
      * @param {string} customerId
      * @param {Parlant.CustomerUpdateParams} request
@@ -70,5 +68,5 @@ export declare class Customers {
      * @example
      *     await client.customers.update("customer_id")
      */
-    update(customerId: string, request?: Parlant.CustomerUpdateParams, requestOptions?: Customers.RequestOptions): core.APIPromise<void>;
+    update(customerId: string, request?: Parlant.CustomerUpdateParams, requestOptions?: Customers.RequestOptions): Promise<void>;
 }

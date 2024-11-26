@@ -58,11 +58,15 @@ class ParlantClient {
      *     await client.rootGet()
      */
     rootGet(requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: yield core.Supplier.get(this._options.environment),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -70,11 +74,7 @@ class ParlantClient {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: _response.body,
-                    headers: _response.headers,
-                };
+                return _response.body;
             }
             if (_response.error.reason === "status-code") {
                 throw new errors.ParlantError({
@@ -89,13 +89,13 @@ class ParlantClient {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     get agents() {
         var _a;

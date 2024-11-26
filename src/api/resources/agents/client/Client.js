@@ -55,11 +55,15 @@ class Agents {
      *     await client.agents.list()
      */
     list(requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents/"),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -67,16 +71,12 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.agents.list.Response.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.agents.list.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 throw new errors.ParlantError({
@@ -91,13 +91,13 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /agents/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {Parlant.AgentCreationParams} request
@@ -111,11 +111,15 @@ class Agents {
      *     })
      */
     create(request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents/"),
                 method: "POST",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.AgentCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -124,16 +128,12 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Agent.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Agent.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -158,13 +158,13 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /agents/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} agentId
@@ -176,11 +176,15 @@ class Agents {
      *     await client.agents.retrieve("agent_id")
      */
     retrieve(agentId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -188,16 +192,12 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Agent.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Agent.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -222,13 +222,13 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /agents/{agent_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} agentId
@@ -240,11 +240,15 @@ class Agents {
      *     await client.agents.delete("agent_id")
      */
     delete(agentId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
                 method: "DELETE",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -252,11 +256,7 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -281,13 +281,13 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /agents/{agent_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} agentId
@@ -300,11 +300,15 @@ class Agents {
      *     await client.agents.update("agent_id")
      */
     update(agentId, request = {}, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
                 method: "PATCH",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.AgentUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -313,11 +317,7 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -342,13 +342,13 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /agents/{agent_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
 }
 exports.Agents = Agents;

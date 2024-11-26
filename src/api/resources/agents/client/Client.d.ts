@@ -14,8 +14,6 @@ export declare namespace Agents {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
     }
 }
 export declare class Agents {
@@ -27,7 +25,7 @@ export declare class Agents {
      * @example
      *     await client.agents.list()
      */
-    list(requestOptions?: Agents.RequestOptions): core.APIPromise<Parlant.Agent[]>;
+    list(requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent[]>;
     /**
      * @param {Parlant.AgentCreationParams} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
@@ -39,7 +37,7 @@ export declare class Agents {
      *         name: "name"
      *     })
      */
-    create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): core.APIPromise<Parlant.Agent>;
+    create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
      * @param {string} agentId
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
@@ -49,7 +47,7 @@ export declare class Agents {
      * @example
      *     await client.agents.retrieve("agent_id")
      */
-    retrieve(agentId: string, requestOptions?: Agents.RequestOptions): core.APIPromise<Parlant.Agent>;
+    retrieve(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
      * @param {string} agentId
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
@@ -59,7 +57,7 @@ export declare class Agents {
      * @example
      *     await client.agents.delete("agent_id")
      */
-    delete(agentId: string, requestOptions?: Agents.RequestOptions): core.APIPromise<void>;
+    delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<void>;
     /**
      * @param {string} agentId
      * @param {Parlant.AgentUpdateParams} request
@@ -70,5 +68,5 @@ export declare class Agents {
      * @example
      *     await client.agents.update("agent_id")
      */
-    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): core.APIPromise<void>;
+    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<void>;
 }

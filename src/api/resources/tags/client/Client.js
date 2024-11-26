@@ -55,11 +55,15 @@ class Tags {
      *     await client.tags.list()
      */
     list(requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "tags/"),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -67,16 +71,12 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.tags.list.Response.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.tags.list.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 throw new errors.ParlantError({
@@ -91,13 +91,13 @@ class Tags {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /tags/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {Parlant.TagCreationParams} request
@@ -111,11 +111,15 @@ class Tags {
      *     })
      */
     create(request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "tags/"),
                 method: "POST",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.TagCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -124,16 +128,12 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Tag.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Tag.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -158,13 +158,13 @@ class Tags {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /tags/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} tagId
@@ -176,11 +176,15 @@ class Tags {
      *     await client.tags.retrieve("tag_id")
      */
     retrieve(tagId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `tags/${encodeURIComponent(tagId)}`),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -188,16 +192,12 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Tag.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Tag.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -222,13 +222,13 @@ class Tags {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /tags/{tag_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} tagId
@@ -240,11 +240,15 @@ class Tags {
      *     await client.tags.delete("tag_id")
      */
     delete(tagId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `tags/${encodeURIComponent(tagId)}`),
                 method: "DELETE",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -252,11 +256,7 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -281,13 +281,13 @@ class Tags {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /tags/{tag_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} tagId
@@ -302,11 +302,15 @@ class Tags {
      *     })
      */
     update(tagId, request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `tags/${encodeURIComponent(tagId)}`),
                 method: "PATCH",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.TagUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -315,11 +319,7 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -344,13 +344,13 @@ class Tags {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /tags/{tag_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
 }
 exports.Tags = Tags;

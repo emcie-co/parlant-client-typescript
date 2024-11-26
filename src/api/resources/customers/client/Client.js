@@ -55,11 +55,15 @@ class Customers {
      *     await client.customers.list()
      */
     list(requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "customers/"),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -67,16 +71,12 @@ class Customers {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.customers.list.Response.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.customers.list.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 throw new errors.ParlantError({
@@ -91,13 +91,13 @@ class Customers {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /customers/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {Parlant.CustomerCreationParams} request
@@ -111,11 +111,15 @@ class Customers {
      *     })
      */
     create(request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "customers/"),
                 method: "POST",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.CustomerCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -124,16 +128,12 @@ class Customers {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Customer.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Customer.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -158,13 +158,13 @@ class Customers {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /customers/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} customerId
@@ -176,11 +176,15 @@ class Customers {
      *     await client.customers.retrieve("customer_id")
      */
     retrieve(customerId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `customers/${encodeURIComponent(customerId)}`),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -188,16 +192,12 @@ class Customers {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Customer.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Customer.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -222,13 +222,13 @@ class Customers {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /customers/{customer_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} customerId
@@ -240,11 +240,15 @@ class Customers {
      *     await client.customers.delete("customer_id")
      */
     delete(customerId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `customers/${encodeURIComponent(customerId)}`),
                 method: "DELETE",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -252,11 +256,7 @@ class Customers {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -281,13 +281,13 @@ class Customers {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /customers/{customer_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} customerId
@@ -300,11 +300,15 @@ class Customers {
      *     await client.customers.update("customer_id")
      */
     update(customerId, request = {}, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `customers/${encodeURIComponent(customerId)}`),
                 method: "PATCH",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.CustomerUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -313,11 +317,7 @@ class Customers {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -342,13 +342,13 @@ class Customers {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /customers/{customer_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
 }
 exports.Customers = Customers;

@@ -69,7 +69,7 @@ class Sessions {
      *     await client.sessions.list()
      */
     list(request = {}, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
@@ -81,7 +81,11 @@ class Sessions {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -90,16 +94,12 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.sessions.list.Response.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.sessions.list.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -124,13 +124,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {Parlant.SessionCreationParams} request
@@ -144,7 +144,7 @@ class Sessions {
      *     })
      */
     create(request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const { allowGreeting } = request, _body = __rest(request, ["allowGreeting"]);
             const _queryParams = {};
             if (allowGreeting != null) {
@@ -153,7 +153,11 @@ class Sessions {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
                 method: "POST",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -163,16 +167,12 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Session.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Session.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -197,13 +197,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /sessions/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {Parlant.SessionsDeleteManyRequest} request
@@ -215,7 +215,7 @@ class Sessions {
      *     await client.sessions.deleteMany()
      */
     deleteMany(request = {}, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
@@ -227,7 +227,11 @@ class Sessions {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
                 method: "DELETE",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -236,11 +240,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -265,13 +265,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -283,11 +283,15 @@ class Sessions {
      *     await client.sessions.retrieve("session_id")
      */
     retrieve(sessionId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -295,16 +299,12 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Session.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Session.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -329,13 +329,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -347,11 +347,15 @@ class Sessions {
      *     await client.sessions.delete("session_id")
      */
     delete(sessionId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "DELETE",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -359,11 +363,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -388,13 +388,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -407,11 +407,15 @@ class Sessions {
      *     await client.sessions.update("session_id")
      */
     update(sessionId, request = {}, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "PATCH",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.SessionUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -420,11 +424,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -449,13 +449,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /sessions/{session_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -468,7 +468,7 @@ class Sessions {
      *     await client.sessions.listEvents("session_id")
      */
     listEvents(sessionId, request = {}, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const { minOffset, correlationId, kinds, waitForData } = request;
             const _queryParams = {};
             if (minOffset != null) {
@@ -486,7 +486,11 @@ class Sessions {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -495,16 +499,12 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.sessions.listEvents.Response.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.sessions.listEvents.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -529,13 +529,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -551,7 +551,7 @@ class Sessions {
      *     })
      */
     createEvent(sessionId, request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const { moderation } = request, _body = __rest(request, ["moderation"]);
             const _queryParams = {};
             if (moderation != null) {
@@ -560,7 +560,11 @@ class Sessions {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "POST",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -570,16 +574,12 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.Event.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.Event.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -604,13 +604,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /sessions/{session_id}/events.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -625,14 +625,18 @@ class Sessions {
      *     })
      */
     deleteEvents(sessionId, request, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const { minOffset } = request;
             const _queryParams = {};
             _queryParams["min_offset"] = minOffset.toString();
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "DELETE",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -641,11 +645,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: undefined,
-                    headers: _response.headers,
-                };
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -670,13 +670,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}/events.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
     /**
      * @param {string} sessionId
@@ -689,11 +689,15 @@ class Sessions {
      *     await client.sessions.inspectEvent("session_id", "event_id")
      */
     inspectEvent(sessionId, eventId, requestOptions) {
-        return core.APIPromise.from((() => __awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
                 method: "GET",
-                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -701,16 +705,12 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return {
-                    ok: _response.ok,
-                    body: serializers.EventInspectionResult.parseOrThrow(_response.body, {
-                        unrecognizedObjectKeys: "passthrough",
-                        allowUnrecognizedUnionMembers: true,
-                        allowUnrecognizedEnumValues: true,
-                        breadcrumbsPrefix: ["response"],
-                    }),
-                    headers: _response.headers,
-                };
+                return serializers.EventInspectionResult.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -735,13 +735,13 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events/{event_id}.");
+                    throw new errors.ParlantTimeoutError();
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
                     });
             }
-        }))());
+        });
     }
 }
 exports.Sessions = Sessions;

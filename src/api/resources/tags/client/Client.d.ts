@@ -14,8 +14,6 @@ export declare namespace Tags {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
     }
 }
 export declare class Tags {
@@ -27,7 +25,7 @@ export declare class Tags {
      * @example
      *     await client.tags.list()
      */
-    list(requestOptions?: Tags.RequestOptions): core.APIPromise<Parlant.Tag[]>;
+    list(requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
     /**
      * @param {Parlant.TagCreationParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
@@ -39,7 +37,7 @@ export declare class Tags {
      *         name: "name"
      *     })
      */
-    create(request: Parlant.TagCreationParams, requestOptions?: Tags.RequestOptions): core.APIPromise<Parlant.Tag>;
+    create(request: Parlant.TagCreationParams, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
     /**
      * @param {string} tagId
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
@@ -49,7 +47,7 @@ export declare class Tags {
      * @example
      *     await client.tags.retrieve("tag_id")
      */
-    retrieve(tagId: string, requestOptions?: Tags.RequestOptions): core.APIPromise<Parlant.Tag>;
+    retrieve(tagId: string, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
     /**
      * @param {string} tagId
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
@@ -59,7 +57,7 @@ export declare class Tags {
      * @example
      *     await client.tags.delete("tag_id")
      */
-    delete(tagId: string, requestOptions?: Tags.RequestOptions): core.APIPromise<void>;
+    delete(tagId: string, requestOptions?: Tags.RequestOptions): Promise<void>;
     /**
      * @param {string} tagId
      * @param {Parlant.TagUpdateParams} request
@@ -72,5 +70,5 @@ export declare class Tags {
      *         name: "name"
      *     })
      */
-    update(tagId: string, request: Parlant.TagUpdateParams, requestOptions?: Tags.RequestOptions): core.APIPromise<void>;
+    update(tagId: string, request: Parlant.TagUpdateParams, requestOptions?: Tags.RequestOptions): Promise<void>;
 }

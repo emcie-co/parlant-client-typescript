@@ -14,8 +14,6 @@ export declare namespace Evaluations {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
     }
 }
 export declare class Evaluations {
@@ -35,7 +33,7 @@ export declare class Evaluations {
      *             }]
      *     })
      */
-    create(request: Parlant.EvaluationCreationParams, requestOptions?: Evaluations.RequestOptions): core.APIPromise<Parlant.Evaluation>;
+    create(request: Parlant.EvaluationCreationParams, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
     /**
      * @param {string} evaluationId
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
@@ -45,5 +43,5 @@ export declare class Evaluations {
      * @example
      *     await client.evaluations.retrieve("evaluation_id")
      */
-    retrieve(evaluationId: string, requestOptions?: Evaluations.RequestOptions): core.APIPromise<Parlant.Evaluation>;
+    retrieve(evaluationId: string, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
 }

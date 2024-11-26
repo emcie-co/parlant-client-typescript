@@ -14,8 +14,6 @@ export declare namespace Glossary {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
     }
 }
 export declare class Glossary {
@@ -30,7 +28,7 @@ export declare class Glossary {
      * @example
      *     await client.glossary.listTerms("agent_id")
      */
-    listTerms(agentId: string, requestOptions?: Glossary.RequestOptions): core.APIPromise<Parlant.Term[]>;
+    listTerms(agentId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term[]>;
     /**
      * @param {string} agentId
      * @param {Parlant.TermCreationParams} request
@@ -44,7 +42,7 @@ export declare class Glossary {
      *         description: "description"
      *     })
      */
-    createTerm(agentId: string, request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): core.APIPromise<Parlant.Term>;
+    createTerm(agentId: string, request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
      * @param {string} agentId
      * @param {string} termId
@@ -55,7 +53,7 @@ export declare class Glossary {
      * @example
      *     await client.glossary.retrieveTerm("agent_id", "term_id")
      */
-    retrieveTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): core.APIPromise<Parlant.Term>;
+    retrieveTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
      * @param {string} agentId
      * @param {string} termId
@@ -66,7 +64,7 @@ export declare class Glossary {
      * @example
      *     await client.glossary.deleteTerm("agent_id", "term_id")
      */
-    deleteTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): core.APIPromise<void>;
+    deleteTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<void>;
     /**
      * @param {string} agentId
      * @param {string} termId
@@ -78,5 +76,5 @@ export declare class Glossary {
      * @example
      *     await client.glossary.updateTerm("agent_id", "term_id")
      */
-    updateTerm(agentId: string, termId: string, request?: Parlant.TermUpdateParams, requestOptions?: Glossary.RequestOptions): core.APIPromise<Parlant.Term>;
+    updateTerm(agentId: string, termId: string, request?: Parlant.TermUpdateParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
 }
