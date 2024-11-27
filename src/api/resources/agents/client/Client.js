@@ -317,7 +317,12 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return;
+                return serializers.Agent.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {

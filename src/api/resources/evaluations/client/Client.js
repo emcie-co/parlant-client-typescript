@@ -120,6 +120,7 @@ class Evaluations {
     }
     /**
      * @param {string} evaluationId
+     * @param {Parlant.EvaluationsRetrieveRequest} request
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -127,8 +128,13 @@ class Evaluations {
      * @example
      *     await client.evaluations.retrieve("evaluation_id")
      */
-    retrieve(evaluationId, requestOptions) {
+    retrieve(evaluationId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { waitForCompletion } = request;
+            const _queryParams = {};
+            if (waitForCompletion != null) {
+                _queryParams["wait_for_completion"] = waitForCompletion.toString();
+            }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `index/evaluations/${encodeURIComponent(evaluationId)}`),
                 method: "GET",
@@ -138,6 +144,7 @@ class Evaluations {
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
