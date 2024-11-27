@@ -36,6 +36,7 @@ export declare class Evaluations {
     create(request: Parlant.EvaluationCreationParams, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
     /**
      * @param {string} evaluationId
+     * @param {Parlant.EvaluationsRetrieveRequest} request
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -43,5 +44,5 @@ export declare class Evaluations {
      * @example
      *     await client.evaluations.retrieve("evaluation_id")
      */
-    retrieve(evaluationId: string, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
+    retrieve(evaluationId: string, request?: Parlant.EvaluationsRetrieveRequest, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
 }

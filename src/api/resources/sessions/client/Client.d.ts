@@ -81,7 +81,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.update("session_id")
      */
-    update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
     /**
      * @param {string} sessionId
      * @param {Parlant.SessionsListEventsRequest} request

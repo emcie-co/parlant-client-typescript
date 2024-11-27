@@ -78,6 +78,18 @@ export declare class ContextVariables {
     /**
      * @param {string} agentId
      * @param {string} variableId
+     * @param {Parlant.ContextVariableUpdateParams} request
+     * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.contextVariables.update("agent_id", "variable_id")
+     */
+    update(agentId: string, variableId: string, request?: Parlant.ContextVariableUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable>;
+    /**
+     * @param {string} agentId
+     * @param {string} variableId
      * @param {string} key
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *

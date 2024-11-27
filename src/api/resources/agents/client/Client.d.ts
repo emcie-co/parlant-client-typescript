@@ -68,5 +68,5 @@ export declare class Agents {
      * @example
      *     await client.agents.update("agent_id")
      */
-    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<void>;
+    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
 }
