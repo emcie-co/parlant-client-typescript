@@ -15,5 +15,6 @@ import * as Parlant from "../../../../index";
  *     }
  */
 export interface GuidelineCreationParams {
+    /** A collection of invoices obtained from evaluating guidelines */
     invoices: Parlant.Invoice[];
 }

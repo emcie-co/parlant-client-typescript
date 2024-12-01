@@ -1,6 +1,6 @@
 {
   "name": "parlant",
-  "version": "0.5.0",
+  "version": "0.5.1dev",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "files": [

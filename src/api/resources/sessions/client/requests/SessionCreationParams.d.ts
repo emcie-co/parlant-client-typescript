@@ -4,12 +4,20 @@
 /**
  * @example
  *     {
- *         agentId: "agent_id"
+ *         agentId: "ag_123xyz",
+ *         customerId: "cust_123xyz",
+ *         title: "Product inquiry session"
  *     }
  */
 export interface SessionCreationParams {
+    /**
+     * Whether to allow the agent to send an initial greeting
+     */
     allowGreeting?: boolean;
+    /** Unique identifier for the agent associated with the session. */
     agentId: string;
+    /**  ID of the customer this session belongs to. If not provided, a guest customer will be created. */
     customerId?: string;
+    /** Optional descriptive title for the session */
     title?: string;
 }

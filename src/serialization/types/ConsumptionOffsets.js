@@ -29,5 +29,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConsumptionOffsets = void 0;
 const core = __importStar(require("../../core"));
 exports.ConsumptionOffsets = core.serialization.object({
-    client: core.serialization.number(),
+    client: core.serialization.number().optional(),
 });

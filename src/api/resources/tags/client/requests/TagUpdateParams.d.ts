@@ -8,5 +8,6 @@
  *     }
  */
 export interface TagUpdateParams {
+    /** Name of the tag */
     name: string;
 }

@@ -33,5 +33,5 @@ exports.Agent = core.serialization.object({
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
-    maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number()),
+    maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
 });

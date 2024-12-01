@@ -39,7 +39,7 @@ export declare class Customers {
      */
     create(request: Parlant.CustomerCreationParams, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
     /**
-     * @param {string} customerId
+     * @param {string} customerId - Unique identifer of a customer.
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
@@ -59,7 +59,7 @@ export declare class Customers {
      */
     delete(customerId: string, requestOptions?: Customers.RequestOptions): Promise<void>;
     /**
-     * @param {string} customerId
+     * @param {string} customerId - Unique identifer of a customer.
      * @param {Parlant.CustomerUpdateParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *

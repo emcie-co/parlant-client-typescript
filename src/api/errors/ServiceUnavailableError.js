@@ -26,10 +26,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgentCreationParams = void 0;
-const core = __importStar(require("../../../../../core"));
-exports.AgentCreationParams = core.serialization.object({
-    name: core.serialization.string().optional(),
-    description: core.serialization.string().optional(),
-    maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
-});
+exports.ServiceUnavailableError = void 0;
+const errors = __importStar(require("../../errors/index"));
+class ServiceUnavailableError extends errors.ParlantError {
+    constructor(body) {
+        super({
+            message: "ServiceUnavailableError",
+            statusCode: 503,
+            body: body,
+        });
+        Object.setPrototypeOf(this, ServiceUnavailableError.prototype);
+    }
+}
+exports.ServiceUnavailableError = ServiceUnavailableError;

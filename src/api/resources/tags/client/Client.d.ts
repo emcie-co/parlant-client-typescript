@@ -20,6 +20,8 @@ export declare class Tags {
     protected readonly _options: Tags.Options;
     constructor(_options: Tags.Options);
     /**
+     * List all tags.
+     *
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -27,6 +29,8 @@ export declare class Tags {
      */
     list(requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
     /**
+     * Creates a new `Tag` with the provided `name`.
+     *
      * @param {Parlant.TagCreationParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -39,9 +43,12 @@ export declare class Tags {
      */
     create(request: Parlant.TagCreationParams, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
     /**
-     * @param {string} tagId
+     * Retrieves the `Tag` with the provided `id`.
+     *
+     * @param {string} tagId - Unique identifier for the tag
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -52,6 +59,7 @@ export declare class Tags {
      * @param {string} tagId
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -59,10 +67,13 @@ export declare class Tags {
      */
     delete(tagId: string, requestOptions?: Tags.RequestOptions): Promise<void>;
     /**
-     * @param {string} tagId
+     * Updates an existing `Tag`'s fields (namely: `name`).
+     *
+     * @param {string} tagId - Unique identifier for the tag
      * @param {Parlant.TagUpdateParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
