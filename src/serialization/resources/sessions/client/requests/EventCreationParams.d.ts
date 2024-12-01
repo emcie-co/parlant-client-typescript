@@ -11,6 +11,6 @@ export declare namespace EventCreationParams {
     interface Raw {
         kind: EventKindDto.Raw;
         source: EventSourceDto.Raw;
-        data?: string | null;
+        message?: string | null;
     }
 }

@@ -33,5 +33,5 @@ const EventSourceDto_1 = require("../../../../types/EventSourceDto");
 exports.EventCreationParams = core.serialization.object({
     kind: EventKindDto_1.EventKindDto,
     source: EventSourceDto_1.EventSourceDto,
-    data: core.serialization.string().optional(),
+    message: core.serialization.string().optional(),
 });

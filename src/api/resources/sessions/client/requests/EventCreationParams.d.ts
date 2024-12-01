@@ -13,5 +13,5 @@ export interface EventCreationParams {
     moderation?: Parlant.Moderation;
     kind: Parlant.EventKindDto;
     source: Parlant.EventSourceDto;
-    data?: string;
+    message?: string;
 }

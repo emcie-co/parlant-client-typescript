@@ -474,10 +474,13 @@ class Sessions {
      */
     listEvents(sessionId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { minOffset, correlationId, kinds, waitForData } = request;
+            const { minOffset, source, correlationId, kinds, waitForData } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
+            }
+            if (source != null) {
+                _queryParams["source"] = source;
             }
             if (correlationId != null) {
                 _queryParams["correlation_id"] = correlationId;
