@@ -3,10 +3,17 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         name: "Haxon",
+ *         description: "Technical Support Assistant",
+ *         maxEngineIterations: 3
+ *     }
  */
 export interface AgentUpdateParams {
+    /** The display name of the agent, mainly for management purposes */
     name?: string;
+    /** Detailed description of the agent's purpose and capabilities */
     description?: string;
+    /** Maximum number of processing iterations the agent can perform per request */
     maxEngineIterations?: number;
 }

@@ -49,6 +49,15 @@ class Evaluations {
         this._options = _options;
     }
     /**
+     * Creates a new evaluation task for the specified agent.
+     *
+     * An evaluation analyzes proposed changes (payloads) to an agent's guidelines
+     * to ensure coherence and consistency with existing guidelines and the agent's
+     * configuration. This helps maintain predictable agent behavior by detecting
+     * potential conflicts and unintended consequences before applying changes.
+     *
+     * Returns immediately with the created evaluation's initial state.
+     *
      * @param {Parlant.EvaluationCreationParams} request
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -56,9 +65,18 @@ class Evaluations {
      *
      * @example
      *     await client.evaluations.create({
-     *         agentId: "agent_id",
+     *         agentId: "a1g2e3n4t5",
      *         payloads: [{
-     *                 kind: "guideline"
+     *                 kind: "guideline",
+     *                 guideline: {
+     *                     content: {
+     *                         condition: "when customer asks about pricing",
+     *                         action: "provide current pricing information"
+     *                     },
+     *                     operation: "add",
+     *                     coherenceCheck: true,
+     *                     connectionProposition: true
+     *                 }
      *             }]
      *     })
      */
@@ -90,12 +108,7 @@ class Evaluations {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -119,11 +132,24 @@ class Evaluations {
         });
     }
     /**
-     * @param {string} evaluationId
+     * Retrieves the current state of an evaluation.
+     *
+     * - If wait_for_completion == 0, returns current state immediately.
+     * - If wait_for_completion > 0, waits for completion/failure or timeout. Defaults to 60.
+     *
+     * Notes:
+     * When wait_for_completion > 0:
+     *
+     * - Returns final state if evaluation completes within timeout
+     * - Raises 504 if timeout is reached before completion
+     *
+     * @param {string} evaluationId - Unique identifier of the evaluation to retrieve
      * @param {Parlant.EvaluationsRetrieveRequest} request
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
+     * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
      *     await client.evaluations.retrieve("evaluation_id")
@@ -160,13 +186,12 @@ class Evaluations {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    case 504:
+                        throw new Parlant.GatewayTimeoutError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

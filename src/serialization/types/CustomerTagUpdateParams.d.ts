@@ -4,8 +4,8 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-export declare const TagsUpdateParams: core.serialization.ObjectSchema<serializers.TagsUpdateParams.Raw, Parlant.TagsUpdateParams>;
-export declare namespace TagsUpdateParams {
+export declare const CustomerTagUpdateParams: core.serialization.ObjectSchema<serializers.CustomerTagUpdateParams.Raw, Parlant.CustomerTagUpdateParams>;
+export declare namespace CustomerTagUpdateParams {
     interface Raw {
         add?: string[] | null;
         remove?: string[] | null;

@@ -26,8 +26,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConsumptionOffsets = void 0;
-const core = __importStar(require("../../core"));
-exports.ConsumptionOffsets = core.serialization.object({
-    client: core.serialization.number().optional(),
-});
+exports.NotFoundError = void 0;
+const errors = __importStar(require("../../errors/index"));
+class NotFoundError extends errors.ParlantError {
+    constructor(body) {
+        super({
+            message: "NotFoundError",
+            statusCode: 404,
+            body: body,
+        });
+        Object.setPrototypeOf(this, NotFoundError.prototype);
+    }
+}
+exports.NotFoundError = NotFoundError;

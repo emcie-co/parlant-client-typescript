@@ -4,7 +4,26 @@
 import * as Parlant from "../../../../index";
 /**
  * @example
- *     {}
+ *     {
+ *         connections: {
+ *             add: [{
+ *                     source: "guide_123xyz",
+ *                     target: "guide_789xyz",
+ *                     kind: "suggests"
+ *                 }],
+ *             remove: ["guide_456xyz"]
+ *         },
+ *         toolAssociations: {
+ *             add: [{
+ *                     serviceName: "pricing_service",
+ *                     toolName: "get_prices"
+ *                 }],
+ *             remove: [{
+ *                     serviceName: "old_service",
+ *                     toolName: "old_tool"
+ *                 }]
+ *         }
+ *     }
  */
 export interface GuidelineUpdateParams {
     connections?: Parlant.GuidelineConnectionUpdateParams;

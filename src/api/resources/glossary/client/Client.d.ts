@@ -20,9 +20,15 @@ export declare class Glossary {
     protected readonly _options: Glossary.Options;
     constructor(_options: Glossary.Options);
     /**
-     * @param {string} agentId
+     * Retrieves a list of all terms in the agent's glossary.
+     *
+     * Returns an empty list if no terms associated to the provided agent's ID.
+     * Terms are returned in no guaranteed order.
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -30,7 +36,17 @@ export declare class Glossary {
      */
     listTerms(agentId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term[]>;
     /**
-     * @param {string} agentId
+     * Creates a new term in the agent's glossary.
+     *
+     * The term will be initialized with the provided name and description, and optional synonyms.
+     * The term will be associated with the specified agent.
+     * A unique identifier will be automatically generated.
+     *
+     * Default behaviors:
+     *
+     * - `synonyms` defaults to an empty list if not provided
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
      * @param {Parlant.TermCreationParams} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -38,16 +54,20 @@ export declare class Glossary {
      *
      * @example
      *     await client.glossary.createTerm("agent_id", {
-     *         name: "name",
-     *         description: "description"
+     *         name: "Gas",
+     *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+     *         synonyms: ["Transaction Fee", "Blockchain Fuel"]
      *     })
      */
     createTerm(agentId: string, request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Retrieves details of a specific term by ID for a given agent.
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
+     * @param {string} termId - Unique identifier for the term
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -55,10 +75,16 @@ export declare class Glossary {
      */
     retrieveTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Deletes a term from the agent.
+     *
+     * Deleting a non-existent term will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
+     * @param {string} termId - Unique identifier for the term
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -66,15 +92,20 @@ export declare class Glossary {
      */
     deleteTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<void>;
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
+     * @param {string} termId - Unique identifier for the term
      * @param {Parlant.TermUpdateParams} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.updateTerm("agent_id", "term_id")
+     *     await client.glossary.updateTerm("agent_id", "term_id", {
+     *         name: "Gas",
+     *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+     *         synonyms: ["Transaction Fee", "Blockchain Fuel"]
+     *     })
      */
     updateTerm(agentId: string, termId: string, request?: Parlant.TermUpdateParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
 }

@@ -49,6 +49,11 @@ class Customers {
         this._options = _options;
     }
     /**
+     * Retrieves a list of all customers in the system.
+     *
+     * Returns an empty list if no customers exist.
+     * Customers are returned in no guaranteed order.
+     *
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -100,6 +105,11 @@ class Customers {
         });
     }
     /**
+     * Creates a new customer in the system.
+     *
+     * A customer may be created with as little as a `name`.
+     * `extra` key-value pairs and additional `tags` may be attached to a customer.
+     *
      * @param {Parlant.CustomerCreationParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -107,7 +117,11 @@ class Customers {
      *
      * @example
      *     await client.customers.create({
-     *         name: "name"
+     *         name: "Scooby",
+     *         extra: {
+     *             "VIP": "Yes",
+     *             "email": "scooby@dooby.do"
+     *         }
      *     })
      */
     create(request, requestOptions) {
@@ -138,12 +152,7 @@ class Customers {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -167,9 +176,15 @@ class Customers {
         });
     }
     /**
-     * @param {string} customerId
+     * Retrieves details of a specific customer by ID.
+     *
+     * Returns a complete customer object including their metadata and tags.
+     * The customer must exist in the system.
+     *
+     * @param {string} customerId - Unique identifier for the customer
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -201,13 +216,10 @@ class Customers {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -231,9 +243,15 @@ class Customers {
         });
     }
     /**
-     * @param {string} customerId
+     * Deletes a customer from the agent.
+     *
+     * Deleting a non-existent customer will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} customerId - Unique identifier for the customer
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -260,13 +278,10 @@ class Customers {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -290,14 +305,34 @@ class Customers {
         });
     }
     /**
-     * @param {string} customerId
+     * Updates an existing customer's attributes.
+     *
+     * Only provided attributes will be updated; others remain unchanged.
+     * The customer's ID and creation timestamp cannot be modified.
+     * Extra metadata and tags can be added or removed independently.
+     *
+     * @param {string} customerId - Unique identifier for the customer
      * @param {Parlant.CustomerUpdateParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.update("customer_id")
+     *     await client.customers.update("customer_id", {
+     *         name: "Scooby",
+     *         extra: {
+     *             add: {
+     *                 "VIP": "Yes",
+     *                 "email": "scooby@dooby.do"
+     *             },
+     *             remove: ["old_email", "old_title"]
+     *         },
+     *         tags: {
+     *             add: ["t9a8g703f4", "tag_456abc"],
+     *             remove: ["tag_789def", "tag_012ghi"]
+     *         }
+     *     })
      */
     update(customerId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -326,13 +361,10 @@ class Customers {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

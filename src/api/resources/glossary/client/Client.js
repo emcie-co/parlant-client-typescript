@@ -49,9 +49,15 @@ class Glossary {
         this._options = _options;
     }
     /**
-     * @param {string} agentId
+     * Retrieves a list of all terms in the agent's glossary.
+     *
+     * Returns an empty list if no terms associated to the provided agent's ID.
+     * Terms are returned in no guaranteed order.
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -83,13 +89,10 @@ class Glossary {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -113,7 +116,17 @@ class Glossary {
         });
     }
     /**
-     * @param {string} agentId
+     * Creates a new term in the agent's glossary.
+     *
+     * The term will be initialized with the provided name and description, and optional synonyms.
+     * The term will be associated with the specified agent.
+     * A unique identifier will be automatically generated.
+     *
+     * Default behaviors:
+     *
+     * - `synonyms` defaults to an empty list if not provided
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
      * @param {Parlant.TermCreationParams} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -121,8 +134,9 @@ class Glossary {
      *
      * @example
      *     await client.glossary.createTerm("agent_id", {
-     *         name: "name",
-     *         description: "description"
+     *         name: "Gas",
+     *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+     *         synonyms: ["Transaction Fee", "Blockchain Fuel"]
      *     })
      */
     createTerm(agentId, request, requestOptions) {
@@ -153,12 +167,7 @@ class Glossary {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -182,10 +191,13 @@ class Glossary {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Retrieves details of a specific term by ID for a given agent.
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
+     * @param {string} termId - Unique identifier for the term
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -217,13 +229,10 @@ class Glossary {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -247,10 +256,16 @@ class Glossary {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Deletes a term from the agent.
+     *
+     * Deleting a non-existent term will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
+     * @param {string} termId - Unique identifier for the term
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -277,13 +292,10 @@ class Glossary {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -307,15 +319,20 @@ class Glossary {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * @param {string} agentId - Unique identifier for the agent associated with the term.
+     * @param {string} termId - Unique identifier for the term
      * @param {Parlant.TermUpdateParams} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.updateTerm("agent_id", "term_id")
+     *     await client.glossary.updateTerm("agent_id", "term_id", {
+     *         name: "Gas",
+     *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+     *         synonyms: ["Transaction Fee", "Blockchain Fuel"]
+     *     })
      */
     updateTerm(agentId, termId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -344,13 +361,10 @@ class Glossary {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

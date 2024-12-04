@@ -6,5 +6,8 @@
  *     {}
  */
 export interface EvaluationsRetrieveRequest {
+    /**
+     * Maximum time in seconds to wait for evaluation completion
+     */
     waitForCompletion?: number;
 }

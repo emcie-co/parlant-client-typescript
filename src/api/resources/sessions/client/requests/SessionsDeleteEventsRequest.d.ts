@@ -8,5 +8,8 @@
  *     }
  */
 export interface SessionsDeleteEventsRequest {
+    /**
+     * Only return events with offset >= this value
+     */
     minOffset: number;
 }

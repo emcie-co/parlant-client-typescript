@@ -29,9 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const CustomerExtraUpdateParams_1 = require("../../../../types/CustomerExtraUpdateParams");
-const TagsUpdateParams_1 = require("../../../../types/TagsUpdateParams");
+const CustomerTagUpdateParams_1 = require("../../../../types/CustomerTagUpdateParams");
 exports.CustomerUpdateParams = core.serialization.object({
     name: core.serialization.string().optional(),
     extra: CustomerExtraUpdateParams_1.CustomerExtraUpdateParams.optional(),
-    tags: TagsUpdateParams_1.TagsUpdateParams.optional(),
+    tags: CustomerTagUpdateParams_1.CustomerTagUpdateParams.optional(),
 });

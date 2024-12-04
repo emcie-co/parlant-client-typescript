@@ -1,6 +1,6 @@
 {
   "name": "parlant-client",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "files": [
@@ -11,7 +11,7 @@
     "test": "jest --detectOpenHandles"
   },
   "keywords": [],
-  "author": "yam@emcie.co",
+  "author": "Yam Marcovitz <yam@emcie.co>",
   "license": "MIT",
   "description": "",
   "devDependencies": {

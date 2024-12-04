@@ -20,6 +20,15 @@ export declare class Evaluations {
     protected readonly _options: Evaluations.Options;
     constructor(_options: Evaluations.Options);
     /**
+     * Creates a new evaluation task for the specified agent.
+     *
+     * An evaluation analyzes proposed changes (payloads) to an agent's guidelines
+     * to ensure coherence and consistency with existing guidelines and the agent's
+     * configuration. This helps maintain predictable agent behavior by detecting
+     * potential conflicts and unintended consequences before applying changes.
+     *
+     * Returns immediately with the created evaluation's initial state.
+     *
      * @param {Parlant.EvaluationCreationParams} request
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -27,19 +36,41 @@ export declare class Evaluations {
      *
      * @example
      *     await client.evaluations.create({
-     *         agentId: "agent_id",
+     *         agentId: "a1g2e3n4t5",
      *         payloads: [{
-     *                 kind: "guideline"
+     *                 kind: "guideline",
+     *                 guideline: {
+     *                     content: {
+     *                         condition: "when customer asks about pricing",
+     *                         action: "provide current pricing information"
+     *                     },
+     *                     operation: "add",
+     *                     coherenceCheck: true,
+     *                     connectionProposition: true
+     *                 }
      *             }]
      *     })
      */
     create(request: Parlant.EvaluationCreationParams, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
     /**
-     * @param {string} evaluationId
+     * Retrieves the current state of an evaluation.
+     *
+     * - If wait_for_completion == 0, returns current state immediately.
+     * - If wait_for_completion > 0, waits for completion/failure or timeout. Defaults to 60.
+     *
+     * Notes:
+     * When wait_for_completion > 0:
+     *
+     * - Returns final state if evaluation completes within timeout
+     * - Raises 504 if timeout is reached before completion
+     *
+     * @param {string} evaluationId - Unique identifier of the evaluation to retrieve
      * @param {Parlant.EvaluationsRetrieveRequest} request
      * @param {Evaluations.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
+     * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
      *     await client.evaluations.retrieve("evaluation_id")

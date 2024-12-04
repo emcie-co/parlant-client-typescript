@@ -20,9 +20,12 @@ export declare class ContextVariables {
     protected readonly _options: ContextVariables.Options;
     constructor(_options: ContextVariables.Options);
     /**
-     * @param {string} agentId
+     * Lists all context variables set for the provided agent
+     *
+     * @param {string} agentId - Unique identifier of the agent
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -30,22 +33,47 @@ export declare class ContextVariables {
      */
     list(agentId: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable[]>;
     /**
-     * @param {string} agentId
+     * Creates a new context variable for tracking customer-specific or tag-specific data.
+     *
+     * Example uses:
+     *
+     * - Track subscription tiers to control feature access
+     * - Store usage patterns for personalized recommendations
+     * - Remember customer preferences for tailored responses
+     *
+     * @param {string} agentId - Unique identifier of the agent
      * @param {Parlant.ContextVariableCreationParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.contextVariables.create("agent_id", {
-     *         name: "name"
+     *         name: "UserBalance",
+     *         description: "Stores the account balances of users",
+     *         toolId: {
+     *             serviceName: "finance_service",
+     *             toolName: "balance_checker"
+     *         },
+     *         freshnessRules: {
+     *             months: [1, 6, 12],
+     *             daysOfMonth: [1, 15, 30],
+     *             daysOfWeek: ["Monday", "Wednesday", "Friday"],
+     *             hours: [9, 13, 17],
+     *             minutes: [0, 30],
+     *             seconds: [0, 30]
+     *         }
      *     })
      */
     create(agentId: string, request: Parlant.ContextVariableCreationParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable>;
     /**
-     * @param {string} agentId
+     * Deletes all context variables and their values for the provided agent ID
+     *
+     * @param {string} agentId - Unique identifier of the agent
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -53,11 +81,16 @@ export declare class ContextVariables {
      */
     deleteMany(agentId: string, requestOptions?: ContextVariables.RequestOptions): Promise<void>;
     /**
-     * @param {string} agentId
-     * @param {string} variableId
+     * Retrieves a context variable's details and optionally its values.
+     *
+     * Can return all customer or tag values for this variable type if include_values=True.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariablesRetrieveRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -65,10 +98,13 @@ export declare class ContextVariables {
      */
     retrieve(agentId: string, variableId: string, request?: Parlant.ContextVariablesRetrieveRequest, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableReadResult>;
     /**
-     * @param {string} agentId
-     * @param {string} variableId
+     * Deletes a specific context variable and all its values.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -76,23 +112,39 @@ export declare class ContextVariables {
      */
     delete(agentId: string, variableId: string, requestOptions?: ContextVariables.RequestOptions): Promise<void>;
     /**
-     * @param {string} agentId
-     * @param {string} variableId
+     * Updates an existing context variable.
+     *
+     * Only provided fields will be updated; others remain unchanged.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariableUpdateParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.update("agent_id", "variable_id")
+     *     await client.contextVariables.update("agent_id", "variable_id", {
+     *         name: "CustomerBalance",
+     *         freshnessRules: {
+     *             hours: [8, 12, 16],
+     *             minutes: [0]
+     *         }
+     *     })
      */
     update(agentId: string, variableId: string, request?: Parlant.ContextVariableUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable>;
     /**
-     * @param {string} agentId
-     * @param {string} variableId
-     * @param {string} key
+     * Retrieves the value of a context variable for a specific customer or tag.
+     *
+     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -100,28 +152,43 @@ export declare class ContextVariables {
      */
     getValue(agentId: string, variableId: string, key: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValue>;
     /**
-     * @param {string} agentId
-     * @param {string} variableId
-     * @param {string} key
+     * Updates the value of a context variable.
+     *
+     * The key represents a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     * The data contains the actual context information being stored.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {string} key - Key for the variable value
      * @param {Parlant.ContextVariableValueUpdateParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.setValue("string", "string", "string", {
+     *     await client.contextVariables.setValue("agent_id", "variable_id", "key", {
      *         data: {
-     *             "key": "value"
+     *             "balance": 5000.5,
+     *             "currency": "USD",
+     *             "last_transaction": "2024-03-23T15:30:00Z",
+     *             "status": "active"
      *         }
      *     })
      */
     setValue(agentId: string, variableId: string, key: string, request: Parlant.ContextVariableValueUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValue>;
     /**
-     * @param {string} agentId
-     * @param {string} variableId
-     * @param {string} key
+     * Deletes a specific customer's or tag's value for this context variable.
+     *
+     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     * Removes only the value for the specified key while keeping the variable's configuration.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example

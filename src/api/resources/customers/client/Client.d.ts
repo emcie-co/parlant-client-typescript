@@ -20,6 +20,11 @@ export declare class Customers {
     protected readonly _options: Customers.Options;
     constructor(_options: Customers.Options);
     /**
+     * Retrieves a list of all customers in the system.
+     *
+     * Returns an empty list if no customers exist.
+     * Customers are returned in no guaranteed order.
+     *
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -27,6 +32,11 @@ export declare class Customers {
      */
     list(requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer[]>;
     /**
+     * Creates a new customer in the system.
+     *
+     * A customer may be created with as little as a `name`.
+     * `extra` key-value pairs and additional `tags` may be attached to a customer.
+     *
      * @param {Parlant.CustomerCreationParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -34,14 +44,24 @@ export declare class Customers {
      *
      * @example
      *     await client.customers.create({
-     *         name: "name"
+     *         name: "Scooby",
+     *         extra: {
+     *             "VIP": "Yes",
+     *             "email": "scooby@dooby.do"
+     *         }
      *     })
      */
     create(request: Parlant.CustomerCreationParams, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
     /**
-     * @param {string} customerId
+     * Retrieves details of a specific customer by ID.
+     *
+     * Returns a complete customer object including their metadata and tags.
+     * The customer must exist in the system.
+     *
+     * @param {string} customerId - Unique identifier for the customer
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -49,9 +69,15 @@ export declare class Customers {
      */
     retrieve(customerId: string, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
     /**
-     * @param {string} customerId
+     * Deletes a customer from the agent.
+     *
+     * Deleting a non-existent customer will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} customerId - Unique identifier for the customer
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -59,14 +85,34 @@ export declare class Customers {
      */
     delete(customerId: string, requestOptions?: Customers.RequestOptions): Promise<void>;
     /**
-     * @param {string} customerId
+     * Updates an existing customer's attributes.
+     *
+     * Only provided attributes will be updated; others remain unchanged.
+     * The customer's ID and creation timestamp cannot be modified.
+     * Extra metadata and tags can be added or removed independently.
+     *
+     * @param {string} customerId - Unique identifier for the customer
      * @param {Parlant.CustomerUpdateParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.update("customer_id")
+     *     await client.customers.update("customer_id", {
+     *         name: "Scooby",
+     *         extra: {
+     *             add: {
+     *                 "VIP": "Yes",
+     *                 "email": "scooby@dooby.do"
+     *             },
+     *             remove: ["old_email", "old_title"]
+     *         },
+     *         tags: {
+     *             add: ["t9a8g703f4", "tag_456abc"],
+     *             remove: ["tag_789def", "tag_012ghi"]
+     *         }
+     *     })
      */
     update(customerId: string, request?: Parlant.CustomerUpdateParams, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
 }

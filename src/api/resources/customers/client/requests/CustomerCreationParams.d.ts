@@ -4,10 +4,16 @@
 /**
  * @example
  *     {
- *         name: "name"
+ *         name: "Scooby",
+ *         extra: {
+ *             "VIP": "Yes",
+ *             "email": "scooby@dooby.do"
+ *         }
  *     }
  */
 export interface CustomerCreationParams {
+    /** An arbitrary string that indentifies and/or describes the customer */
     name: string;
+    /** Key-value pairs (`str: str`) to describe the customer */
     extra?: Record<string, string | undefined>;
 }

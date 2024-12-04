@@ -49,6 +49,11 @@ class Tags {
         this._options = _options;
     }
     /**
+     * Lists all tags in the system.
+     *
+     * Returns an empty list if no tags exist.
+     * Tags are returned in no particular order.
+     *
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -100,6 +105,11 @@ class Tags {
         });
     }
     /**
+     * Creates a new tag with the specified name.
+     *
+     * The tag ID is automatically generated and the creation timestamp is set to the current time.
+     * Tag names must be unique and follow the kebab-case format.
+     *
      * @param {Parlant.TagCreationParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -107,7 +117,7 @@ class Tags {
      *
      * @example
      *     await client.tags.create({
-     *         name: "name"
+     *         name: "premium-customer"
      *     })
      */
     create(request, requestOptions) {
@@ -138,12 +148,7 @@ class Tags {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -167,9 +172,14 @@ class Tags {
         });
     }
     /**
-     * @param {string} tagId
+     * Retrieves details of a specific tag by ID.
+     *
+     * Returns a 404 error if no tag exists with the specified ID.
+     *
+     * @param {string} tagId - Unique identifier for the tag to operate on
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -201,13 +211,10 @@ class Tags {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -231,9 +238,15 @@ class Tags {
         });
     }
     /**
+     * Permanently deletes a tag.
+     *
+     * This operation cannot be undone. Returns a 404 error if no tag exists with the specified ID.
+     * Note that deleting a tag does not affect resources that were previously tagged with it.
+     *
      * @param {string} tagId
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -260,13 +273,10 @@ class Tags {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -290,15 +300,21 @@ class Tags {
         });
     }
     /**
-     * @param {string} tagId
+     * Updates an existing tag's name.
+     *
+     * Only the name can be modified - the ID and creation timestamp are immutable.
+     * Returns a 404 error if no tag exists with the specified ID.
+     *
+     * @param {string} tagId - Unique identifier for the tag to operate on
      * @param {Parlant.TagUpdateParams} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.tags.update("tag_id", {
-     *         name: "name"
+     *         name: "enterprise-customer"
      *     })
      */
     update(tagId, request, requestOptions) {
@@ -323,13 +339,10 @@ class Tags {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
