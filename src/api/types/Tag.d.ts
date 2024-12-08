@@ -8,7 +8,7 @@
  * or content. They provide a flexible way to organize and filter data.
  */
 export interface Tag {
-    /** Unique identifier for the tag in format 'tag\_[alphanumeric]' */
+    /** Unique identifier for the tag */
     id: string;
     /** UTC timestamp of when the tag was created, in ISO 8601 format */
     creationUtc: Date;
