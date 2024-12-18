@@ -17,6 +17,6 @@ export interface ContextVariable {
     /** Description of the context variable's purpose */
     description?: string;
     toolId?: Parlant.ToolId;
-    /** Rules for data freshness validation */
-    freshnessRules?: Parlant.FreshnessRules;
+    /** Cron expression defining the freshness rules */
+    freshnessRules?: string;
 }

@@ -11,14 +11,7 @@ import * as Parlant from "../../../../index";
  *             serviceName: "finance_service",
  *             toolName: "balance_checker"
  *         },
- *         freshnessRules: {
- *             months: [1, 6, 12],
- *             daysOfMonth: [1, 15, 30],
- *             daysOfWeek: ["Monday", "Wednesday", "Friday"],
- *             hours: [9, 13, 17],
- *             minutes: [0, 30],
- *             seconds: [0, 30]
- *         }
+ *         freshnessRules: "freshness_rules"
  *     }
  */
 export interface ContextVariableCreationParams {
@@ -27,6 +20,6 @@ export interface ContextVariableCreationParams {
     /** Description of the context variable's purpose */
     description?: string;
     toolId?: Parlant.ToolId;
-    /** Rules for data freshness validation */
-    freshnessRules?: Parlant.FreshnessRules;
+    /** Cron expression defining the freshness rules */
+    freshnessRules?: string;
 }

@@ -6,10 +6,7 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         name: "CustomerBalance",
- *         freshnessRules: {
- *             hours: [8, 12, 16],
- *             minutes: [0]
- *         }
+ *         freshnessRules: "freshness_rules"
  *     }
  */
 export interface ContextVariableUpdateParams {
@@ -18,6 +15,6 @@ export interface ContextVariableUpdateParams {
     /** Description of the context variable's purpose */
     description?: string;
     toolId?: Parlant.ToolId;
-    /** Rules for data freshness validation */
-    freshnessRules?: Parlant.FreshnessRules;
+    /** Cron expression defining the freshness rules */
+    freshnessRules?: string;
 }

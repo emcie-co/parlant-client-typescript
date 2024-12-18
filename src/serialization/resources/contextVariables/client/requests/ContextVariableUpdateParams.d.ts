@@ -5,13 +5,12 @@ import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { ToolId } from "../../../../types/ToolId";
-import { FreshnessRules } from "../../../../types/FreshnessRules";
 export declare const ContextVariableUpdateParams: core.serialization.Schema<serializers.ContextVariableUpdateParams.Raw, Parlant.ContextVariableUpdateParams>;
 export declare namespace ContextVariableUpdateParams {
     interface Raw {
         name?: string | null;
         description?: string | null;
         tool_id?: ToolId.Raw | null;
-        freshness_rules?: FreshnessRules.Raw | null;
+        freshness_rules?: string | null;
     }
 }

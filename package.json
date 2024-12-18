@@ -1,6 +1,6 @@
 {
   "name": "parlant-client",
-  "version": "0.6.1",
+  "version": "0.8.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "files": [
@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "Yam Marcovitz <yam@emcie.co>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "description": "",
   "devDependencies": {
     "@types/jest": "^29.5.14",

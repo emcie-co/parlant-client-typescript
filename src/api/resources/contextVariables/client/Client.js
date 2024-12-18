@@ -136,14 +136,7 @@ class ContextVariables {
      *             serviceName: "finance_service",
      *             toolName: "balance_checker"
      *         },
-     *         freshnessRules: {
-     *             months: [1, 6, 12],
-     *             daysOfMonth: [1, 15, 30],
-     *             daysOfWeek: ["Monday", "Wednesday", "Friday"],
-     *             hours: [9, 13, 17],
-     *             minutes: [0, 30],
-     *             seconds: [0, 30]
-     *         }
+     *         freshnessRules: "freshness_rules"
      *     })
      */
     create(agentId, request, requestOptions) {
@@ -408,10 +401,7 @@ class ContextVariables {
      * @example
      *     await client.contextVariables.update("agent_id", "variable_id", {
      *         name: "CustomerBalance",
-     *         freshnessRules: {
-     *             hours: [8, 12, 16],
-     *             minutes: [0]
-     *         }
+     *         freshnessRules: "freshness_rules"
      *     })
      */
     update(agentId, variableId, request = {}, requestOptions) {
@@ -538,8 +528,9 @@ class ContextVariables {
     /**
      * Updates the value of a context variable.
      *
-     * The key represents a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     * The data contains the actual context information being stored.
+     * The `key` represents a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     * If `key="DEFAULT"`, the update applies to all customers.
+     * The `params` parameter contains the actual context information being stored.
      *
      * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
