@@ -17,4 +17,5 @@ export interface Event {
     /** ID linking related events together */
     correlationId: string;
     data?: unknown;
+    deleted: boolean;
 }

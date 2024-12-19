@@ -38,4 +38,5 @@ exports.Event = core.serialization.object({
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     correlationId: core.serialization.property("correlation_id", core.serialization.string()),
     data: core.serialization.unknown(),
+    deleted: core.serialization.boolean(),
 });

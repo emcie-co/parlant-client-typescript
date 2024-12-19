@@ -16,5 +16,6 @@ export declare namespace Event {
         creation_utc: string;
         correlation_id: string;
         data?: unknown;
+        deleted: boolean;
     }
 }
