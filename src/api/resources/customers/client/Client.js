@@ -62,7 +62,7 @@ class Customers {
     list(requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "customers/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "customers"),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -127,7 +127,7 @@ class Customers {
     create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "customers/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "customers"),
                 method: "POST",
                 headers: {
                     "X-Fern-Language": "JavaScript",

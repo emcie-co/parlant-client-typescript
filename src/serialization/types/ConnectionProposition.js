@@ -30,10 +30,8 @@ exports.ConnectionProposition = void 0;
 const core = __importStar(require("../../core"));
 const ConnectionPropositionKindDto_1 = require("./ConnectionPropositionKindDto");
 const GuidelineContent_1 = require("./GuidelineContent");
-const ConnectionKindDto_1 = require("./ConnectionKindDto");
 exports.ConnectionProposition = core.serialization.object({
     checkKind: core.serialization.property("check_kind", ConnectionPropositionKindDto_1.ConnectionPropositionKindDto),
     source: GuidelineContent_1.GuidelineContent,
     target: GuidelineContent_1.GuidelineContent,
-    connectionKind: core.serialization.property("connection_kind", ConnectionKindDto_1.ConnectionKindDto),
 });

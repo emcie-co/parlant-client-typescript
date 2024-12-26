@@ -9,5 +9,4 @@ export interface ConnectionProposition {
     checkKind: Parlant.ConnectionPropositionKindDto;
     source: Parlant.GuidelineContent;
     target: Parlant.GuidelineContent;
-    connectionKind: Parlant.ConnectionKindDto;
 }

@@ -4,15 +4,12 @@
 import * as Parlant from "../index";
 /**
  * Represents a connection between two guidelines.
- *
- * The connection can be strong (with `kind`=`"entails"`) or weak (with `kind`=`"suggests"`)
  */
 export interface GuidelineConnection {
     /** Unique identifier for the `GuildelineConnection` */
     id: string;
     source: Parlant.Guideline;
     target: Parlant.Guideline;
-    kind: Parlant.ConnectionKindDto;
     /** `True` if there is a path from `source` to `target` but no direct connection */
     indirect: boolean;
 }

@@ -1,7 +1,6 @@
 export * from "./Agent";
 export * from "./CoherenceCheck";
 export * from "./CoherenceCheckKindDto";
-export * from "./ConnectionKindDto";
 export * from "./ConnectionProposition";
 export * from "./ConnectionPropositionKindDto";
 export * from "./ConsumptionOffsets";
@@ -59,5 +58,7 @@ export * from "./ToolParameterTypeDto";
 export * from "./ToolResult";
 export * from "./ToolServiceKindDto";
 export * from "./UsageInfo";
+export * from "./UtteranceReasonDto";
+export * from "./UtteranceRequest";
 export * from "./ValidationErrorLocItem";
 export * from "./ValidationError";

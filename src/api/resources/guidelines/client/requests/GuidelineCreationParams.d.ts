@@ -44,8 +44,7 @@ import * as Parlant from "../../../../index";
  *                                 target: {
  *                                     condition: "System logs are available",
  *                                     action: "Analyze logs for error patterns"
- *                                 },
- *                                 connectionKind: "suggests"
+ *                                 }
  *                             }]
  *                     }
  *                 }

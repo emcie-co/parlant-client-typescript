@@ -8,8 +8,7 @@ import * as Parlant from "../../../../index";
  *         connections: {
  *             add: [{
  *                     source: "guide_123xyz",
- *                     target: "guide_789xyz",
- *                     kind: "suggests"
+ *                     target: "guide_789xyz"
  *                 }],
  *             remove: ["guide_456xyz"]
  *         },

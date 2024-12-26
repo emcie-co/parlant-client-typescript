@@ -26,6 +26,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectionKindDto = void 0;
+exports.UtteranceRequest = void 0;
 const core = __importStar(require("../../core"));
-exports.ConnectionKindDto = core.serialization.enum_(["entails", "suggests"]);
+const UtteranceReasonDto_1 = require("./UtteranceReasonDto");
+exports.UtteranceRequest = core.serialization.object({
+    action: core.serialization.string(),
+    reason: UtteranceReasonDto_1.UtteranceReasonDto,
+});

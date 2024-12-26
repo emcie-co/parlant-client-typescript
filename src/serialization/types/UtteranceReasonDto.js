@@ -26,14 +26,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EventCreationParams = void 0;
-const core = __importStar(require("../../../../../core"));
-const EventKindDto_1 = require("../../../../types/EventKindDto");
-const EventSourceDto_1 = require("../../../../types/EventSourceDto");
-const UtteranceRequest_1 = require("../../../../types/UtteranceRequest");
-exports.EventCreationParams = core.serialization.object({
-    kind: EventKindDto_1.EventKindDto,
-    source: EventSourceDto_1.EventSourceDto,
-    message: core.serialization.string().optional(),
-    actions: core.serialization.list(UtteranceRequest_1.UtteranceRequest).optional(),
-});
+exports.UtteranceReasonDto = void 0;
+const core = __importStar(require("../../core"));
+exports.UtteranceReasonDto = core.serialization.enum_(["buy_time", "follow_up"]);

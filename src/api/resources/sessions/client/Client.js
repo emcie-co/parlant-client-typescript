@@ -84,7 +84,7 @@ class Sessions {
                 _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -158,7 +158,7 @@ class Sessions {
                 _queryParams["allow_greeting"] = allowGreeting.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
                 method: "POST",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -232,7 +232,7 @@ class Sessions {
                 _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
                 method: "DELETE",
                 headers: {
                     "X-Fern-Language": "JavaScript",

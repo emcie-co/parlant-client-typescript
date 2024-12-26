@@ -62,7 +62,7 @@ class Tags {
     list(requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "tags/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "tags"),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -123,7 +123,7 @@ class Tags {
     create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "tags/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "tags"),
                 method: "POST",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -302,8 +302,8 @@ class Tags {
     /**
      * Updates an existing tag's name.
      *
-     * Only the name can be modified - the ID and creation timestamp are immutable.
-     * Returns a 404 error if no tag exists with the specified ID.
+     * Only the name can be modified,
+     * The tag's ID and creation timestamp cannot be modified.
      *
      * @param {string} tagId - Unique identifier for the tag to operate on
      * @param {Parlant.TagUpdateParams} request
@@ -335,7 +335,12 @@ class Tags {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return;
+                return serializers.Tag.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {

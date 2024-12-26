@@ -174,8 +174,7 @@ class Guidelines {
      *                                 target: {
      *                                     condition: "System logs are available",
      *                                     action: "Analyze logs for error patterns"
-     *                                 },
-     *                                 connectionKind: "suggests"
+     *                                 }
      *                             }]
      *                     }
      *                 }
@@ -395,8 +394,7 @@ class Guidelines {
      *         connections: {
      *             add: [{
      *                     source: "guide_123xyz",
-     *                     target: "guide_789xyz",
-     *                     kind: "suggests"
+     *                     target: "guide_789xyz"
      *                 }],
      *             remove: ["guide_456xyz"]
      *         },

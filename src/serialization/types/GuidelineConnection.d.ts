@@ -5,14 +5,12 @@ import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { Guideline } from "./Guideline";
-import { ConnectionKindDto } from "./ConnectionKindDto";
 export declare const GuidelineConnection: core.serialization.ObjectSchema<serializers.GuidelineConnection.Raw, Parlant.GuidelineConnection>;
 export declare namespace GuidelineConnection {
     interface Raw {
         id: string;
         source: Guideline.Raw;
         target: Guideline.Raw;
-        kind: ConnectionKindDto.Raw;
         indirect: boolean;
     }
 }

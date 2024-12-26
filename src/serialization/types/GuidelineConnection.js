@@ -29,11 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineConnection = void 0;
 const core = __importStar(require("../../core"));
 const Guideline_1 = require("./Guideline");
-const ConnectionKindDto_1 = require("./ConnectionKindDto");
 exports.GuidelineConnection = core.serialization.object({
     id: core.serialization.string(),
     source: Guideline_1.Guideline,
     target: Guideline_1.Guideline,
-    kind: ConnectionKindDto_1.ConnectionKindDto,
     indirect: core.serialization.boolean(),
 });

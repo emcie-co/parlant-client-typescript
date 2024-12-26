@@ -82,8 +82,8 @@ export declare class Tags {
     /**
      * Updates an existing tag's name.
      *
-     * Only the name can be modified - the ID and creation timestamp are immutable.
-     * Returns a 404 error if no tag exists with the specified ID.
+     * Only the name can be modified,
+     * The tag's ID and creation timestamp cannot be modified.
      *
      * @param {string} tagId - Unique identifier for the tag to operate on
      * @param {Parlant.TagUpdateParams} request
@@ -97,5 +97,5 @@ export declare class Tags {
      *         name: "enterprise-customer"
      *     })
      */
-    update(tagId: string, request: Parlant.TagUpdateParams, requestOptions?: Tags.RequestOptions): Promise<void>;
+    update(tagId: string, request: Parlant.TagUpdateParams, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
 }
