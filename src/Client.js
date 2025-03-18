@@ -5,14 +5,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParlantClient = void 0;
 const Client_1 = require("./api/resources/agents/client/Client");
-const Client_2 = require("./api/resources/guidelines/client/Client");
-const Client_3 = require("./api/resources/glossary/client/Client");
-const Client_4 = require("./api/resources/contextVariables/client/Client");
-const Client_5 = require("./api/resources/sessions/client/Client");
-const Client_6 = require("./api/resources/evaluations/client/Client");
-const Client_7 = require("./api/resources/services/client/Client");
-const Client_8 = require("./api/resources/tags/client/Client");
-const Client_9 = require("./api/resources/customers/client/Client");
+const Client_2 = require("./api/resources/sessions/client/Client");
+const Client_3 = require("./api/resources/evaluations/client/Client");
+const Client_4 = require("./api/resources/services/client/Client");
+const Client_5 = require("./api/resources/tags/client/Client");
+const Client_6 = require("./api/resources/glossary/client/Client");
+const Client_7 = require("./api/resources/customers/client/Client");
+const Client_8 = require("./api/resources/fragments/client/Client");
+const Client_9 = require("./api/resources/contextVariables/client/Client");
+const Client_10 = require("./api/resources/guidelines/client/Client");
 class ParlantClient {
     constructor(_options) {
         this._options = _options;
@@ -21,37 +22,41 @@ class ParlantClient {
         var _a;
         return ((_a = this._agents) !== null && _a !== void 0 ? _a : (this._agents = new Client_1.Agents(this._options)));
     }
-    get guidelines() {
-        var _a;
-        return ((_a = this._guidelines) !== null && _a !== void 0 ? _a : (this._guidelines = new Client_2.Guidelines(this._options)));
-    }
-    get glossary() {
-        var _a;
-        return ((_a = this._glossary) !== null && _a !== void 0 ? _a : (this._glossary = new Client_3.Glossary(this._options)));
-    }
-    get contextVariables() {
-        var _a;
-        return ((_a = this._contextVariables) !== null && _a !== void 0 ? _a : (this._contextVariables = new Client_4.ContextVariables(this._options)));
-    }
     get sessions() {
         var _a;
-        return ((_a = this._sessions) !== null && _a !== void 0 ? _a : (this._sessions = new Client_5.Sessions(this._options)));
+        return ((_a = this._sessions) !== null && _a !== void 0 ? _a : (this._sessions = new Client_2.Sessions(this._options)));
     }
     get evaluations() {
         var _a;
-        return ((_a = this._evaluations) !== null && _a !== void 0 ? _a : (this._evaluations = new Client_6.Evaluations(this._options)));
+        return ((_a = this._evaluations) !== null && _a !== void 0 ? _a : (this._evaluations = new Client_3.Evaluations(this._options)));
     }
     get services() {
         var _a;
-        return ((_a = this._services) !== null && _a !== void 0 ? _a : (this._services = new Client_7.Services(this._options)));
+        return ((_a = this._services) !== null && _a !== void 0 ? _a : (this._services = new Client_4.Services(this._options)));
     }
     get tags() {
         var _a;
-        return ((_a = this._tags) !== null && _a !== void 0 ? _a : (this._tags = new Client_8.Tags(this._options)));
+        return ((_a = this._tags) !== null && _a !== void 0 ? _a : (this._tags = new Client_5.Tags(this._options)));
+    }
+    get glossary() {
+        var _a;
+        return ((_a = this._glossary) !== null && _a !== void 0 ? _a : (this._glossary = new Client_6.Glossary(this._options)));
     }
     get customers() {
         var _a;
-        return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_9.Customers(this._options)));
+        return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_7.Customers(this._options)));
+    }
+    get fragments() {
+        var _a;
+        return ((_a = this._fragments) !== null && _a !== void 0 ? _a : (this._fragments = new Client_8.Fragments(this._options)));
+    }
+    get contextVariables() {
+        var _a;
+        return ((_a = this._contextVariables) !== null && _a !== void 0 ? _a : (this._contextVariables = new Client_9.ContextVariables(this._options)));
+    }
+    get guidelines() {
+        var _a;
+        return ((_a = this._guidelines) !== null && _a !== void 0 ? _a : (this._guidelines = new Client_10.Guidelines(this._options)));
     }
 }
 exports.ParlantClient = ParlantClient;

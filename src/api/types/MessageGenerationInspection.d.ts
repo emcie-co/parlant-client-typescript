@@ -7,6 +7,5 @@ import * as Parlant from "../index";
  */
 export interface MessageGenerationInspection {
     generation: Parlant.GenerationInfo;
-    /** The messages that were generated */
     messages: (string | undefined)[];
 }

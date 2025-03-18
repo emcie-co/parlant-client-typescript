@@ -71,7 +71,10 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.list()
+     *     await client.sessions.list({
+     *         agentId: "ag_123xyz",
+     *         customerId: "cust_123xy"
+     *     })
      */
     list(request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -219,7 +222,10 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.deleteMany()
+     *     await client.sessions.deleteMany({
+     *         agentId: "ag_123xyz",
+     *         customerId: "cust_123xy"
+     *     })
      */
     deleteMany(request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -285,7 +291,7 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.retrieve("session_id")
+     *     await client.sessions.retrieve("sess_123yz")
      */
     retrieve(sessionId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -351,7 +357,7 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.delete("session_id")
+     *     await client.sessions.delete("sess_123yz")
      */
     delete(sessionId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -413,7 +419,7 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.update("session_id", {
+     *     await client.sessions.update("sess_123yz", {
      *         consumptionOffsets: {
      *             client: 42
      *         },
@@ -477,14 +483,18 @@ class Sessions {
      * Lists events from a session with optional filtering and waiting capabilities.
      *
      * This endpoint retrieves events from a specified session and can:
-     *
      * 1. Filter events by their offset, source, type, and correlation ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
      *
      * Notes:
-     * Long Polling Behavior: - When wait_for_data = 0:
-     * Returns immediately with any existing events that match the criteria - When wait_for_data > 0: - If new matching events arrive within the timeout period, returns with those events - If no new events arrive before timeout, raises 504 Gateway Timeout - If matching events already exist, returns immediately with those events
+     *     Long Polling Behavior:
+     *     - When wait_for_data = 0:
+     *         Returns immediately with any existing events that match the criteria
+     *     - When wait_for_data > 0:
+     *         - If new matching events arrive within the timeout period, returns with those events
+     *         - If no new events arrive before timeout, raises 504 Gateway Timeout
+     *         - If matching events already exist, returns immediately with those events
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {Parlant.SessionsListEventsRequest} request
@@ -495,7 +505,11 @@ class Sessions {
      * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
-     *     await client.sessions.listEvents("session_id")
+     *     await client.sessions.listEvents("sess_123yz", {
+     *         minOffset: 0,
+     *         correlationId: "corr_13xyz",
+     *         kinds: "message,tool"
+     *     })
      */
     listEvents(sessionId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -582,7 +596,7 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.createEvent("session_id", {
+     *     await client.sessions.createEvent("sess_123yz", {
      *         kind: "message",
      *         source: "customer",
      *         message: "Hello, I need help with my order"
@@ -660,8 +674,8 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.deleteEvents("session_id", {
-     *         minOffset: 1
+     *     await client.sessions.deleteEvents("sess_123yz", {
+     *         minOffset: 0
      *     })
      */
     deleteEvents(sessionId, request, requestOptions) {
@@ -729,7 +743,7 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.inspectEvent("session_id", "event_id")
+     *     await client.sessions.inspectEvent("sess_123yz", "evt_123xyz")
      */
     inspectEvent(sessionId, eventId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {

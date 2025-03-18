@@ -4,11 +4,14 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { CompositionModeDto } from "../../../../types/CompositionModeDto";
 export declare const AgentCreationParams: core.serialization.Schema<serializers.AgentCreationParams.Raw, Parlant.AgentCreationParams>;
 export declare namespace AgentCreationParams {
     interface Raw {
         name: string;
         description?: string | null;
         max_engine_iterations?: number | null;
+        composition_mode?: CompositionModeDto.Raw | null;
+        tags?: string[] | null;
     }
 }

@@ -188,7 +188,7 @@ class Customers {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.retrieve("customer_id")
+     *     await client.customers.retrieve("ck_IdAXUtp")
      */
     retrieve(customerId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -255,7 +255,7 @@ class Customers {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.delete("customer_id")
+     *     await client.customers.delete("ck_IdAXUtp")
      */
     delete(customerId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -319,7 +319,7 @@ class Customers {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.update("customer_id", {
+     *     await client.customers.update("ck_IdAXUtp", {
      *         name: "Scooby",
      *         extra: {
      *             add: {

@@ -111,7 +111,6 @@ class Agents {
      * A unique identifier will be automatically generated.
      *
      * Default behaviors:
-     *
      * - `name` defaults to `"Unnamed Agent"` if not provided
      * - `description` defaults to `None`
      * - `max_engine_iterations` defaults to `None` (uses system default)
@@ -125,7 +124,9 @@ class Agents {
      *     await client.agents.create({
      *         name: "Haxon",
      *         description: "Technical Support Assistant",
-     *         maxEngineIterations: 3
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid",
+     *         tags: ["tag1", "tag2"]
      *     })
      */
     create(request, requestOptions) {
@@ -189,7 +190,7 @@ class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.retrieve("agent_id")
+     *     await client.agents.retrieve("IUCGT-lvpS")
      */
     retrieve(agentId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -256,7 +257,7 @@ class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.delete("agent_id")
+     *     await client.agents.delete("IUCGT-lvpS")
      */
     delete(agentId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -319,10 +320,11 @@ class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.update("agent_id", {
+     *     await client.agents.update("IUCGT-lvpS", {
      *         name: "Haxon",
      *         description: "Technical Support Assistant",
-     *         maxEngineIterations: 3
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid"
      *     })
      */
     update(agentId, request = {}, requestOptions) {

@@ -28,9 +28,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PreparationIterationGenerations = void 0;
 const core = __importStar(require("../../core"));
-const GuidelinePropositionInspection_1 = require("./GuidelinePropositionInspection");
+const GuidelineMatchingInspection_1 = require("./GuidelineMatchingInspection");
 const GenerationInfo_1 = require("./GenerationInfo");
 exports.PreparationIterationGenerations = core.serialization.object({
-    guidelineProposition: core.serialization.property("guideline_proposition", GuidelinePropositionInspection_1.GuidelinePropositionInspection),
+    guidelineMatching: core.serialization.property("guideline_matching", GuidelineMatchingInspection_1.GuidelineMatchingInspection),
     toolCalls: core.serialization.property("tool_calls", core.serialization.list(GenerationInfo_1.GenerationInfo)),
 });

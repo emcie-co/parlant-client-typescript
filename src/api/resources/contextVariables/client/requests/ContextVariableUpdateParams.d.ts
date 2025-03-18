@@ -5,8 +5,17 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         name: "CustomerBalance",
- *         freshnessRules: "freshness_rules"
+ *         name: "UserBalance",
+ *         description: "Stores the account balances of users",
+ *         toolId: {
+ *             serviceName: "finance_service",
+ *             toolName: "balance_checker"
+ *         },
+ *         freshnessRules: "0 8,20 * * *",
+ *         tags: {
+ *             add: ["tag:123", "tag:456"],
+ *             remove: ["tag:789", "tag:012"]
+ *         }
  *     }
  */
 export interface ContextVariableUpdateParams {
@@ -17,4 +26,5 @@ export interface ContextVariableUpdateParams {
     toolId?: Parlant.ToolId;
     /** Cron expression defining the freshness rules */
     freshnessRules?: string;
+    tags?: Parlant.ContextVariableTagsUpdateParams;
 }

@@ -12,8 +12,8 @@ export interface OpenApiServiceParams {
     url: string;
     /**
      * URL or filesystem path to the OpenAPI specification.
-     * For URLs, must be publicly accessible.
-     * For filesystem paths, the server must have read permissions.
+     *         For URLs, must be publicly accessible.
+     *         For filesystem paths, the server must have read permissions.
      */
     source: string;
 }

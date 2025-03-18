@@ -4,7 +4,7 @@
 /**
  * @example
  *     {
- *         minOffset: 1
+ *         minOffset: 0
  *     }
  */
 export interface SessionsDeleteEventsRequest {

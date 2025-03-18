@@ -7,12 +7,12 @@ import * as Parlant from "../index";
  */
 export interface PreparationIteration {
     generations: Parlant.PreparationIterationGenerations;
-    /** List of guideline propositions used in preparation for this iteration */
-    guidelinePropositions: Parlant.GuidelineProposition[];
+    /** List of guideline matches used in preparation for this iteration */
+    guidelineMatches: Parlant.GuidelineMatch[];
     /** List of tool calls made in preparation for this iteration */
     toolCalls: Parlant.ToolCall[];
     /** List of terms participating in the preparation for this iteration */
-    terms: Parlant.Term[];
+    terms: Parlant.PreparationIterationTerm[];
     /** List of context variables (and their values) that participated in the preparation for this iteration */
     contextVariables: Parlant.ContextVariableAndValue[];
 }

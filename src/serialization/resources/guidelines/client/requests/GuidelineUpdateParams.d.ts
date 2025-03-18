@@ -6,10 +6,15 @@ import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { GuidelineConnectionUpdateParams } from "../../../../types/GuidelineConnectionUpdateParams";
 import { GuidelineToolAssociationUpdateParams } from "../../../../types/GuidelineToolAssociationUpdateParams";
+import { GuidelineTagsUpdateParams } from "../../../../types/GuidelineTagsUpdateParams";
 export declare const GuidelineUpdateParams: core.serialization.Schema<serializers.GuidelineUpdateParams.Raw, Parlant.GuidelineUpdateParams>;
 export declare namespace GuidelineUpdateParams {
     interface Raw {
+        condition?: string | null;
+        action?: string | null;
         connections?: GuidelineConnectionUpdateParams.Raw | null;
         tool_associations?: GuidelineToolAssociationUpdateParams.Raw | null;
+        enabled?: boolean | null;
+        tags?: GuidelineTagsUpdateParams.Raw | null;
     }
 }

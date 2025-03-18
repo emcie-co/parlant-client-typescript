@@ -20,95 +20,45 @@ export declare class Guidelines {
     protected readonly _options: Guidelines.Options;
     constructor(_options: Guidelines.Options);
     /**
-     * Lists all guidelines for the specified agent.
+     * Lists all guidelines for the specified tag or all guidelines if no tag is provided.
      *
      * Returns an empty list if no guidelines exist.
      * Guidelines are returned in no guaranteed order.
      * Does not include connections or tool associations.
      *
-     * @param {string} agentId - Unique identifier for the agent
+     * @param {Parlant.GuidelinesListRequest} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.list("agent_id")
+     *     await client.guidelines.list()
      */
-    list(agentId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline[]>;
+    list(request?: Parlant.GuidelinesListRequest, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline[]>;
     /**
-     * Creates new guidelines from the provided invoices.
+     * Creates a new guideline.
      *
-     * Invoices are obtained by calling the `create_evaluation` method of the client.
-     * (Equivalent to making a POST request to `/index/evaluations`)
      * See the [documentation](https://parlant.io/docs/concepts/customization/guidelines) for more information.
      *
-     * The guidelines are created in the specified agent's guideline set.
-     * Tool associations and connections are automatically handled.
-     *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {Parlant.GuidelineCreationParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.create("agent_id", {
-     *         invoices: [{
-     *                 payload: {
-     *                     kind: "guideline",
-     *                     guideline: {
-     *                         content: {
-     *                             condition: "when the customer asks about pricing",
-     *                             action: "provide current pricing information"
-     *                         },
-     *                         operation: "add",
-     *                         coherenceCheck: true,
-     *                         connectionProposition: true
-     *                     }
-     *                 },
-     *                 checksum: "abc123",
-     *                 approved: true,
-     *                 data: {
-     *                     guideline: {
-     *                         coherenceChecks: [{
-     *                                 kind: "contradiction_with_existing_guideline",
-     *                                 first: {
-     *                                     condition: "User is frustrated",
-     *                                     action: "Respond with technical details"
-     *                                 },
-     *                                 second: {
-     *                                     condition: "User is frustrated",
-     *                                     action: "Focus on emotional support first"
-     *                                 },
-     *                                 issue: "Conflicting approaches to handling user frustration",
-     *                                 severity: 7
-     *                             }],
-     *                         connectionPropositions: [{
-     *                                 checkKind: "connection_with_existing_guideline",
-     *                                 source: {
-     *                                     condition: "User mentions technical problem",
-     *                                     action: "Request system logs"
-     *                                 },
-     *                                 target: {
-     *                                     condition: "System logs are available",
-     *                                     action: "Analyze logs for error patterns"
-     *                                 }
-     *                             }]
-     *                     }
-     *                 }
-     *             }]
+     *     await client.guidelines.create({
+     *         condition: "when the customer asks about pricing",
+     *         action: "provide current pricing information and mention any ongoing promotions",
+     *         enabled: false
      *     })
      */
-    create(agentId: string, request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineCreationResult>;
+    create(request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline>;
     /**
      * Retrieves a specific guideline with all its connections and tool associations.
      *
      * Returns both direct and indirect connections between guidelines.
      * Tool associations indicate which tools the guideline can use.
      *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -116,17 +66,10 @@ export declare class Guidelines {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.retrieve("agent_id", "guideline_id")
+     *     await client.guidelines.retrieve("IUCGT-l4pS")
      */
-    retrieve(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    retrieve(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
     /**
-     * Deletes a guideline from the agent.
-     *
-     * Also removes all associated connections and tool associations.
-     * Deleting a non-existent guideline will return 404.
-     * No content will be returned from a successful deletion.
-     *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -134,25 +77,22 @@ export declare class Guidelines {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.delete("agent_id", "guideline_id")
+     *     await client.guidelines.delete("IUCGT-l4pS")
      */
-    delete(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
+    delete(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
     /**
      * Updates a guideline's connections and tool associations.
      *
      * Only provided attributes will be updated; others remain unchanged.
      *
      * Connection rules:
-     *
      * - A guideline cannot connect to itself
      * - Only direct connections can be removed
      * - The connection must specify this guideline as source or target
      *
      * Tool Association rules:
-     *
      * - Tool services and tools must exist before creating associations
      *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Parlant.GuidelineUpdateParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
@@ -161,7 +101,7 @@ export declare class Guidelines {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.update("agent_id", "guideline_id", {
+     *     await client.guidelines.update("IUCGT-l4pS", {
      *         connections: {
      *             add: [{
      *                     source: "guide_123xyz",
@@ -178,8 +118,9 @@ export declare class Guidelines {
      *                     serviceName: "old_service",
      *                     toolName: "old_tool"
      *                 }]
-     *         }
+     *         },
+     *         enabled: true
      *     })
      */
-    update(agentId: string, guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    update(guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
 }

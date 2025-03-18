@@ -49,21 +49,26 @@ class ContextVariables {
         this._options = _options;
     }
     /**
-     * Lists all context variables set for the provided agent
+     * Lists all context variables set for the provided tag or all context variables if no tag is provided
      *
-     * @param {string} agentId - Unique identifier of the agent
+     * @param {Parlant.ContextVariablesListRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.list("agent_id")
+     *     await client.contextVariables.list()
      */
-    list(agentId, requestOptions) {
+    list(request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { tagId } = request;
+            const _queryParams = {};
+            if (tagId != null) {
+                _queryParams["tag_id"] = tagId;
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "context-variables"),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -71,6 +76,7 @@ class ContextVariables {
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -113,15 +119,13 @@ class ContextVariables {
         });
     }
     /**
-     * Creates a new context variable for tracking customer-specific or tag-specific data.
+     * Creates a new context variable
      *
      * Example uses:
-     *
      * - Track subscription tiers to control feature access
      * - Store usage patterns for personalized recommendations
-     * - Remember customer preferences for tailored responses
+     * - Remember preferences for tailored responses
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {Parlant.ContextVariableCreationParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -129,20 +133,20 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.create("agent_id", {
+     *     await client.contextVariables.create({
      *         name: "UserBalance",
      *         description: "Stores the account balances of users",
      *         toolId: {
      *             serviceName: "finance_service",
      *             toolName: "balance_checker"
      *         },
-     *         freshnessRules: "freshness_rules"
+     *         freshnessRules: "30 2 * * *"
      *     })
      */
-    create(agentId, request, requestOptions) {
+    create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "context-variables"),
                 method: "POST",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -193,21 +197,26 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes all context variables and their values for the provided agent ID
+     * Deletes all context variables for the provided tag
      *
-     * @param {string} agentId - Unique identifier of the agent
+     * @param {Parlant.ContextVariablesDeleteManyRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.deleteMany("agent_id")
+     *     await client.contextVariables.deleteMany()
      */
-    deleteMany(agentId, requestOptions) {
+    deleteMany(request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { tagId } = request;
+            const _queryParams = {};
+            if (tagId != null) {
+                _queryParams["tag_id"] = tagId;
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "context-variables"),
                 method: "DELETE",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -215,6 +224,7 @@ class ContextVariables {
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -256,7 +266,6 @@ class ContextVariables {
      *
      * Can return all customer or tag values for this variable type if include_values=True.
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariablesRetrieveRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -265,9 +274,11 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.retrieve("agent_id", "variable_id")
+     *     await client.contextVariables.retrieve("v9a8r7i6b5", {
+     *         includeValues: true
+     *     })
      */
-    retrieve(agentId, variableId, request = {}, requestOptions) {
+    retrieve(variableId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const { includeValues } = request;
             const _queryParams = {};
@@ -275,7 +286,7 @@ class ContextVariables {
                 _queryParams["include_values"] = includeValues.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `context-variables/${encodeURIComponent(variableId)}`),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -326,9 +337,8 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes a specific context variable and all its values.
+     * Deletes a context variable
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -336,12 +346,12 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.delete("agent_id", "variable_id")
+     *     await client.contextVariables.delete("v9a8r7i6b5")
      */
-    delete(agentId, variableId, requestOptions) {
+    delete(variableId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `context-variables/${encodeURIComponent(variableId)}`),
                 method: "DELETE",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -390,7 +400,6 @@ class ContextVariables {
      *
      * Only provided fields will be updated; others remain unchanged.
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariableUpdateParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -399,15 +408,24 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.update("agent_id", "variable_id", {
-     *         name: "CustomerBalance",
-     *         freshnessRules: "freshness_rules"
+     *     await client.contextVariables.update("v9a8r7i6b5", {
+     *         name: "UserBalance",
+     *         description: "Stores the account balances of users",
+     *         toolId: {
+     *             serviceName: "finance_service",
+     *             toolName: "balance_checker"
+     *         },
+     *         freshnessRules: "0 8,20 * * *",
+     *         tags: {
+     *             add: ["tag:123", "tag:456"],
+     *             remove: ["tag:789", "tag:012"]
+     *         }
      *     })
      */
-    update(agentId, variableId, request = {}, requestOptions) {
+    update(variableId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `context-variables/${encodeURIComponent(variableId)}`),
                 method: "PATCH",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -458,11 +476,8 @@ class ContextVariables {
         });
     }
     /**
-     * Retrieves the value of a context variable for a specific customer or tag.
+     * Retrieves a customer or tag value for the provided context variable
      *
-     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -471,12 +486,12 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.getValue("agent_id", "variable_id", "key")
+     *     await client.contextVariables.getValue("v9a8r7i6b5", "user_1")
      */
-    getValue(agentId, variableId, key, requestOptions) {
+    getValue(variableId, key, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -526,13 +541,8 @@ class ContextVariables {
         });
     }
     /**
-     * Updates the value of a context variable.
+     * Updates a customer or tag value for the provided context variable
      *
-     * The `key` represents a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     * If `key="DEFAULT"`, the update applies to all customers.
-     * The `params` parameter contains the actual context information being stored.
-     *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
      * @param {Parlant.ContextVariableValueUpdateParams} request
@@ -542,7 +552,7 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.setValue("agent_id", "variable_id", "key", {
+     *     await client.contextVariables.setValue("v9a8r7i6b5", "user_1", {
      *         data: {
      *             "balance": 5000.5,
      *             "currency": "USD",
@@ -551,10 +561,10 @@ class ContextVariables {
      *         }
      *     })
      */
-    setValue(agentId, variableId, key, request, requestOptions) {
+    setValue(variableId, key, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
                 method: "PUT",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -607,12 +617,8 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes a specific customer's or tag's value for this context variable.
+     * Deletes a customer or tag value for the provided context variable
      *
-     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     * Removes only the value for the specified key while keeping the variable's configuration.
-     *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -621,12 +627,12 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.deleteValue("agent_id", "variable_id", "key")
+     *     await client.contextVariables.deleteValue("v9a8r7i6b5", "user_1")
      */
-    deleteValue(agentId, variableId, key, requestOptions) {
+    deleteValue(variableId, key, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
                 method: "DELETE",
                 headers: {
                     "X-Fern-Language": "JavaScript",

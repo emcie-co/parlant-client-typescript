@@ -4,10 +4,12 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { Invoice } from "../../../../types/Invoice";
 export declare const GuidelineCreationParams: core.serialization.Schema<serializers.GuidelineCreationParams.Raw, Parlant.GuidelineCreationParams>;
 export declare namespace GuidelineCreationParams {
     interface Raw {
-        invoices: Invoice.Raw[];
+        condition: string;
+        action: string;
+        enabled?: boolean | null;
+        tags?: string[] | null;
     }
 }

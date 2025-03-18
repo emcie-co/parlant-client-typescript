@@ -134,12 +134,11 @@ class Evaluations {
     /**
      * Retrieves the current state of an evaluation.
      *
-     * - If wait_for_completion == 0, returns current state immediately.
-     * - If wait_for_completion > 0, waits for completion/failure or timeout. Defaults to 60.
+     * * If wait_for_completion == 0, returns current state immediately.
+     * * If wait_for_completion > 0, waits for completion/failure or timeout. Defaults to 60.
      *
      * Notes:
      * When wait_for_completion > 0:
-     *
      * - Returns final state if evaluation completes within timeout
      * - Raises 504 if timeout is reached before completion
      *
@@ -152,7 +151,7 @@ class Evaluations {
      * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
-     *     await client.evaluations.retrieve("evaluation_id")
+     *     await client.evaluations.retrieve("eval_123xz")
      */
     retrieve(evaluationId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {

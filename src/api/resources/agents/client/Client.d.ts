@@ -38,7 +38,6 @@ export declare class Agents {
      * A unique identifier will be automatically generated.
      *
      * Default behaviors:
-     *
      * - `name` defaults to `"Unnamed Agent"` if not provided
      * - `description` defaults to `None`
      * - `max_engine_iterations` defaults to `None` (uses system default)
@@ -52,7 +51,9 @@ export declare class Agents {
      *     await client.agents.create({
      *         name: "Haxon",
      *         description: "Technical Support Assistant",
-     *         maxEngineIterations: 3
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid",
+     *         tags: ["tag1", "tag2"]
      *     })
      */
     create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
@@ -66,7 +67,7 @@ export declare class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.retrieve("agent_id")
+     *     await client.agents.retrieve("IUCGT-lvpS")
      */
     retrieve(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
@@ -82,7 +83,7 @@ export declare class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.delete("agent_id")
+     *     await client.agents.delete("IUCGT-lvpS")
      */
     delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<void>;
     /**
@@ -99,10 +100,11 @@ export declare class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.update("agent_id", {
+     *     await client.agents.update("IUCGT-lvpS", {
      *         name: "Haxon",
      *         description: "Technical Support Assistant",
-     *         maxEngineIterations: 3
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid"
      *     })
      */
     update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;

@@ -30,7 +30,12 @@ exports.GuidelineUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const GuidelineConnectionUpdateParams_1 = require("../../../../types/GuidelineConnectionUpdateParams");
 const GuidelineToolAssociationUpdateParams_1 = require("../../../../types/GuidelineToolAssociationUpdateParams");
+const GuidelineTagsUpdateParams_1 = require("../../../../types/GuidelineTagsUpdateParams");
 exports.GuidelineUpdateParams = core.serialization.object({
+    condition: core.serialization.string().optional(),
+    action: core.serialization.string().optional(),
     connections: GuidelineConnectionUpdateParams_1.GuidelineConnectionUpdateParams.optional(),
     toolAssociations: core.serialization.property("tool_associations", GuidelineToolAssociationUpdateParams_1.GuidelineToolAssociationUpdateParams.optional()),
+    enabled: core.serialization.boolean().optional(),
+    tags: GuidelineTagsUpdateParams_1.GuidelineTagsUpdateParams.optional(),
 });

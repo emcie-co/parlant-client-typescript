@@ -10,7 +10,7 @@
 export interface Customer {
     /** Unique identifier for the customer */
     id: string;
-    /** UTC timestamp of when the agent was created */
+    /** UTC timestamp of when the customer was created */
     creationUtc: Date;
     /** An arbitrary string that indentifies and/or describes the customer */
     name: string;

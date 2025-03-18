@@ -6,7 +6,7 @@ import * as Parlant from "../index";
  * Generation information for a preparation iteration.
  */
 export interface PreparationIterationGenerations {
-    guidelineProposition: Parlant.GuidelinePropositionInspection;
+    guidelineMatching: Parlant.GuidelineMatchingInspection;
     /** A list of `GenerationInfoDTO` describing the executed tool calls */
     toolCalls: Parlant.GenerationInfo[];
 }

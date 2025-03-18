@@ -60,7 +60,7 @@ export declare class Tags {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.tags.retrieve("tag_id")
+     *     await client.tags.retrieve("tag_123xyz")
      */
     retrieve(tagId: string, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
     /**
@@ -93,7 +93,7 @@ export declare class Tags {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.tags.update("tag_id", {
+     *     await client.tags.update("tag_123xyz", {
      *         name: "enterprise-customer"
      *     })
      */

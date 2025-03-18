@@ -5,17 +5,17 @@ import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { PreparationIterationGenerations } from "./PreparationIterationGenerations";
-import { GuidelineProposition } from "./GuidelineProposition";
+import { GuidelineMatch } from "./GuidelineMatch";
 import { ToolCall } from "./ToolCall";
-import { Term } from "./Term";
+import { PreparationIterationTerm } from "./PreparationIterationTerm";
 import { ContextVariableAndValue } from "./ContextVariableAndValue";
 export declare const PreparationIteration: core.serialization.ObjectSchema<serializers.PreparationIteration.Raw, Parlant.PreparationIteration>;
 export declare namespace PreparationIteration {
     interface Raw {
         generations: PreparationIterationGenerations.Raw;
-        guideline_propositions: GuidelineProposition.Raw[];
+        guideline_matches: GuidelineMatch.Raw[];
         tool_calls: ToolCall.Raw[];
-        terms: Term.Raw[];
+        terms: PreparationIterationTerm.Raw[];
         context_variables: ContextVariableAndValue.Raw[];
     }
 }

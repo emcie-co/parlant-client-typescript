@@ -29,14 +29,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PreparationIteration = void 0;
 const core = __importStar(require("../../core"));
 const PreparationIterationGenerations_1 = require("./PreparationIterationGenerations");
-const GuidelineProposition_1 = require("./GuidelineProposition");
+const GuidelineMatch_1 = require("./GuidelineMatch");
 const ToolCall_1 = require("./ToolCall");
-const Term_1 = require("./Term");
+const PreparationIterationTerm_1 = require("./PreparationIterationTerm");
 const ContextVariableAndValue_1 = require("./ContextVariableAndValue");
 exports.PreparationIteration = core.serialization.object({
     generations: PreparationIterationGenerations_1.PreparationIterationGenerations,
-    guidelinePropositions: core.serialization.property("guideline_propositions", core.serialization.list(GuidelineProposition_1.GuidelineProposition)),
+    guidelineMatches: core.serialization.property("guideline_matches", core.serialization.list(GuidelineMatch_1.GuidelineMatch)),
     toolCalls: core.serialization.property("tool_calls", core.serialization.list(ToolCall_1.ToolCall)),
-    terms: core.serialization.list(Term_1.Term),
+    terms: core.serialization.list(PreparationIterationTerm_1.PreparationIterationTerm),
     contextVariables: core.serialization.property("context_variables", core.serialization.list(ContextVariableAndValue_1.ContextVariableAndValue)),
 });

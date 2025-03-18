@@ -32,4 +32,5 @@ exports.TermCreationParams = core.serialization.object({
     name: core.serialization.string(),
     description: core.serialization.string(),
     synonyms: core.serialization.list(core.serialization.string()).optional(),
+    tags: core.serialization.list(core.serialization.string()).optional(),
 });

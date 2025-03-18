@@ -28,8 +28,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AgentUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
+const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
+const AgentTagUpdateParams_1 = require("../../../../types/AgentTagUpdateParams");
 exports.AgentUpdateParams = core.serialization.object({
     name: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
+    compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
+    tags: AgentTagUpdateParams_1.AgentTagUpdateParams.optional(),
 });

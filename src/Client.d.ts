@@ -3,14 +3,15 @@
  */
 import * as core from "./core";
 import { Agents } from "./api/resources/agents/client/Client";
-import { Guidelines } from "./api/resources/guidelines/client/Client";
-import { Glossary } from "./api/resources/glossary/client/Client";
-import { ContextVariables } from "./api/resources/contextVariables/client/Client";
 import { Sessions } from "./api/resources/sessions/client/Client";
 import { Evaluations } from "./api/resources/evaluations/client/Client";
 import { Services } from "./api/resources/services/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
+import { Glossary } from "./api/resources/glossary/client/Client";
 import { Customers } from "./api/resources/customers/client/Client";
+import { Fragments } from "./api/resources/fragments/client/Client";
+import { ContextVariables } from "./api/resources/contextVariables/client/Client";
+import { Guidelines } from "./api/resources/guidelines/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
@@ -29,12 +30,6 @@ export declare class ParlantClient {
     constructor(_options: ParlantClient.Options);
     protected _agents: Agents | undefined;
     get agents(): Agents;
-    protected _guidelines: Guidelines | undefined;
-    get guidelines(): Guidelines;
-    protected _glossary: Glossary | undefined;
-    get glossary(): Glossary;
-    protected _contextVariables: ContextVariables | undefined;
-    get contextVariables(): ContextVariables;
     protected _sessions: Sessions | undefined;
     get sessions(): Sessions;
     protected _evaluations: Evaluations | undefined;
@@ -43,6 +38,14 @@ export declare class ParlantClient {
     get services(): Services;
     protected _tags: Tags | undefined;
     get tags(): Tags;
+    protected _glossary: Glossary | undefined;
+    get glossary(): Glossary;
     protected _customers: Customers | undefined;
     get customers(): Customers;
+    protected _fragments: Fragments | undefined;
+    get fragments(): Fragments;
+    protected _contextVariables: ContextVariables | undefined;
+    get contextVariables(): ContextVariables;
+    protected _guidelines: Guidelines | undefined;
+    get guidelines(): Guidelines;
 }

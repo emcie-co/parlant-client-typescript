@@ -28,8 +28,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TermUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
+const TermTagsUpdateParams_1 = require("../../../../types/TermTagsUpdateParams");
 exports.TermUpdateParams = core.serialization.object({
     name: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     synonyms: core.serialization.list(core.serialization.string()).optional(),
+    tags: TermTagsUpdateParams_1.TermTagsUpdateParams.optional(),
 });

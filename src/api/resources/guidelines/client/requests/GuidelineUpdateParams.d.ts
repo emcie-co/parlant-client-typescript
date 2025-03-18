@@ -21,10 +21,18 @@ import * as Parlant from "../../../../index";
  *                     serviceName: "old_service",
  *                     toolName: "old_tool"
  *                 }]
- *         }
+ *         },
+ *         enabled: true
  *     }
  */
 export interface GuidelineUpdateParams {
+    /** If this condition is satisfied, the action will be performed */
+    condition?: string;
+    /** This action will be performed if the condition is satisfied */
+    action?: string;
     connections?: Parlant.GuidelineConnectionUpdateParams;
     toolAssociations?: Parlant.GuidelineToolAssociationUpdateParams;
+    /** Whether the guideline is enabled */
+    enabled?: boolean;
+    tags?: Parlant.GuidelineTagsUpdateParams;
 }

@@ -5,10 +5,10 @@
  * The type of service integration available in the system.
  *
  * Attributes:
- * "sdk": Native integration using the Parlant SDK protocol. Enables advanced features
- * like bidirectional communication and streaming results.
- * "openapi": Integration via OpenAPI specification. Simpler to set up but limited
- * to basic request/response patterns.
+ *     "sdk": Native integration using the Parlant SDK protocol. Enables advanced features
+ *         like bidirectional communication and streaming results.
+ *     "openapi": Integration via OpenAPI specification. Simpler to set up but limited
+ *         to basic request/response patterns.
  */
 export declare type ToolServiceKindDto = "sdk" | "openapi";
 export declare const ToolServiceKindDto: {

@@ -12,5 +12,6 @@ export declare namespace ContextVariableCreationParams {
         description?: string | null;
         tool_id?: ToolId.Raw | null;
         freshness_rules?: string | null;
+        tags?: string[] | null;
     }
 }
