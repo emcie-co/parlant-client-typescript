@@ -6,7 +6,7 @@
  *
  * Identifies who or what generated the event.
  */
-export declare type EventSourceDto = "customer" | "customer_ui" | "human_agent" | "human_agent_on_behalf_of_ai_agent" | "ai_agent" | "system";
+export type EventSourceDto = "customer" | "customer_ui" | "human_agent" | "human_agent_on_behalf_of_ai_agent" | "ai_agent" | "system";
 export declare const EventSourceDto: {
     readonly Customer: "customer";
     readonly CustomerUi: "customer_ui";

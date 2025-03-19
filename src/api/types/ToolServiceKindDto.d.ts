@@ -10,7 +10,7 @@
  *     "openapi": Integration via OpenAPI specification. Simpler to set up but limited
  *         to basic request/response patterns.
  */
-export declare type ToolServiceKindDto = "sdk" | "openapi";
+export type ToolServiceKindDto = "sdk" | "openapi";
 export declare const ToolServiceKindDto: {
     readonly Sdk: "sdk";
     readonly Openapi: "openapi";

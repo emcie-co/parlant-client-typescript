@@ -10,7 +10,7 @@
  * - composited_assembly
  * - fluid_assembly
  */
-export declare type CompositionModeDto = "fluid" | "strict_assembly" | "composited_assembly" | "fluid_assembly";
+export type CompositionModeDto = "fluid" | "strict_assembly" | "composited_assembly" | "fluid_assembly";
 export declare const CompositionModeDto: {
     readonly Fluid: "fluid";
     readonly StrictAssembly: "strict_assembly";

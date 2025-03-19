@@ -5,8 +5,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParlantTimeoutError = void 0;
 class ParlantTimeoutError extends Error {
-    constructor() {
-        super("Timeout");
+    constructor(message) {
+        super(message);
         Object.setPrototypeOf(this, ParlantTimeoutError.prototype);
     }
 }

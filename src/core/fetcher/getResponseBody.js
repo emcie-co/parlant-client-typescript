@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getResponseBody = void 0;
+exports.getResponseBody = getResponseBody;
 const chooseStreamWrapper_1 = require("./stream-wrappers/chooseStreamWrapper");
 function getResponseBody(response, responseType) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -52,4 +52,3 @@ function getResponseBody(response, responseType) {
         }
     });
 }
-exports.getResponseBody = getResponseBody;

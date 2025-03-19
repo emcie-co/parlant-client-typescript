@@ -4,7 +4,7 @@
 /**
  * The specific relationship between the connected guidelines.
  */
-export declare type ConnectionPropositionKindDto = "connection_with_existing_guideline" | "connection_with_another_evaluated_guideline";
+export type ConnectionPropositionKindDto = "connection_with_existing_guideline" | "connection_with_another_evaluated_guideline";
 export declare const ConnectionPropositionKindDto: {
     readonly ConnectionWithExistingGuideline: "connection_with_existing_guideline";
     readonly ConnectionWithAnotherEvaluatedGuideline: "connection_with_another_evaluated_guideline";

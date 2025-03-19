@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Guidelines {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,6 +16,8 @@ export declare namespace Guidelines {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Guidelines {

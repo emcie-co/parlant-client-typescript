@@ -6,7 +6,7 @@
  *
  * Each type corresponds to a specific JSON Schema type and validation rules.
  */
-export declare type ToolParameterTypeDto = "string" | "number" | "integer" | "boolean";
+export type ToolParameterTypeDto = "string" | "number" | "integer" | "boolean";
 export declare const ToolParameterTypeDto: {
     readonly String: "string";
     readonly Number: "number";

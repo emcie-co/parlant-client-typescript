@@ -4,7 +4,7 @@
 /**
  * Content moderation settings.
  */
-export declare type Moderation = "auto" | "paranoid" | "none";
+export type Moderation = "auto" | "paranoid" | "none";
 export declare const Moderation: {
     readonly Auto: "auto";
     readonly Paranoid: "paranoid";

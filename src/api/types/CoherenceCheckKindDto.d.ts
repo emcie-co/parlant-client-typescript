@@ -4,7 +4,7 @@
 /**
  * The specific relationship between the contradicting guidelines.
  */
-export declare type CoherenceCheckKindDto = "contradiction_with_existing_guideline" | "contradiction_with_another_evaluated_guideline";
+export type CoherenceCheckKindDto = "contradiction_with_existing_guideline" | "contradiction_with_another_evaluated_guideline";
 export declare const CoherenceCheckKindDto: {
     readonly ContradictionWithExistingGuideline: "contradiction_with_existing_guideline";
     readonly ContradictionWithAnotherEvaluatedGuideline: "contradiction_with_another_evaluated_guideline";

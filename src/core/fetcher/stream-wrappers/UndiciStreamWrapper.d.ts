@@ -1,5 +1,5 @@
 import { StreamWrapper } from "./chooseStreamWrapper";
-declare type EventCallback = (data?: any) => void;
+type EventCallback = (data?: any) => void;
 export declare class UndiciStreamWrapper<ReadFormat extends Uint8Array | Uint16Array | Uint32Array> implements StreamWrapper<UndiciStreamWrapper<ReadFormat> | WritableStream<ReadFormat>, ReadFormat> {
     private readableStream;
     private reader;

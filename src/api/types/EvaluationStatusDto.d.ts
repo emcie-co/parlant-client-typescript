@@ -4,7 +4,7 @@
 /**
  * Current state of an evaluation task
  */
-export declare type EvaluationStatusDto = "pending" | "running" | "completed" | "failed";
+export type EvaluationStatusDto = "pending" | "running" | "completed" | "failed";
 export declare const EvaluationStatusDto: {
     readonly Pending: "pending";
     readonly Running: "running";

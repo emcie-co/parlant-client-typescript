@@ -15,6 +15,8 @@ import { Guidelines } from "./api/resources/guidelines/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -23,29 +25,31 @@ export declare namespace ParlantClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class ParlantClient {
     protected readonly _options: ParlantClient.Options;
-    constructor(_options: ParlantClient.Options);
     protected _agents: Agents | undefined;
-    get agents(): Agents;
     protected _sessions: Sessions | undefined;
-    get sessions(): Sessions;
     protected _evaluations: Evaluations | undefined;
-    get evaluations(): Evaluations;
     protected _services: Services | undefined;
-    get services(): Services;
     protected _tags: Tags | undefined;
-    get tags(): Tags;
     protected _glossary: Glossary | undefined;
-    get glossary(): Glossary;
     protected _customers: Customers | undefined;
-    get customers(): Customers;
     protected _fragments: Fragments | undefined;
-    get fragments(): Fragments;
     protected _contextVariables: ContextVariables | undefined;
-    get contextVariables(): ContextVariables;
     protected _guidelines: Guidelines | undefined;
+    constructor(_options: ParlantClient.Options);
+    get agents(): Agents;
+    get sessions(): Sessions;
+    get evaluations(): Evaluations;
+    get services(): Services;
+    get tags(): Tags;
+    get glossary(): Glossary;
+    get customers(): Customers;
+    get fragments(): Fragments;
+    get contextVariables(): ContextVariables;
     get guidelines(): Guidelines;
 }

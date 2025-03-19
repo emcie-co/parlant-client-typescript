@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -76,8 +86,9 @@ class Sessions {
      *         customerId: "cust_123xy"
      *     })
      */
-    list(request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
             const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
@@ -87,13 +98,9 @@ class Sessions {
                 _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -127,7 +134,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -155,19 +162,16 @@ class Sessions {
      */
     create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { allowGreeting } = request, _body = __rest(request, ["allowGreeting"]);
             const _queryParams = {};
             if (allowGreeting != null) {
                 _queryParams["allow_greeting"] = allowGreeting.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -202,7 +206,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /sessions.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -227,8 +231,9 @@ class Sessions {
      *         customerId: "cust_123xy"
      *     })
      */
-    deleteMany(request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    deleteMany() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
             const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
@@ -238,13 +243,9 @@ class Sessions {
                 _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -273,7 +274,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -295,14 +296,11 @@ class Sessions {
      */
     retrieve(sessionId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -337,7 +335,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -361,14 +359,11 @@ class Sessions {
      */
     delete(sessionId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -398,7 +393,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -426,16 +421,13 @@ class Sessions {
      *         title: "Updated session title"
      *     })
      */
-    update(sessionId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    update(sessionId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "PATCH",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.SessionUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -471,7 +463,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /sessions/{session_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -511,15 +503,18 @@ class Sessions {
      *         kinds: "message,tool"
      *     })
      */
-    listEvents(sessionId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    listEvents(sessionId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
+            var _a;
             const { minOffset, source, correlationId, kinds, waitForData } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
             }
             if (source != null) {
-                _queryParams["source"] = source;
+                _queryParams["source"] = serializers.EventSourceDto.jsonOrThrow(source, {
+                    unrecognizedObjectKeys: "strip",
+                });
             }
             if (correlationId != null) {
                 _queryParams["correlation_id"] = correlationId;
@@ -531,13 +526,9 @@ class Sessions {
                 _queryParams["wait_for_data"] = waitForData.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -575,7 +566,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -604,19 +595,18 @@ class Sessions {
      */
     createEvent(sessionId, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { moderation } = request, _body = __rest(request, ["moderation"]);
             const _queryParams = {};
             if (moderation != null) {
-                _queryParams["moderation"] = moderation;
+                _queryParams["moderation"] = serializers.Moderation.jsonOrThrow(moderation, {
+                    unrecognizedObjectKeys: "strip",
+                });
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -653,7 +643,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /sessions/{session_id}/events.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -680,17 +670,14 @@ class Sessions {
      */
     deleteEvents(sessionId, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { minOffset } = request;
             const _queryParams = {};
             _queryParams["min_offset"] = minOffset.toString();
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -721,7 +708,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}/events.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -747,14 +734,11 @@ class Sessions {
      */
     inspectEvent(sessionId, eventId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -789,7 +773,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events/{event_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,

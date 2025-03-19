@@ -6,4 +6,4 @@
  *
  * At this point only `"guideline"` is supported.
  */
-export declare type PayloadKindDto = "guideline";
+export type PayloadKindDto = "guideline";

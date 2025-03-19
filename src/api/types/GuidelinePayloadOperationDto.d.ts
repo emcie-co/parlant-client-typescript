@@ -4,7 +4,7 @@
 /**
  * The kind of operation that should be performed on the payload.
  */
-export declare type GuidelinePayloadOperationDto = "add" | "update";
+export type GuidelinePayloadOperationDto = "add" | "update";
 export declare const GuidelinePayloadOperationDto: {
     readonly Add: "add";
     readonly Update: "update";
