@@ -20,8 +20,8 @@ export interface Agent {
     /** UTC timestamp of when the agent was created */
     creationUtc: Date;
     /** Maximum number of processing iterations the agent can perform per request */
-    maxEngineIterations: number;
+    maxEngineIterations?: number;
     compositionMode: Parlant.CompositionModeDto;
     /** List of tag IDs associated with the agent */
-    tags: string[];
+    tags?: string[];
 }

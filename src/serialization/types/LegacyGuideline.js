@@ -42,5 +42,5 @@ exports.LegacyGuideline = core.serialization.object({
     id: core.serialization.string(),
     condition: core.serialization.string(),
     action: core.serialization.string(),
-    enabled: core.serialization.boolean(),
+    enabled: core.serialization.boolean().optional(),
 });

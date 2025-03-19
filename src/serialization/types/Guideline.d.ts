@@ -10,7 +10,7 @@ export declare namespace Guideline {
         id: string;
         condition: string;
         action: string;
-        enabled: boolean;
+        enabled?: boolean | null;
         tags: string[];
     }
 }

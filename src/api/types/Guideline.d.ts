@@ -12,7 +12,7 @@ export interface Guideline {
     /** This action will be performed if the condition is satisfied */
     action: string;
     /** Whether the guideline is enabled */
-    enabled: boolean;
+    enabled?: boolean;
     /** The tags associated with the guideline */
     tags: string[];
 }

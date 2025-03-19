@@ -12,5 +12,5 @@ export interface LegacyGuideline {
     /** This action will be performed if the condition is satisfied */
     action: string;
     /** Whether the guideline is enabled */
-    enabled: boolean;
+    enabled?: boolean;
 }

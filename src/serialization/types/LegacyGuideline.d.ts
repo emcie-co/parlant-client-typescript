@@ -10,6 +10,6 @@ export declare namespace LegacyGuideline {
         id: string;
         condition: string;
         action: string;
-        enabled: boolean;
+        enabled?: boolean | null;
     }
 }
