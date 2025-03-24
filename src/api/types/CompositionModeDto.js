@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompositionModeDto = void 0;
 exports.CompositionModeDto = {
     Fluid: "fluid",
-    StrictAssembly: "strict_assembly",
-    CompositedAssembly: "composited_assembly",
-    FluidAssembly: "fluid_assembly",
+    StrictUtterance: "strict_utterance",
+    CompositedUtterance: "composited_utterance",
+    FluidUtterance: "fluid_utterance",
 };

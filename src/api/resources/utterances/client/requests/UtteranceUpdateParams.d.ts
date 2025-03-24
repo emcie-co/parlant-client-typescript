@@ -13,10 +13,10 @@ import * as Parlant from "../../../../index";
  *             }]
  *     }
  */
-export interface FragmentUpdateParams {
-    /** The textual content of the fragment. */
+export interface UtteranceUpdateParams {
+    /** The textual content of the utterance. */
     value?: string;
-    /** A sequence of fragment fields associated with the fragment. */
-    fields?: Parlant.FragmentField[];
-    tags?: Parlant.FragmentTagUpdateParams;
+    /** A sequence of utterance fields associated with the utterance. */
+    fields?: Parlant.UtteranceField[];
+    tags?: Parlant.UtteranceTagUpdateParams;
 }

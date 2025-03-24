@@ -6,14 +6,14 @@
  *
  * Available options:
  * - fluid
- * - strict_assembly
- * - composited_assembly
- * - fluid_assembly
+ * - strict_utterance
+ * - composited_utterance
+ * - fluid_utterance
  */
-export type CompositionModeDto = "fluid" | "strict_assembly" | "composited_assembly" | "fluid_assembly";
+export type CompositionModeDto = "fluid" | "strict_utterance" | "composited_utterance" | "fluid_utterance";
 export declare const CompositionModeDto: {
     readonly Fluid: "fluid";
-    readonly StrictAssembly: "strict_assembly";
-    readonly CompositedAssembly: "composited_assembly";
-    readonly FluidAssembly: "fluid_assembly";
+    readonly StrictUtterance: "strict_utterance";
+    readonly CompositedUtterance: "composited_utterance";
+    readonly FluidUtterance: "fluid_utterance";
 };

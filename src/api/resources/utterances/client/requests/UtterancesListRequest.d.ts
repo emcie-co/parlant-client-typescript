@@ -5,9 +5,9 @@
  * @example
  *     {}
  */
-export interface FragmentsListRequest {
+export interface UtterancesListRequest {
     /**
-     * Filter fragments by tags
+     * Filter utterances by tags
      */
     tags?: string | string[];
 }

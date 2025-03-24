@@ -9,7 +9,7 @@ import { Services } from "./api/resources/services/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Glossary } from "./api/resources/glossary/client/Client";
 import { Customers } from "./api/resources/customers/client/Client";
-import { Fragments } from "./api/resources/fragments/client/Client";
+import { Utterances } from "./api/resources/utterances/client/Client";
 import { ContextVariables } from "./api/resources/contextVariables/client/Client";
 import { Guidelines } from "./api/resources/guidelines/client/Client";
 export declare namespace ParlantClient {
@@ -38,7 +38,7 @@ export declare class ParlantClient {
     protected _tags: Tags | undefined;
     protected _glossary: Glossary | undefined;
     protected _customers: Customers | undefined;
-    protected _fragments: Fragments | undefined;
+    protected _utterances: Utterances | undefined;
     protected _contextVariables: ContextVariables | undefined;
     protected _guidelines: Guidelines | undefined;
     constructor(_options: ParlantClient.Options);
@@ -49,7 +49,7 @@ export declare class ParlantClient {
     get tags(): Tags;
     get glossary(): Glossary;
     get customers(): Customers;
-    get fragments(): Fragments;
+    get utterances(): Utterances;
     get contextVariables(): ContextVariables;
     get guidelines(): Guidelines;
 }

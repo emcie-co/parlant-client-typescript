@@ -36,9 +36,12 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FragmentTagUpdateParams = void 0;
-const core = __importStar(require("../../core"));
-exports.FragmentTagUpdateParams = core.serialization.object({
-    add: core.serialization.list(core.serialization.string()).optional(),
-    remove: core.serialization.list(core.serialization.string()).optional(),
+exports.UtteranceUpdateParams = void 0;
+const core = __importStar(require("../../../../../core"));
+const UtteranceField_1 = require("../../../../types/UtteranceField");
+const UtteranceTagUpdateParams_1 = require("../../../../types/UtteranceTagUpdateParams");
+exports.UtteranceUpdateParams = core.serialization.object({
+    value: core.serialization.string().optional(),
+    fields: core.serialization.list(UtteranceField_1.UtteranceField).optional(),
+    tags: UtteranceTagUpdateParams_1.UtteranceTagUpdateParams.optional(),
 });

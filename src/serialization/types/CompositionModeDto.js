@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompositionModeDto = void 0;
 const core = __importStar(require("../../core"));
-exports.CompositionModeDto = core.serialization.enum_(["fluid", "strict_assembly", "composited_assembly", "fluid_assembly"]);
+exports.CompositionModeDto = core.serialization.enum_(["fluid", "strict_utterance", "composited_utterance", "fluid_utterance"]);

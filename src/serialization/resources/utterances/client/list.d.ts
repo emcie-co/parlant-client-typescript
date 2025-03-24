@@ -4,8 +4,8 @@
 import * as serializers from "../../../index";
 import * as Parlant from "../../../../api/index";
 import * as core from "../../../../core";
-import { Fragment } from "../../../types/Fragment";
-export declare const Response: core.serialization.Schema<serializers.fragments.list.Response.Raw, Parlant.Fragment[]>;
+import { Utterance } from "../../../types/Utterance";
+export declare const Response: core.serialization.Schema<serializers.utterances.list.Response.Raw, Parlant.Utterance[]>;
 export declare namespace Response {
-    type Raw = Fragment.Raw[];
+    type Raw = Utterance.Raw[];
 }

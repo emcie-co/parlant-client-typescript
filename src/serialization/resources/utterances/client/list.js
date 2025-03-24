@@ -38,5 +38,5 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Response = void 0;
 const core = __importStar(require("../../../../core"));
-const Fragment_1 = require("../../../types/Fragment");
-exports.Response = core.serialization.list(Fragment_1.Fragment);
+const Utterance_1 = require("../../../types/Utterance");
+exports.Response = core.serialization.list(Utterance_1.Utterance);

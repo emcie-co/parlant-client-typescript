@@ -48,24 +48,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Fragments = void 0;
+exports.Utterances = void 0;
 const core = __importStar(require("../../../../core"));
 const Parlant = __importStar(require("../../../index"));
 const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization/index"));
 const errors = __importStar(require("../../../../errors/index"));
-class Fragments {
+class Utterances {
     constructor(_options) {
         this._options = _options;
     }
     /**
-     * @param {Parlant.FragmentsListRequest} request
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Parlant.UtterancesListRequest} request
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.list()
+     *     await client.utterances.list()
      */
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
@@ -81,7 +81,7 @@ class Fragments {
                 }
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "fragments"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "utterances"),
                 method: "GET",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
@@ -92,7 +92,7 @@ class Fragments {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.fragments.list.Response.parseOrThrow(_response.body, {
+                return serializers.utterances.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -117,7 +117,7 @@ class Fragments {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /fragments.");
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /utterances.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -126,13 +126,13 @@ class Fragments {
         });
     }
     /**
-     * @param {Parlant.FragmentCreationParams} request
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Parlant.UtteranceCreationParams} request
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.create({
+     *     await client.utterances.create({
      *         value: "Your account balance is {balance}",
      *         fields: [{
      *                 name: "balance",
@@ -145,18 +145,18 @@ class Fragments {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "fragments"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "utterances"),
                 method: "POST",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
-                body: serializers.FragmentCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.UtteranceCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.Fragment.parseOrThrow(_response.body, {
+                return serializers.Utterance.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -181,7 +181,7 @@ class Fragments {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /fragments.");
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /utterances.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -190,22 +190,22 @@ class Fragments {
         });
     }
     /**
-     * Retrieves details of a specific fragment by ID.
+     * Retrieves details of a specific utterance by ID.
      *
-     * @param {string} fragmentId
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} utteranceId
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.retrieve("t9a8g703f4")
+     *     await client.utterances.retrieve("t9a8g703f4")
      */
-    retrieve(fragmentId, requestOptions) {
+    retrieve(utteranceId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `fragments/${encodeURIComponent(fragmentId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `utterances/${encodeURIComponent(utteranceId)}`),
                 method: "GET",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
@@ -215,7 +215,7 @@ class Fragments {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.Fragment.parseOrThrow(_response.body, {
+                return serializers.Utterance.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -242,7 +242,7 @@ class Fragments {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /fragments/{fragment_id}.");
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /utterances/{utterance_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -251,20 +251,20 @@ class Fragments {
         });
     }
     /**
-     * @param {string} fragmentId
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} utteranceId
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.delete("t9a8g703f4")
+     *     await client.utterances.delete("t9a8g703f4")
      */
-    delete(fragmentId, requestOptions) {
+    delete(utteranceId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `fragments/${encodeURIComponent(fragmentId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `utterances/${encodeURIComponent(utteranceId)}`),
                 method: "DELETE",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
@@ -296,7 +296,7 @@ class Fragments {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /fragments/{fragment_id}.");
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /utterances/{utterance_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -305,21 +305,21 @@ class Fragments {
         });
     }
     /**
-     * Updates an existing fragment's attributes.
+     * Updates an existing utterance's attributes.
      *
      * Only provided attributes will be updated; others remain unchanged.
-     * The fragment's ID and creation timestamp cannot be modified.
+     * The utterance's ID and creation timestamp cannot be modified.
      * Extra metadata and tags can be added or removed independently.
      *
-     * @param {string} fragmentId
-     * @param {Parlant.FragmentUpdateParams} request
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} utteranceId
+     * @param {Parlant.UtteranceUpdateParams} request
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.update("t9a8g703f4", {
+     *     await client.utterances.update("t9a8g703f4", {
      *         value: "Your updated balance is {balance}",
      *         fields: [{
      *                 name: "balance",
@@ -328,22 +328,22 @@ class Fragments {
      *             }]
      *     })
      */
-    update(fragmentId_1) {
-        return __awaiter(this, arguments, void 0, function* (fragmentId, request = {}, requestOptions) {
+    update(utteranceId_1) {
+        return __awaiter(this, arguments, void 0, function* (utteranceId, request = {}, requestOptions) {
             var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `fragments/${encodeURIComponent(fragmentId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `utterances/${encodeURIComponent(utteranceId)}`),
                 method: "PATCH",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
-                body: serializers.FragmentUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                body: serializers.UtteranceUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.Fragment.parseOrThrow(_response.body, {
+                return serializers.Utterance.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -370,7 +370,7 @@ class Fragments {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /fragments/{fragment_id}.");
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /utterances/{utterance_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -379,4 +379,4 @@ class Fragments {
         });
     }
 }
-exports.Fragments = Fragments;
+exports.Utterances = Utterances;

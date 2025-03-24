@@ -4,8 +4,8 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-export declare const FragmentTagUpdateParams: core.serialization.ObjectSchema<serializers.FragmentTagUpdateParams.Raw, Parlant.FragmentTagUpdateParams>;
-export declare namespace FragmentTagUpdateParams {
+export declare const UtteranceTagUpdateParams: core.serialization.ObjectSchema<serializers.UtteranceTagUpdateParams.Raw, Parlant.UtteranceTagUpdateParams>;
+export declare namespace UtteranceTagUpdateParams {
     interface Raw {
         add?: string[] | null;
         remove?: string[] | null;

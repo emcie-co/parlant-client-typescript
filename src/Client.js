@@ -11,7 +11,7 @@ const Client_4 = require("./api/resources/services/client/Client");
 const Client_5 = require("./api/resources/tags/client/Client");
 const Client_6 = require("./api/resources/glossary/client/Client");
 const Client_7 = require("./api/resources/customers/client/Client");
-const Client_8 = require("./api/resources/fragments/client/Client");
+const Client_8 = require("./api/resources/utterances/client/Client");
 const Client_9 = require("./api/resources/contextVariables/client/Client");
 const Client_10 = require("./api/resources/guidelines/client/Client");
 class ParlantClient {
@@ -46,9 +46,9 @@ class ParlantClient {
         var _a;
         return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_7.Customers(this._options)));
     }
-    get fragments() {
+    get utterances() {
         var _a;
-        return ((_a = this._fragments) !== null && _a !== void 0 ? _a : (this._fragments = new Client_8.Fragments(this._options)));
+        return ((_a = this._utterances) !== null && _a !== void 0 ? _a : (this._utterances = new Client_8.Utterances(this._options)));
     }
     get contextVariables() {
         var _a;

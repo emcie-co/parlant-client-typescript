@@ -4,8 +4,8 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-export declare const FragmentField: core.serialization.ObjectSchema<serializers.FragmentField.Raw, Parlant.FragmentField>;
-export declare namespace FragmentField {
+export declare const UtteranceField: core.serialization.ObjectSchema<serializers.UtteranceField.Raw, Parlant.UtteranceField>;
+export declare namespace UtteranceField {
     interface Raw {
         name: string;
         description: string;

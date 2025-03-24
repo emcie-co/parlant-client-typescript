@@ -4,14 +4,14 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { FragmentField } from "./FragmentField";
-export declare const Fragment: core.serialization.ObjectSchema<serializers.Fragment.Raw, Parlant.Fragment>;
-export declare namespace Fragment {
+import { UtteranceField } from "./UtteranceField";
+export declare const Utterance: core.serialization.ObjectSchema<serializers.Utterance.Raw, Parlant.Utterance>;
+export declare namespace Utterance {
     interface Raw {
         id: string;
         creation_utc: string;
         value: string;
-        fields: FragmentField.Raw[];
+        fields: UtteranceField.Raw[];
         tags: string[];
     }
 }

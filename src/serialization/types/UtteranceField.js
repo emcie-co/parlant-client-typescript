@@ -36,11 +36,10 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FragmentCreationParams = void 0;
-const core = __importStar(require("../../../../../core"));
-const FragmentField_1 = require("../../../../types/FragmentField");
-exports.FragmentCreationParams = core.serialization.object({
-    value: core.serialization.string(),
-    fields: core.serialization.list(FragmentField_1.FragmentField),
-    tags: core.serialization.list(core.serialization.string()).optional(),
+exports.UtteranceField = void 0;
+const core = __importStar(require("../../core"));
+exports.UtteranceField = core.serialization.object({
+    name: core.serialization.string(),
+    description: core.serialization.string(),
+    examples: core.serialization.list(core.serialization.string()),
 });

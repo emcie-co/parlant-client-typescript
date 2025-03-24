@@ -3,7 +3,7 @@
  */
 import * as core from "../../../../core";
 import * as Parlant from "../../../index";
-export declare namespace Fragments {
+export declare namespace Utterances {
     interface Options {
         environment: core.Supplier<string>;
         /** Specify a custom URL to connect the client to. */
@@ -20,27 +20,27 @@ export declare namespace Fragments {
         headers?: Record<string, string>;
     }
 }
-export declare class Fragments {
-    protected readonly _options: Fragments.Options;
-    constructor(_options: Fragments.Options);
+export declare class Utterances {
+    protected readonly _options: Utterances.Options;
+    constructor(_options: Utterances.Options);
     /**
-     * @param {Parlant.FragmentsListRequest} request
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Parlant.UtterancesListRequest} request
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.list()
+     *     await client.utterances.list()
      */
-    list(request?: Parlant.FragmentsListRequest, requestOptions?: Fragments.RequestOptions): Promise<Parlant.Fragment[]>;
+    list(request?: Parlant.UtterancesListRequest, requestOptions?: Utterances.RequestOptions): Promise<Parlant.Utterance[]>;
     /**
-     * @param {Parlant.FragmentCreationParams} request
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Parlant.UtteranceCreationParams} request
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.create({
+     *     await client.utterances.create({
      *         value: "Your account balance is {balance}",
      *         fields: [{
      *                 name: "balance",
@@ -49,47 +49,47 @@ export declare class Fragments {
      *             }]
      *     })
      */
-    create(request: Parlant.FragmentCreationParams, requestOptions?: Fragments.RequestOptions): Promise<Parlant.Fragment>;
+    create(request: Parlant.UtteranceCreationParams, requestOptions?: Utterances.RequestOptions): Promise<Parlant.Utterance>;
     /**
-     * Retrieves details of a specific fragment by ID.
+     * Retrieves details of a specific utterance by ID.
      *
-     * @param {string} fragmentId
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} utteranceId
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.retrieve("t9a8g703f4")
+     *     await client.utterances.retrieve("t9a8g703f4")
      */
-    retrieve(fragmentId: string, requestOptions?: Fragments.RequestOptions): Promise<Parlant.Fragment>;
+    retrieve(utteranceId: string, requestOptions?: Utterances.RequestOptions): Promise<Parlant.Utterance>;
     /**
-     * @param {string} fragmentId
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} utteranceId
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.delete("t9a8g703f4")
+     *     await client.utterances.delete("t9a8g703f4")
      */
-    delete(fragmentId: string, requestOptions?: Fragments.RequestOptions): Promise<void>;
+    delete(utteranceId: string, requestOptions?: Utterances.RequestOptions): Promise<void>;
     /**
-     * Updates an existing fragment's attributes.
+     * Updates an existing utterance's attributes.
      *
      * Only provided attributes will be updated; others remain unchanged.
-     * The fragment's ID and creation timestamp cannot be modified.
+     * The utterance's ID and creation timestamp cannot be modified.
      * Extra metadata and tags can be added or removed independently.
      *
-     * @param {string} fragmentId
-     * @param {Parlant.FragmentUpdateParams} request
-     * @param {Fragments.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} utteranceId
+     * @param {Parlant.UtteranceUpdateParams} request
+     * @param {Utterances.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.fragments.update("t9a8g703f4", {
+     *     await client.utterances.update("t9a8g703f4", {
      *         value: "Your updated balance is {balance}",
      *         fields: [{
      *                 name: "balance",
@@ -98,5 +98,5 @@ export declare class Fragments {
      *             }]
      *     })
      */
-    update(fragmentId: string, request?: Parlant.FragmentUpdateParams, requestOptions?: Fragments.RequestOptions): Promise<Parlant.Fragment>;
+    update(utteranceId: string, request?: Parlant.UtteranceUpdateParams, requestOptions?: Utterances.RequestOptions): Promise<Parlant.Utterance>;
 }

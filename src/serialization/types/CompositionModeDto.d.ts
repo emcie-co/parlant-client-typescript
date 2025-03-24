@@ -6,5 +6,5 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 export declare const CompositionModeDto: core.serialization.Schema<serializers.CompositionModeDto.Raw, Parlant.CompositionModeDto>;
 export declare namespace CompositionModeDto {
-    type Raw = "fluid" | "strict_assembly" | "composited_assembly" | "fluid_assembly";
+    type Raw = "fluid" | "strict_utterance" | "composited_utterance" | "fluid_utterance";
 }
