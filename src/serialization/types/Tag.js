@@ -40,6 +40,5 @@ exports.Tag = void 0;
 const core = __importStar(require("../../core"));
 exports.Tag = core.serialization.object({
     id: core.serialization.string(),
-    creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     name: core.serialization.string(),
 });

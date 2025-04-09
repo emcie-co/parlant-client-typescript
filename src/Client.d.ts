@@ -4,7 +4,6 @@
 import * as core from "./core";
 import { Agents } from "./api/resources/agents/client/Client";
 import { Sessions } from "./api/resources/sessions/client/Client";
-import { Evaluations } from "./api/resources/evaluations/client/Client";
 import { Services } from "./api/resources/services/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Glossary } from "./api/resources/glossary/client/Client";
@@ -12,6 +11,7 @@ import { Customers } from "./api/resources/customers/client/Client";
 import { Utterances } from "./api/resources/utterances/client/Client";
 import { ContextVariables } from "./api/resources/contextVariables/client/Client";
 import { Guidelines } from "./api/resources/guidelines/client/Client";
+import { Relationships } from "./api/resources/relationships/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
@@ -33,7 +33,6 @@ export declare class ParlantClient {
     protected readonly _options: ParlantClient.Options;
     protected _agents: Agents | undefined;
     protected _sessions: Sessions | undefined;
-    protected _evaluations: Evaluations | undefined;
     protected _services: Services | undefined;
     protected _tags: Tags | undefined;
     protected _glossary: Glossary | undefined;
@@ -41,10 +40,10 @@ export declare class ParlantClient {
     protected _utterances: Utterances | undefined;
     protected _contextVariables: ContextVariables | undefined;
     protected _guidelines: Guidelines | undefined;
+    protected _relationships: Relationships | undefined;
     constructor(_options: ParlantClient.Options);
     get agents(): Agents;
     get sessions(): Sessions;
-    get evaluations(): Evaluations;
     get services(): Services;
     get tags(): Tags;
     get glossary(): Glossary;
@@ -52,4 +51,5 @@ export declare class ParlantClient {
     get utterances(): Utterances;
     get contextVariables(): ContextVariables;
     get guidelines(): Guidelines;
+    get relationships(): Relationships;
 }

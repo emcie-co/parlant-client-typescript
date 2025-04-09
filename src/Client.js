@@ -6,14 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParlantClient = void 0;
 const Client_1 = require("./api/resources/agents/client/Client");
 const Client_2 = require("./api/resources/sessions/client/Client");
-const Client_3 = require("./api/resources/evaluations/client/Client");
-const Client_4 = require("./api/resources/services/client/Client");
-const Client_5 = require("./api/resources/tags/client/Client");
-const Client_6 = require("./api/resources/glossary/client/Client");
-const Client_7 = require("./api/resources/customers/client/Client");
-const Client_8 = require("./api/resources/utterances/client/Client");
-const Client_9 = require("./api/resources/contextVariables/client/Client");
-const Client_10 = require("./api/resources/guidelines/client/Client");
+const Client_3 = require("./api/resources/services/client/Client");
+const Client_4 = require("./api/resources/tags/client/Client");
+const Client_5 = require("./api/resources/glossary/client/Client");
+const Client_6 = require("./api/resources/customers/client/Client");
+const Client_7 = require("./api/resources/utterances/client/Client");
+const Client_8 = require("./api/resources/contextVariables/client/Client");
+const Client_9 = require("./api/resources/guidelines/client/Client");
+const Client_10 = require("./api/resources/relationships/client/Client");
 class ParlantClient {
     constructor(_options) {
         this._options = _options;
@@ -26,37 +26,37 @@ class ParlantClient {
         var _a;
         return ((_a = this._sessions) !== null && _a !== void 0 ? _a : (this._sessions = new Client_2.Sessions(this._options)));
     }
-    get evaluations() {
-        var _a;
-        return ((_a = this._evaluations) !== null && _a !== void 0 ? _a : (this._evaluations = new Client_3.Evaluations(this._options)));
-    }
     get services() {
         var _a;
-        return ((_a = this._services) !== null && _a !== void 0 ? _a : (this._services = new Client_4.Services(this._options)));
+        return ((_a = this._services) !== null && _a !== void 0 ? _a : (this._services = new Client_3.Services(this._options)));
     }
     get tags() {
         var _a;
-        return ((_a = this._tags) !== null && _a !== void 0 ? _a : (this._tags = new Client_5.Tags(this._options)));
+        return ((_a = this._tags) !== null && _a !== void 0 ? _a : (this._tags = new Client_4.Tags(this._options)));
     }
     get glossary() {
         var _a;
-        return ((_a = this._glossary) !== null && _a !== void 0 ? _a : (this._glossary = new Client_6.Glossary(this._options)));
+        return ((_a = this._glossary) !== null && _a !== void 0 ? _a : (this._glossary = new Client_5.Glossary(this._options)));
     }
     get customers() {
         var _a;
-        return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_7.Customers(this._options)));
+        return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_6.Customers(this._options)));
     }
     get utterances() {
         var _a;
-        return ((_a = this._utterances) !== null && _a !== void 0 ? _a : (this._utterances = new Client_8.Utterances(this._options)));
+        return ((_a = this._utterances) !== null && _a !== void 0 ? _a : (this._utterances = new Client_7.Utterances(this._options)));
     }
     get contextVariables() {
         var _a;
-        return ((_a = this._contextVariables) !== null && _a !== void 0 ? _a : (this._contextVariables = new Client_9.ContextVariables(this._options)));
+        return ((_a = this._contextVariables) !== null && _a !== void 0 ? _a : (this._contextVariables = new Client_8.ContextVariables(this._options)));
     }
     get guidelines() {
         var _a;
-        return ((_a = this._guidelines) !== null && _a !== void 0 ? _a : (this._guidelines = new Client_10.Guidelines(this._options)));
+        return ((_a = this._guidelines) !== null && _a !== void 0 ? _a : (this._guidelines = new Client_9.Guidelines(this._options)));
+    }
+    get relationships() {
+        var _a;
+        return ((_a = this._relationships) !== null && _a !== void 0 ? _a : (this._relationships = new Client_10.Relationships(this._options)));
     }
 }
 exports.ParlantClient = ParlantClient;

@@ -6,7 +6,7 @@ import * as Parlant from "../index";
  * Parameters for updating Guideline objects.
  */
 export interface LegacyGuidelineUpdateParams {
-    connections?: Parlant.GuidelineConnectionUpdateParams;
+    connections?: Parlant.LegacyGuidelineConnectionUpdateParams;
     toolAssociations?: Parlant.GuidelineToolAssociationUpdateParams;
     enabled?: boolean;
 }

@@ -6,6 +6,10 @@
  *     {
  *         condition: "when the customer asks about pricing",
  *         action: "provide current pricing information and mention any ongoing promotions",
+ *         metadata: {
+ *             "key1": "value1",
+ *             "key2": "value2"
+ *         },
  *         enabled: false
  *     }
  */
@@ -14,6 +18,8 @@ export interface GuidelineCreationParams {
     condition: string;
     /** This action will be performed if the condition is satisfied */
     action: string;
+    /** Metadata for the guideline */
+    metadata?: Record<string, unknown>;
     /** Whether the guideline is enabled */
     enabled?: boolean;
     /** The tags associated with the guideline */

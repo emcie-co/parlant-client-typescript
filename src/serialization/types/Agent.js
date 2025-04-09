@@ -43,7 +43,6 @@ exports.Agent = core.serialization.object({
     id: core.serialization.string(),
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
-    creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto),
     tags: core.serialization.list(core.serialization.string()).optional(),

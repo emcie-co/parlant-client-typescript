@@ -38,10 +38,10 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LegacyGuidelineUpdateParams = void 0;
 const core = __importStar(require("../../core"));
-const GuidelineConnectionUpdateParams_1 = require("./GuidelineConnectionUpdateParams");
+const LegacyGuidelineConnectionUpdateParams_1 = require("./LegacyGuidelineConnectionUpdateParams");
 const GuidelineToolAssociationUpdateParams_1 = require("./GuidelineToolAssociationUpdateParams");
 exports.LegacyGuidelineUpdateParams = core.serialization.object({
-    connections: GuidelineConnectionUpdateParams_1.GuidelineConnectionUpdateParams.optional(),
+    connections: LegacyGuidelineConnectionUpdateParams_1.LegacyGuidelineConnectionUpdateParams.optional(),
     toolAssociations: core.serialization.property("tool_associations", GuidelineToolAssociationUpdateParams_1.GuidelineToolAssociationUpdateParams.optional()),
     enabled: core.serialization.boolean().optional(),
 });

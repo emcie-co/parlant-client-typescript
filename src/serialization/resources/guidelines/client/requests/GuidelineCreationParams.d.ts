@@ -9,6 +9,7 @@ export declare namespace GuidelineCreationParams {
     interface Raw {
         condition: string;
         action: string;
+        metadata?: Record<string, unknown> | null;
         enabled?: boolean | null;
         tags?: string[] | null;
     }

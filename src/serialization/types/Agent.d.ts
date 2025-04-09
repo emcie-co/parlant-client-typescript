@@ -11,7 +11,6 @@ export declare namespace Agent {
         id: string;
         name: string;
         description?: string | null;
-        creation_utc: string;
         max_engine_iterations?: number | null;
         composition_mode: CompositionModeDto.Raw;
         tags?: string[] | null;

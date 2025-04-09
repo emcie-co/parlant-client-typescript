@@ -4,12 +4,12 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { GuidelineConnectionUpdateParams } from "./GuidelineConnectionUpdateParams";
+import { LegacyGuidelineConnectionUpdateParams } from "./LegacyGuidelineConnectionUpdateParams";
 import { GuidelineToolAssociationUpdateParams } from "./GuidelineToolAssociationUpdateParams";
 export declare const LegacyGuidelineUpdateParams: core.serialization.ObjectSchema<serializers.LegacyGuidelineUpdateParams.Raw, Parlant.LegacyGuidelineUpdateParams>;
 export declare namespace LegacyGuidelineUpdateParams {
     interface Raw {
-        connections?: GuidelineConnectionUpdateParams.Raw | null;
+        connections?: LegacyGuidelineConnectionUpdateParams.Raw | null;
         tool_associations?: GuidelineToolAssociationUpdateParams.Raw | null;
         enabled?: boolean | null;
     }

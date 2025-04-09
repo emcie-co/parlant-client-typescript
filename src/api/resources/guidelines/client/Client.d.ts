@@ -28,7 +28,7 @@ export declare class Guidelines {
      *
      * Returns an empty list if no guidelines exist.
      * Guidelines are returned in no guaranteed order.
-     * Does not include connections or tool associations.
+     * Does not include relationships or tool associations.
      *
      * @param {Parlant.GuidelinesListRequest} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
@@ -53,14 +53,18 @@ export declare class Guidelines {
      *     await client.guidelines.create({
      *         condition: "when the customer asks about pricing",
      *         action: "provide current pricing information and mention any ongoing promotions",
+     *         metadata: {
+     *             "key1": "value1",
+     *             "key2": "value2"
+     *         },
      *         enabled: false
      *     })
      */
     create(request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline>;
     /**
-     * Retrieves a specific guideline with all its connections and tool associations.
+     * Retrieves a specific guideline with all its relationships and tool associations.
      *
-     * Returns both direct and indirect connections between guidelines.
+     * Returns both direct and indirect relationships between guidelines.
      * Tool associations indicate which tools the guideline can use.
      *
      * @param {string} guidelineId - Unique identifier for the guideline
@@ -72,7 +76,7 @@ export declare class Guidelines {
      * @example
      *     await client.guidelines.retrieve("IUCGT-l4pS")
      */
-    retrieve(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    retrieve(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithRelationshipsAndToolAssociations>;
     /**
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
@@ -85,14 +89,14 @@ export declare class Guidelines {
      */
     delete(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
     /**
-     * Updates a guideline's connections and tool associations.
+     * Updates a guideline's relationships and tool associations.
      *
      * Only provided attributes will be updated; others remain unchanged.
      *
-     * Connection rules:
-     * - A guideline cannot connect to itself
-     * - Only direct connections can be removed
-     * - The connection must specify this guideline as source or target
+     * Relationship rules:
+     * - A guideline cannot relate to itself
+     * - Only direct relationships can be removed
+     * - The relationship must specify this guideline as source or target
      *
      * Tool Association rules:
      * - Tool services and tools must exist before creating associations
@@ -106,25 +110,27 @@ export declare class Guidelines {
      *
      * @example
      *     await client.guidelines.update("IUCGT-l4pS", {
-     *         connections: {
-     *             add: [{
-     *                     source: "guide_123xyz",
-     *                     target: "guide_789xyz"
-     *                 }],
-     *             remove: ["guide_456xyz"]
-     *         },
+     *         condition: "when the customer asks about pricing",
+     *         action: "provide current pricing information",
      *         toolAssociations: {
      *             add: [{
-     *                     serviceName: "pricing_service",
-     *                     toolName: "get_prices"
+     *                     serviceName: "new_service",
+     *                     toolName: "new_tool"
      *                 }],
      *             remove: [{
      *                     serviceName: "old_service",
      *                     toolName: "old_tool"
      *                 }]
      *         },
-     *         enabled: true
+     *         enabled: true,
+     *         metadata: {
+     *             add: {
+     *                 "key1": "value1",
+     *                 "key2": "value2"
+     *             },
+     *             remove: ["key3", "key4"]
+     *         }
      *     })
      */
-    update(guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    update(guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithRelationshipsAndToolAssociations>;
 }

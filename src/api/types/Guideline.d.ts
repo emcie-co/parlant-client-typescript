@@ -15,4 +15,6 @@ export interface Guideline {
     enabled?: boolean;
     /** The tags associated with the guideline */
     tags: string[];
+    /** Metadata for the guideline */
+    metadata: Record<string, unknown>;
 }

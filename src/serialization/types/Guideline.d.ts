@@ -12,5 +12,6 @@ export declare namespace Guideline {
         action: string;
         enabled?: boolean | null;
         tags: string[];
+        metadata: Record<string, unknown>;
     }
 }

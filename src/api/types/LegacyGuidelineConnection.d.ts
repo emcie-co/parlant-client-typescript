@@ -6,7 +6,7 @@ import * as Parlant from "../index";
  * Represents a connection between two guidelines.
  */
 export interface LegacyGuidelineConnection {
-    /** Unique identifier for the `GuildelineConnection` */
+    /** Unique identifier for the guideline connection */
     id: string;
     source: Parlant.LegacyGuideline;
     target: Parlant.LegacyGuideline;

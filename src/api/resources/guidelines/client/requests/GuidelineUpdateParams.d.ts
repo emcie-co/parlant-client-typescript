@@ -5,24 +5,26 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         connections: {
- *             add: [{
- *                     source: "guide_123xyz",
- *                     target: "guide_789xyz"
- *                 }],
- *             remove: ["guide_456xyz"]
- *         },
+ *         condition: "when the customer asks about pricing",
+ *         action: "provide current pricing information",
  *         toolAssociations: {
  *             add: [{
- *                     serviceName: "pricing_service",
- *                     toolName: "get_prices"
+ *                     serviceName: "new_service",
+ *                     toolName: "new_tool"
  *                 }],
  *             remove: [{
  *                     serviceName: "old_service",
  *                     toolName: "old_tool"
  *                 }]
  *         },
- *         enabled: true
+ *         enabled: true,
+ *         metadata: {
+ *             add: {
+ *                 "key1": "value1",
+ *                 "key2": "value2"
+ *             },
+ *             remove: ["key3", "key4"]
+ *         }
  *     }
  */
 export interface GuidelineUpdateParams {
@@ -30,9 +32,9 @@ export interface GuidelineUpdateParams {
     condition?: string;
     /** This action will be performed if the condition is satisfied */
     action?: string;
-    connections?: Parlant.GuidelineConnectionUpdateParams;
     toolAssociations?: Parlant.GuidelineToolAssociationUpdateParams;
     /** Whether the guideline is enabled */
     enabled?: boolean;
     tags?: Parlant.GuidelineTagsUpdateParams;
+    metadata?: Parlant.GuidelineMetadataUpdateParams;
 }

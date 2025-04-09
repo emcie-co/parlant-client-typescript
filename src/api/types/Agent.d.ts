@@ -17,8 +17,6 @@ export interface Agent {
     name: string;
     /** Detailed description of the agent's purpose and capabilities */
     description?: string;
-    /** UTC timestamp of when the agent was created */
-    creationUtc: Date;
     /** Maximum number of processing iterations the agent can perform per request */
     maxEngineIterations?: number;
     compositionMode: Parlant.CompositionModeDto;
