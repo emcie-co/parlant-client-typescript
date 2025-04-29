@@ -6,7 +6,8 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { Guideline } from "./Guideline";
 import { Tag } from "./Tag";
-import { GuidelineRelationshipKindDto } from "./GuidelineRelationshipKindDto";
+import { Tool } from "./Tool";
+import { RelationshipKindDto } from "./RelationshipKindDto";
 export declare const Relationship: core.serialization.ObjectSchema<serializers.Relationship.Raw, Parlant.Relationship>;
 export declare namespace Relationship {
     interface Raw {
@@ -15,7 +16,9 @@ export declare namespace Relationship {
         source_tag?: Tag.Raw | null;
         target_guideline?: Guideline.Raw | null;
         target_tag?: Tag.Raw | null;
+        source_tool?: Tool.Raw | null;
+        target_tool?: Tool.Raw | null;
         indirect: boolean;
-        kind: GuidelineRelationshipKindDto.Raw;
+        kind: RelationshipKindDto.Raw;
     }
 }

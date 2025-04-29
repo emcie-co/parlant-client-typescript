@@ -7,6 +7,7 @@ import * as Parlant from "../index";
  *
  * Only one of `source_guideline` and `source_tag` can have a value.
  * Only one of `target_guideline` and `target_tag` can have a value.
+ * Only one of `source_tool` and `target_tool` can have a value.
  */
 export interface Relationship {
     /** Unique identifier for the relationship */
@@ -15,7 +16,9 @@ export interface Relationship {
     sourceTag?: Parlant.Tag;
     targetGuideline?: Parlant.Guideline;
     targetTag?: Parlant.Tag;
+    sourceTool?: Parlant.Tool;
+    targetTool?: Parlant.Tool;
     /** `True` if there is a path from `source` to `target` but no direct relationship */
     indirect: boolean;
-    kind: Parlant.GuidelineRelationshipKindDto;
+    kind: Parlant.RelationshipKindDto;
 }

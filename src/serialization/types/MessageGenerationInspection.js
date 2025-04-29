@@ -40,6 +40,6 @@ exports.MessageGenerationInspection = void 0;
 const core = __importStar(require("../../core"));
 const GenerationInfo_1 = require("./GenerationInfo");
 exports.MessageGenerationInspection = core.serialization.object({
-    generation: GenerationInfo_1.GenerationInfo,
+    generations: core.serialization.record(core.serialization.string(), GenerationInfo_1.GenerationInfo),
     messages: core.serialization.list(core.serialization.string().optional()),
 });

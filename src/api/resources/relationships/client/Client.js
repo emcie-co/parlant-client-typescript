@@ -78,9 +78,7 @@ class Relationships {
             var _a;
             const { kind, indirect, guidelineId, tagId } = request;
             const _queryParams = {};
-            _queryParams["kind"] = serializers.GuidelineRelationshipKindDto.jsonOrThrow(kind, {
-                unrecognizedObjectKeys: "strip",
-            });
+            _queryParams["kind"] = serializers.RelationshipKindDto.jsonOrThrow(kind, { unrecognizedObjectKeys: "strip" });
             if (indirect != null) {
                 _queryParams["indirect"] = indirect.toString();
             }

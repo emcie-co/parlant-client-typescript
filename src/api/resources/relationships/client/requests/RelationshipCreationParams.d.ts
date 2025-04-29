@@ -15,9 +15,11 @@ export interface RelationshipCreationParams {
     sourceGuideline?: string;
     /** Unique identifier for the tag */
     sourceTag?: string;
+    sourceTool?: Parlant.ToolId;
     /** Unique identifier for the guideline */
     targetGuideline?: string;
     /** Unique identifier for the tag */
     targetTag?: string;
-    kind: Parlant.GuidelineRelationshipKindDto;
+    targetTool?: Parlant.ToolId;
+    kind: Parlant.RelationshipKindDto;
 }

@@ -40,13 +40,16 @@ exports.Relationship = void 0;
 const core = __importStar(require("../../core"));
 const Guideline_1 = require("./Guideline");
 const Tag_1 = require("./Tag");
-const GuidelineRelationshipKindDto_1 = require("./GuidelineRelationshipKindDto");
+const Tool_1 = require("./Tool");
+const RelationshipKindDto_1 = require("./RelationshipKindDto");
 exports.Relationship = core.serialization.object({
     id: core.serialization.string(),
     sourceGuideline: core.serialization.property("source_guideline", Guideline_1.Guideline.optional()),
     sourceTag: core.serialization.property("source_tag", Tag_1.Tag.optional()),
     targetGuideline: core.serialization.property("target_guideline", Guideline_1.Guideline.optional()),
     targetTag: core.serialization.property("target_tag", Tag_1.Tag.optional()),
+    sourceTool: core.serialization.property("source_tool", Tool_1.Tool.optional()),
+    targetTool: core.serialization.property("target_tool", Tool_1.Tool.optional()),
     indirect: core.serialization.boolean(),
-    kind: GuidelineRelationshipKindDto_1.GuidelineRelationshipKindDto,
+    kind: RelationshipKindDto_1.RelationshipKindDto,
 });

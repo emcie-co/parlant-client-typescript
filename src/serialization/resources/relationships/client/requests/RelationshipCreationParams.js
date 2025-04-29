@@ -38,11 +38,14 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelationshipCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
-const GuidelineRelationshipKindDto_1 = require("../../../../types/GuidelineRelationshipKindDto");
+const ToolId_1 = require("../../../../types/ToolId");
+const RelationshipKindDto_1 = require("../../../../types/RelationshipKindDto");
 exports.RelationshipCreationParams = core.serialization.object({
     sourceGuideline: core.serialization.property("source_guideline", core.serialization.string().optional()),
     sourceTag: core.serialization.property("source_tag", core.serialization.string().optional()),
+    sourceTool: core.serialization.property("source_tool", ToolId_1.ToolId.optional()),
     targetGuideline: core.serialization.property("target_guideline", core.serialization.string().optional()),
     targetTag: core.serialization.property("target_tag", core.serialization.string().optional()),
-    kind: GuidelineRelationshipKindDto_1.GuidelineRelationshipKindDto,
+    targetTool: core.serialization.property("target_tool", ToolId_1.ToolId.optional()),
+    kind: RelationshipKindDto_1.RelationshipKindDto,
 });

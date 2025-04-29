@@ -8,7 +8,7 @@ import { GenerationInfo } from "./GenerationInfo";
 export declare const MessageGenerationInspection: core.serialization.ObjectSchema<serializers.MessageGenerationInspection.Raw, Parlant.MessageGenerationInspection>;
 export declare namespace MessageGenerationInspection {
     interface Raw {
-        generation: GenerationInfo.Raw;
+        generations: Record<string, GenerationInfo.Raw>;
         messages: (string | null | undefined)[];
     }
 }

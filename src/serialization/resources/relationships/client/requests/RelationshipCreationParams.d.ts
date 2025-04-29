@@ -4,14 +4,17 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { GuidelineRelationshipKindDto } from "../../../../types/GuidelineRelationshipKindDto";
+import { ToolId } from "../../../../types/ToolId";
+import { RelationshipKindDto } from "../../../../types/RelationshipKindDto";
 export declare const RelationshipCreationParams: core.serialization.Schema<serializers.RelationshipCreationParams.Raw, Parlant.RelationshipCreationParams>;
 export declare namespace RelationshipCreationParams {
     interface Raw {
         source_guideline?: string | null;
         source_tag?: string | null;
+        source_tool?: ToolId.Raw | null;
         target_guideline?: string | null;
         target_tag?: string | null;
-        kind: GuidelineRelationshipKindDto.Raw;
+        target_tool?: ToolId.Raw | null;
+        kind: RelationshipKindDto.Raw;
     }
 }

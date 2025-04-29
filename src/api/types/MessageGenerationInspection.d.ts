@@ -6,6 +6,6 @@ import * as Parlant from "../index";
  * Inspection data for message generation.
  */
 export interface MessageGenerationInspection {
-    generation: Parlant.GenerationInfo;
+    generations: Record<string, Parlant.GenerationInfo>;
     messages: (string | undefined)[];
 }

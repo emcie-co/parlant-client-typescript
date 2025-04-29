@@ -36,6 +36,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GuidelineRelationshipKindDto = void 0;
+exports.RelationshipKindDto = void 0;
 const core = __importStar(require("../../core"));
-exports.GuidelineRelationshipKindDto = core.serialization.enum_(["entailment", "priority"]);
+exports.RelationshipKindDto = core.serialization.enum_(["entailment", "priority", "dependency", "overlap"]);

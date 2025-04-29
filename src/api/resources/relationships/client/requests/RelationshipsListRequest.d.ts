@@ -12,7 +12,7 @@ export interface RelationshipsListRequest {
     /**
      * The kind of relationship to list
      */
-    kind: Parlant.GuidelineRelationshipKindDto;
+    kind: Parlant.RelationshipKindDto;
     /**
      * Whether to include indirect relationships
      */
