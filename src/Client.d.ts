@@ -3,17 +3,22 @@
  */
 import * as core from "./core";
 import { Agents } from "./api/resources/agents/client/Client";
-import { Guidelines } from "./api/resources/guidelines/client/Client";
-import { Glossary } from "./api/resources/glossary/client/Client";
-import { ContextVariables } from "./api/resources/contextVariables/client/Client";
 import { Sessions } from "./api/resources/sessions/client/Client";
-import { Evaluations } from "./api/resources/evaluations/client/Client";
 import { Services } from "./api/resources/services/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
+import { Glossary } from "./api/resources/glossary/client/Client";
 import { Customers } from "./api/resources/customers/client/Client";
+import { Utterances } from "./api/resources/utterances/client/Client";
+import { ContextVariables } from "./api/resources/contextVariables/client/Client";
+import { Guidelines } from "./api/resources/guidelines/client/Client";
+import { Relationships } from "./api/resources/relationships/client/Client";
+import { Journeys } from "./api/resources/journeys/client/Client";
+import { Evaluations } from "./api/resources/evaluations/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -22,34 +27,35 @@ export declare namespace ParlantClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class ParlantClient {
     protected readonly _options: ParlantClient.Options;
-    constructor(_options: ParlantClient.Options);
-    /**
-     * @param {ParlantClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.rootGet()
-     */
-    rootGet(requestOptions?: ParlantClient.RequestOptions): Promise<unknown>;
     protected _agents: Agents | undefined;
-    get agents(): Agents;
-    protected _guidelines: Guidelines | undefined;
-    get guidelines(): Guidelines;
-    protected _glossary: Glossary | undefined;
-    get glossary(): Glossary;
-    protected _contextVariables: ContextVariables | undefined;
-    get contextVariables(): ContextVariables;
     protected _sessions: Sessions | undefined;
-    get sessions(): Sessions;
-    protected _evaluations: Evaluations | undefined;
-    get evaluations(): Evaluations;
     protected _services: Services | undefined;
-    get services(): Services;
     protected _tags: Tags | undefined;
-    get tags(): Tags;
+    protected _glossary: Glossary | undefined;
     protected _customers: Customers | undefined;
+    protected _utterances: Utterances | undefined;
+    protected _contextVariables: ContextVariables | undefined;
+    protected _guidelines: Guidelines | undefined;
+    protected _relationships: Relationships | undefined;
+    protected _journeys: Journeys | undefined;
+    protected _evaluations: Evaluations | undefined;
+    constructor(_options: ParlantClient.Options);
+    get agents(): Agents;
+    get sessions(): Sessions;
+    get services(): Services;
+    get tags(): Tags;
+    get glossary(): Glossary;
     get customers(): Customers;
+    get utterances(): Utterances;
+    get contextVariables(): ContextVariables;
+    get guidelines(): Guidelines;
+    get relationships(): Relationships;
+    get journeys(): Journeys;
+    get evaluations(): Evaluations;
 }

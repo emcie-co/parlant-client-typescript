@@ -5,7 +5,6 @@ import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { ToolId } from "./ToolId";
-import { FreshnessRules } from "./FreshnessRules";
 export declare const ContextVariable: core.serialization.ObjectSchema<serializers.ContextVariable.Raw, Parlant.ContextVariable>;
 export declare namespace ContextVariable {
     interface Raw {
@@ -13,6 +12,7 @@ export declare namespace ContextVariable {
         name: string;
         description?: string | null;
         tool_id?: ToolId.Raw | null;
-        freshness_rules?: FreshnessRules.Raw | null;
+        freshness_rules?: string | null;
+        tags?: string[] | null;
     }
 }

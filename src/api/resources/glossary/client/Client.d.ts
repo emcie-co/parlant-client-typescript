@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Glossary {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,67 +16,102 @@ export declare namespace Glossary {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Glossary {
     protected readonly _options: Glossary.Options;
     constructor(_options: Glossary.Options);
     /**
-     * @param {string} agentId
+     * Retrieves a list of all terms in the glossary.
+     *
+     * Returns an empty list if no terms exist.
+     * Terms are returned in no guaranteed order.
+     *
+     * @param {Parlant.GlossaryListTermsRequest} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.listTerms("agent_id")
+     *     await client.glossary.listTerms()
      */
-    listTerms(agentId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term[]>;
+    listTerms(request?: Parlant.GlossaryListTermsRequest, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term[]>;
     /**
-     * @param {string} agentId
+     * Creates a new term in the glossary.
+     *
+     * The term will be initialized with the provided name and description, and optional synonyms.
+     * A unique identifier will be automatically generated.
+     *
+     * Default behaviors:
+     * - `synonyms` defaults to an empty list if not provided
+     *
      * @param {Parlant.TermCreationParams} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.createTerm("agent_id", {
-     *         name: "name",
-     *         description: "description"
+     *     await client.glossary.createTerm({
+     *         name: "Gas",
+     *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+     *         synonyms: ["Transaction Fee", "Blockchain Fuel"]
      *     })
      */
-    createTerm(agentId: string, request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
+    createTerm(request: Parlant.TermCreationParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Retrieves details of a specific term by ID.
+     *
+     * @param {string} termId - Unique identifier for the term
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.retrieveTerm("agent_id", "term_id")
+     *     await client.glossary.retrieveTerm("term-eth01")
      */
-    retrieveTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
+    retrieveTerm(termId: string, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Deletes a term from the glossary.
+     *
+     * Deleting a non-existent term will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} termId - Unique identifier for the term
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.deleteTerm("agent_id", "term_id")
+     *     await client.glossary.deleteTerm("term-eth01")
      */
-    deleteTerm(agentId: string, termId: string, requestOptions?: Glossary.RequestOptions): Promise<void>;
+    deleteTerm(termId: string, requestOptions?: Glossary.RequestOptions): Promise<void>;
     /**
-     * @param {string} agentId
-     * @param {string} termId
+     * Updates an existing term's attributes in the glossary.
+     *
+     * Only the provided attributes will be updated; others will remain unchanged.
+     * The term's ID and creation timestamp cannot be modified.
+     *
+     * @param {string} termId - Unique identifier for the term
      * @param {Parlant.TermUpdateParams} request
      * @param {Glossary.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.glossary.updateTerm("agent_id", "term_id")
+     *     await client.glossary.updateTerm("term-eth01", {
+     *         name: "Gas",
+     *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+     *         synonyms: ["Transaction Fee", "Blockchain Fuel"],
+     *         tags: {
+     *             add: ["tag1", "tag2"],
+     *             remove: ["tag3", "tag4"]
+     *         }
+     *     })
      */
-    updateTerm(agentId: string, termId: string, request?: Parlant.TermUpdateParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
+    updateTerm(termId: string, request?: Parlant.TermUpdateParams, requestOptions?: Glossary.RequestOptions): Promise<Parlant.Term>;
 }

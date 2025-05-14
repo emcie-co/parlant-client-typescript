@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Guidelines {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,72 +16,123 @@ export declare namespace Guidelines {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Guidelines {
     protected readonly _options: Guidelines.Options;
     constructor(_options: Guidelines.Options);
     /**
-     * @param {string} agentId
+     * Lists all guidelines for the specified tag or all guidelines if no tag is provided.
+     *
+     * Returns an empty list if no guidelines exist.
+     * Guidelines are returned in no guaranteed order.
+     * Does not include relationships or tool associations.
+     *
+     * @param {Parlant.GuidelinesListRequest} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.list("agent_id")
+     *     await client.guidelines.list()
      */
-    list(agentId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline[]>;
+    list(request?: Parlant.GuidelinesListRequest, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline[]>;
     /**
-     * @param {string} agentId
+     * Creates a new guideline.
+     *
+     * See the [documentation](https://parlant.io/docs/concepts/customization/guidelines) for more information.
+     *
      * @param {Parlant.GuidelineCreationParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.create("agent_id", {
-     *         invoices: [{
-     *                 payload: {
-     *                     kind: "guideline"
-     *                 },
-     *                 checksum: "checksum",
-     *                 approved: true
-     *             }]
+     *     await client.guidelines.create({
+     *         condition: "when the customer asks about pricing",
+     *         action: "provide current pricing information and mention any ongoing promotions",
+     *         metadata: {
+     *             "key1": "value1",
+     *             "key2": "value2"
+     *         },
+     *         enabled: false
      *     })
      */
-    create(agentId: string, request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineCreationResult>;
+    create(request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline>;
     /**
-     * @param {string} agentId
-     * @param {string} guidelineId
+     * Retrieves a specific guideline with all its relationships and tool associations.
+     *
+     * Returns both direct and indirect relationships between guidelines.
+     * Tool associations indicate which tools the guideline can use.
+     *
+     * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.retrieve("agent_id", "guideline_id")
+     *     await client.guidelines.retrieve("IUCGT-l4pS")
      */
-    retrieve(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    retrieve(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithRelationshipsAndToolAssociations>;
     /**
-     * @param {string} agentId
-     * @param {string} guidelineId
+     * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.delete("agent_id", "guideline_id")
+     *     await client.guidelines.delete("IUCGT-l4pS")
      */
-    delete(agentId: string, guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
+    delete(guidelineId: string, requestOptions?: Guidelines.RequestOptions): Promise<void>;
     /**
-     * @param {string} agentId
-     * @param {string} guidelineId
+     * Updates a guideline's relationships and tool associations.
+     *
+     * Only provided attributes will be updated; others remain unchanged.
+     *
+     * Relationship rules:
+     * - A guideline cannot relate to itself
+     * - Only direct relationships can be removed
+     * - The relationship must specify this guideline as source or target
+     *
+     * Tool Association rules:
+     * - Tool services and tools must exist before creating associations
+     *
+     * Action with text can not be updated to None.
+     *
+     * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Parlant.GuidelineUpdateParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.update("agent_id", "guideline_id")
+     *     await client.guidelines.update("IUCGT-l4pS", {
+     *         condition: "when the customer asks about pricing",
+     *         action: "provide current pricing information",
+     *         toolAssociations: {
+     *             add: [{
+     *                     serviceName: "new_service",
+     *                     toolName: "new_tool"
+     *                 }],
+     *             remove: [{
+     *                     serviceName: "old_service",
+     *                     toolName: "old_tool"
+     *                 }]
+     *         },
+     *         enabled: true,
+     *         metadata: {
+     *             add: {
+     *                 "key1": "value1",
+     *                 "key2": "value2"
+     *             },
+     *             remove: ["key3", "key4"]
+     *         }
+     *     })
      */
-    update(agentId: string, guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithConnectionsAndToolAssociations>;
+    update(guidelineId: string, request?: Parlant.GuidelineUpdateParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.GuidelineWithRelationshipsAndToolAssociations>;
 }

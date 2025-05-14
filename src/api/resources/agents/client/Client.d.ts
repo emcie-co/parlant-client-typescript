@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Agents {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,12 +16,19 @@ export declare namespace Agents {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Agents {
     protected readonly _options: Agents.Options;
     constructor(_options: Agents.Options);
     /**
+     * Retrieves a list of all agents in the system.
+     *
+     * Returns an empty list if no agents exist.
+     * Agents are returned in no guaranteed order.
+     *
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -27,6 +36,16 @@ export declare class Agents {
      */
     list(requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent[]>;
     /**
+     * Creates a new agent in the system.
+     *
+     * The agent will be initialized with the provided name and optional settings.
+     * A unique identifier will be automatically generated.
+     *
+     * Default behaviors:
+     * - `name` defaults to `"Unnamed Agent"` if not provided
+     * - `description` defaults to `None`
+     * - `max_engine_iterations` defaults to `None` (uses system default)
+     *
      * @param {Parlant.AgentCreationParams} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -34,39 +53,63 @@ export declare class Agents {
      *
      * @example
      *     await client.agents.create({
-     *         name: "name"
+     *         name: "Haxon",
+     *         description: "Technical Support Assistant",
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid",
+     *         tags: ["tag1", "tag2"]
      *     })
      */
     create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
-     * @param {string} agentId
+     * Retrieves details of a specific agent by ID.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.retrieve("agent_id")
+     *     await client.agents.retrieve("IUCGT-lvpS")
      */
     retrieve(agentId: string, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
     /**
-     * @param {string} agentId
+     * Deletes an agent from the agent.
+     *
+     * Deleting a non-existent agent will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.delete("agent_id")
+     *     await client.agents.delete("IUCGT-lvpS")
      */
     delete(agentId: string, requestOptions?: Agents.RequestOptions): Promise<void>;
     /**
-     * @param {string} agentId
+     * Updates an existing agent's attributes.
+     *
+     * Only the provided attributes will be updated; others will remain unchanged.
+     * The agent's ID and creation timestamp cannot be modified.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Parlant.AgentUpdateParams} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.update("agent_id")
+     *     await client.agents.update("IUCGT-lvpS", {
+     *         name: "Haxon",
+     *         description: "Technical Support Assistant",
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid"
+     *     })
      */
-    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<void>;
+    update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
 }

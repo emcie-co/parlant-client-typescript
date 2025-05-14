@@ -4,9 +4,37 @@
 import * as Parlant from "../../../../index";
 /**
  * @example
- *     {}
+ *     {
+ *         condition: "when the customer asks about pricing",
+ *         action: "provide current pricing information",
+ *         toolAssociations: {
+ *             add: [{
+ *                     serviceName: "new_service",
+ *                     toolName: "new_tool"
+ *                 }],
+ *             remove: [{
+ *                     serviceName: "old_service",
+ *                     toolName: "old_tool"
+ *                 }]
+ *         },
+ *         enabled: true,
+ *         metadata: {
+ *             add: {
+ *                 "key1": "value1",
+ *                 "key2": "value2"
+ *             },
+ *             remove: ["key3", "key4"]
+ *         }
+ *     }
  */
 export interface GuidelineUpdateParams {
-    connections?: Parlant.GuidelineConnectionUpdateParams;
+    /** If this condition is satisfied, the action will be performed */
+    condition?: string;
+    /** This action will be performed if the condition is satisfied */
+    action?: string;
     toolAssociations?: Parlant.GuidelineToolAssociationUpdateParams;
+    /** Whether the guideline is enabled */
+    enabled?: boolean;
+    tags?: Parlant.GuidelineTagsUpdateParams;
+    metadata?: Parlant.GuidelineMetadataUpdateParams;
 }

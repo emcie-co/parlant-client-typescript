@@ -3,8 +3,13 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         includeValues: true
+ *     }
  */
 export interface ContextVariablesRetrieveRequest {
+    /**
+     * Whether to include variable values in the response
+     */
     includeValues?: boolean;
 }

@@ -4,12 +4,12 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { GuidelinePropositionInspection } from "./GuidelinePropositionInspection";
+import { GuidelineMatchingInspection } from "./GuidelineMatchingInspection";
 import { GenerationInfo } from "./GenerationInfo";
 export declare const PreparationIterationGenerations: core.serialization.ObjectSchema<serializers.PreparationIterationGenerations.Raw, Parlant.PreparationIterationGenerations>;
 export declare namespace PreparationIterationGenerations {
     interface Raw {
-        guideline_proposition: GuidelinePropositionInspection.Raw;
+        guideline_matching: GuidelineMatchingInspection.Raw;
         tool_calls: GenerationInfo.Raw[];
     }
 }

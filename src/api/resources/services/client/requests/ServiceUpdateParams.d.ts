@@ -5,11 +5,17 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         kind: "sdk"
+ *         kind: "openapi",
+ *         openapi: {
+ *             url: "https://email-service.example.com/api/v1",
+ *             source: "https://email-service.example.com/api/openapi.json"
+ *         }
  *     }
  */
 export interface ServiceUpdateParams {
     kind: Parlant.ToolServiceKindDto;
+    /** SDK service configuration parameters. Required when kind is 'sdk'. */
     sdk?: Parlant.SdkServiceParams;
+    /** OpenAPI service configuration parameters. Required when kind is 'openapi'. */
     openapi?: Parlant.OpenApiServiceParams;
 }

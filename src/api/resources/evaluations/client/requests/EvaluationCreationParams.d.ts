@@ -5,13 +5,23 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         agentId: "agent_id",
  *         payloads: [{
- *                 kind: "guideline"
+ *                 kind: "guideline",
+ *                 guideline: {
+ *                     content: {
+ *                         condition: "when customer asks about pricing"
+ *                     },
+ *                     toolIds: [{
+ *                             serviceName: "email_service",
+ *                             toolName: "send_email"
+ *                         }],
+ *                     operation: "add",
+ *                     actionProposition: true,
+ *                     propertiesProposition: true
+ *                 }
  *             }]
  *     }
  */
 export interface EvaluationCreationParams {
-    agentId: string;
     payloads: Parlant.Payload[];
 }

@@ -8,6 +8,6 @@ export declare const GuidelineContent: core.serialization.ObjectSchema<serialize
 export declare namespace GuidelineContent {
     interface Raw {
         condition: string;
-        action: string;
+        action?: string | null;
     }
 }

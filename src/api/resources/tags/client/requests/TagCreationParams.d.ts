@@ -4,9 +4,10 @@
 /**
  * @example
  *     {
- *         name: "name"
+ *         name: "premium-customer"
  *     }
  */
 export interface TagCreationParams {
+    /** Human-readable name for the tag, used for display and organization */
     name: string;
 }

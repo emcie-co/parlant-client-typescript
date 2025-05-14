@@ -5,12 +5,23 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         name: "name"
+ *         name: "UserBalance",
+ *         description: "Stores the account balances of users",
+ *         toolId: {
+ *             serviceName: "finance_service",
+ *             toolName: "balance_checker"
+ *         },
+ *         freshnessRules: "30 2 * * *"
  *     }
  */
 export interface ContextVariableCreationParams {
+    /** Name of the context variable */
     name: string;
+    /** Description of the context variable's purpose */
     description?: string;
     toolId?: Parlant.ToolId;
-    freshnessRules?: Parlant.FreshnessRules;
+    /** Cron expression defining the freshness rules */
+    freshnessRules?: string;
+    /** List of tags associated with the context variable */
+    tags?: string[];
 }

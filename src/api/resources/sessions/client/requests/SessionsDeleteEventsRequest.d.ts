@@ -4,9 +4,12 @@
 /**
  * @example
  *     {
- *         minOffset: 1
+ *         minOffset: 0
  *     }
  */
 export interface SessionsDeleteEventsRequest {
+    /**
+     * Only return events with offset >= this value
+     */
     minOffset: number;
 }
