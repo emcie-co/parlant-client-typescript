@@ -5,8 +5,8 @@ import * as Parlant from "../index";
 /**
  * Parameters for creating a new evaluation task
  */
-export interface EvaluationCreationParams {
+export interface LegacyEvaluationCreationParams {
     /** Unique identifier for the agent */
     agentId: string;
-    payloads: Parlant.Payload[];
+    payloads: Parlant.LegacyPayload[];
 }

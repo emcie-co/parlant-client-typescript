@@ -6,5 +6,5 @@ import * as Parlant from "../index";
  * Evaluation invoices to generate Guidelines from.
  */
 export interface LegacyGuidelineCreationParams {
-    invoices: Parlant.Invoice[];
+    invoices: Parlant.LegacyInvoice[];
 }

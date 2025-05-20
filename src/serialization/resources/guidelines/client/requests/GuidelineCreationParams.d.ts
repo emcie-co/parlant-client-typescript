@@ -8,7 +8,7 @@ export declare const GuidelineCreationParams: core.serialization.Schema<serializ
 export declare namespace GuidelineCreationParams {
     interface Raw {
         condition: string;
-        action: string;
+        action?: string | null;
         metadata?: Record<string, unknown> | null;
         enabled?: boolean | null;
         tags?: string[] | null;

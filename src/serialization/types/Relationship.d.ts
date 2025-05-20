@@ -18,7 +18,6 @@ export declare namespace Relationship {
         target_tag?: Tag.Raw | null;
         source_tool?: Tool.Raw | null;
         target_tool?: Tool.Raw | null;
-        indirect: boolean;
         kind: RelationshipKindDto.Raw;
     }
 }

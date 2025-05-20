@@ -9,4 +9,5 @@ exports.ToolParameterTypeDto = {
     Number: "number",
     Integer: "integer",
     Boolean: "boolean",
+    Array: "array",
 };

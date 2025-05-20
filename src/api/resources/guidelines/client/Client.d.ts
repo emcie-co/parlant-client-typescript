@@ -101,6 +101,8 @@ export declare class Guidelines {
      * Tool Association rules:
      * - Tool services and tools must exist before creating associations
      *
+     * Action with text can not be updated to None.
+     *
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Parlant.GuidelineUpdateParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.

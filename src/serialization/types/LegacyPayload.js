@@ -36,10 +36,11 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EvaluationCreationParams = void 0;
+exports.LegacyPayload = void 0;
 const core = __importStar(require("../../core"));
-const Payload_1 = require("./Payload");
-exports.EvaluationCreationParams = core.serialization.object({
-    agentId: core.serialization.property("agent_id", core.serialization.string()),
-    payloads: core.serialization.list(Payload_1.Payload),
+const PayloadKindDto_1 = require("./PayloadKindDto");
+const LegacyGuidelinePayload_1 = require("./LegacyGuidelinePayload");
+exports.LegacyPayload = core.serialization.object({
+    kind: PayloadKindDto_1.PayloadKindDto,
+    guideline: LegacyGuidelinePayload_1.LegacyGuidelinePayload.optional(),
 });

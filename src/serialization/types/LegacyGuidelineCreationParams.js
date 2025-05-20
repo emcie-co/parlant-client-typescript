@@ -38,7 +38,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LegacyGuidelineCreationParams = void 0;
 const core = __importStar(require("../../core"));
-const Invoice_1 = require("./Invoice");
+const LegacyInvoice_1 = require("./LegacyInvoice");
 exports.LegacyGuidelineCreationParams = core.serialization.object({
-    invoices: core.serialization.list(Invoice_1.Invoice),
+    invoices: core.serialization.list(LegacyInvoice_1.LegacyInvoice),
 });

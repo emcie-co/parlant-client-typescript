@@ -7,11 +7,12 @@ import * as Parlant from "../index";
  */
 export interface GuidelinePayload {
     content: Parlant.GuidelineContent;
+    toolIds: Parlant.ToolId[];
     operation: Parlant.GuidelinePayloadOperationDto;
     /** Unique identifier for the guideline */
     updatedId?: string;
-    /** Whether to check for contradictions with other Guidelines */
-    coherenceCheck: boolean;
-    /** Whether to propose logical connections with other Guidelines */
-    connectionProposition: boolean;
+    /** Whether the action proposition is enabled */
+    actionProposition: boolean;
+    /** Properties proposition */
+    propertiesProposition: boolean;
 }

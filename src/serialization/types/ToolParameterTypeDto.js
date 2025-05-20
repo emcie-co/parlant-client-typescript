@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToolParameterTypeDto = void 0;
 const core = __importStar(require("../../core"));
-exports.ToolParameterTypeDto = core.serialization.enum_(["string", "number", "integer", "boolean"]);
+exports.ToolParameterTypeDto = core.serialization.enum_(["string", "number", "integer", "boolean", "array"]);

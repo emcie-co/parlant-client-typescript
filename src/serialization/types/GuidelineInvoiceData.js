@@ -38,9 +38,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineInvoiceData = void 0;
 const core = __importStar(require("../../core"));
-const CoherenceCheck_1 = require("./CoherenceCheck");
-const ConnectionProposition_1 = require("./ConnectionProposition");
 exports.GuidelineInvoiceData = core.serialization.object({
-    coherenceChecks: core.serialization.property("coherence_checks", core.serialization.list(CoherenceCheck_1.CoherenceCheck)),
-    connectionPropositions: core.serialization.property("connection_propositions", core.serialization.list(ConnectionProposition_1.ConnectionProposition).optional()),
+    actionProposition: core.serialization.property("action_proposition", core.serialization.string()),
+    propertiesProposition: core.serialization.property("properties_proposition", core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()),
 });

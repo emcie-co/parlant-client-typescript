@@ -4,19 +4,15 @@
 import * as Parlant from "../../../../index";
 /**
  * @example
- *     {
- *         kind: "entailment"
- *     }
+ *     {}
  */
 export interface RelationshipsListRequest {
-    /**
-     * The kind of relationship to list
-     */
-    kind: Parlant.RelationshipKindDto;
+    kind?: Parlant.RelationshipKindDto;
     /**
      * Whether to include indirect relationships
      */
     indirect?: boolean;
     guidelineId?: string;
     tagId?: string;
+    toolId?: string;
 }

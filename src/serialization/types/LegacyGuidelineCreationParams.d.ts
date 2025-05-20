@@ -4,10 +4,10 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { Invoice } from "./Invoice";
+import { LegacyInvoice } from "./LegacyInvoice";
 export declare const LegacyGuidelineCreationParams: core.serialization.ObjectSchema<serializers.LegacyGuidelineCreationParams.Raw, Parlant.LegacyGuidelineCreationParams>;
 export declare namespace LegacyGuidelineCreationParams {
     interface Raw {
-        invoices: Invoice.Raw[];
+        invoices: LegacyInvoice.Raw[];
     }
 }

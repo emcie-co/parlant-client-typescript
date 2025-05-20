@@ -17,7 +17,7 @@ export interface GuidelineCreationParams {
     /** If this condition is satisfied, the action will be performed */
     condition: string;
     /** This action will be performed if the condition is satisfied */
-    action: string;
+    action?: string;
     /** Metadata for the guideline */
     metadata?: Record<string, unknown>;
     /** Whether the guideline is enabled */

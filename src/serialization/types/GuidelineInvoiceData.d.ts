@@ -4,12 +4,10 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { CoherenceCheck } from "./CoherenceCheck";
-import { ConnectionProposition } from "./ConnectionProposition";
 export declare const GuidelineInvoiceData: core.serialization.ObjectSchema<serializers.GuidelineInvoiceData.Raw, Parlant.GuidelineInvoiceData>;
 export declare namespace GuidelineInvoiceData {
     interface Raw {
-        coherence_checks: CoherenceCheck.Raw[];
-        connection_propositions?: ConnectionProposition.Raw[] | null;
+        action_proposition: string;
+        properties_proposition?: Record<string, unknown> | null;
     }
 }

@@ -14,6 +14,8 @@ const Client_7 = require("./api/resources/utterances/client/Client");
 const Client_8 = require("./api/resources/contextVariables/client/Client");
 const Client_9 = require("./api/resources/guidelines/client/Client");
 const Client_10 = require("./api/resources/relationships/client/Client");
+const Client_11 = require("./api/resources/journeys/client/Client");
+const Client_12 = require("./api/resources/evaluations/client/Client");
 class ParlantClient {
     constructor(_options) {
         this._options = _options;
@@ -57,6 +59,14 @@ class ParlantClient {
     get relationships() {
         var _a;
         return ((_a = this._relationships) !== null && _a !== void 0 ? _a : (this._relationships = new Client_10.Relationships(this._options)));
+    }
+    get journeys() {
+        var _a;
+        return ((_a = this._journeys) !== null && _a !== void 0 ? _a : (this._journeys = new Client_11.Journeys(this._options)));
+    }
+    get evaluations() {
+        var _a;
+        return ((_a = this._evaluations) !== null && _a !== void 0 ? _a : (this._evaluations = new Client_12.Evaluations(this._options)));
     }
 }
 exports.ParlantClient = ParlantClient;

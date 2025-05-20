@@ -12,6 +12,8 @@ import { Utterances } from "./api/resources/utterances/client/Client";
 import { ContextVariables } from "./api/resources/contextVariables/client/Client";
 import { Guidelines } from "./api/resources/guidelines/client/Client";
 import { Relationships } from "./api/resources/relationships/client/Client";
+import { Journeys } from "./api/resources/journeys/client/Client";
+import { Evaluations } from "./api/resources/evaluations/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
@@ -41,6 +43,8 @@ export declare class ParlantClient {
     protected _contextVariables: ContextVariables | undefined;
     protected _guidelines: Guidelines | undefined;
     protected _relationships: Relationships | undefined;
+    protected _journeys: Journeys | undefined;
+    protected _evaluations: Evaluations | undefined;
     constructor(_options: ParlantClient.Options);
     get agents(): Agents;
     get sessions(): Sessions;
@@ -52,4 +56,6 @@ export declare class ParlantClient {
     get contextVariables(): ContextVariables;
     get guidelines(): Guidelines;
     get relationships(): Relationships;
+    get journeys(): Journeys;
+    get evaluations(): Evaluations;
 }

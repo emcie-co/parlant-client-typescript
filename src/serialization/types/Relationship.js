@@ -50,6 +50,5 @@ exports.Relationship = core.serialization.object({
     targetTag: core.serialization.property("target_tag", Tag_1.Tag.optional()),
     sourceTool: core.serialization.property("source_tool", Tool_1.Tool.optional()),
     targetTool: core.serialization.property("target_tool", Tool_1.Tool.optional()),
-    indirect: core.serialization.boolean(),
     kind: RelationshipKindDto_1.RelationshipKindDto,
 });

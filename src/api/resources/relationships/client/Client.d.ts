@@ -26,7 +26,7 @@ export declare class Relationships {
     /**
      * List relationships.
      *
-     * Either `guideline_id` or `tag_id` must be provided.
+     * Either `guideline_id` or `tag_id` or `tool_id` must be provided.
      *
      * @param {Parlant.RelationshipsListRequest} request
      * @param {Relationships.RequestOptions} requestOptions - Request-specific configuration.
@@ -34,11 +34,9 @@ export declare class Relationships {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.relationships.list({
-     *         kind: "entailment"
-     *     })
+     *     await client.relationships.list()
      */
-    list(request: Parlant.RelationshipsListRequest, requestOptions?: Relationships.RequestOptions): Promise<Parlant.Relationship[]>;
+    list(request?: Parlant.RelationshipsListRequest, requestOptions?: Relationships.RequestOptions): Promise<Parlant.Relationship[]>;
     /**
      * Create a relationship.
      *

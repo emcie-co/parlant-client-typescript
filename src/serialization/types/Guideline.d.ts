@@ -9,7 +9,7 @@ export declare namespace Guideline {
     interface Raw {
         id: string;
         condition: string;
-        action: string;
+        action?: string | null;
         enabled?: boolean | null;
         tags: string[];
         metadata: Record<string, unknown>;

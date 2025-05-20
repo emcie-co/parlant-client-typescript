@@ -61,7 +61,7 @@ class Relationships {
     /**
      * List relationships.
      *
-     * Either `guideline_id` or `tag_id` must be provided.
+     * Either `guideline_id` or `tag_id` or `tool_id` must be provided.
      *
      * @param {Parlant.RelationshipsListRequest} request
      * @param {Relationships.RequestOptions} requestOptions - Request-specific configuration.
@@ -69,16 +69,18 @@ class Relationships {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.relationships.list({
-     *         kind: "entailment"
-     *     })
+     *     await client.relationships.list()
      */
-    list(request, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { kind, indirect, guidelineId, tagId } = request;
+            const { kind, indirect, guidelineId, tagId, toolId } = request;
             const _queryParams = {};
-            _queryParams["kind"] = serializers.RelationshipKindDto.jsonOrThrow(kind, { unrecognizedObjectKeys: "strip" });
+            if (kind != null) {
+                _queryParams["kind"] = serializers.RelationshipKindDto.jsonOrThrow(kind, {
+                    unrecognizedObjectKeys: "strip",
+                });
+            }
             if (indirect != null) {
                 _queryParams["indirect"] = indirect.toString();
             }
@@ -87,6 +89,9 @@ class Relationships {
             }
             if (tagId != null) {
                 _queryParams["tag_id"] = tagId;
+            }
+            if (toolId != null) {
+                _queryParams["tool_id"] = toolId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "relationships"),

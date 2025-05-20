@@ -6,5 +6,5 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 export declare const ToolParameterTypeDto: core.serialization.Schema<serializers.ToolParameterTypeDto.Raw, Parlant.ToolParameterTypeDto>;
 export declare namespace ToolParameterTypeDto {
-    type Raw = "string" | "number" | "integer" | "boolean";
+    type Raw = "string" | "number" | "integer" | "boolean" | "array";
 }

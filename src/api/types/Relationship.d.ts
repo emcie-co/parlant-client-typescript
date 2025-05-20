@@ -18,7 +18,5 @@ export interface Relationship {
     targetTag?: Parlant.Tag;
     sourceTool?: Parlant.Tool;
     targetTool?: Parlant.Tool;
-    /** `True` if there is a path from `source` to `target` but no direct relationship */
-    indirect: boolean;
     kind: Parlant.RelationshipKindDto;
 }

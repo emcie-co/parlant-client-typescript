@@ -39,11 +39,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelinePayload = void 0;
 const core = __importStar(require("../../core"));
 const GuidelineContent_1 = require("./GuidelineContent");
+const ToolId_1 = require("./ToolId");
 const GuidelinePayloadOperationDto_1 = require("./GuidelinePayloadOperationDto");
 exports.GuidelinePayload = core.serialization.object({
     content: GuidelineContent_1.GuidelineContent,
+    toolIds: core.serialization.property("tool_ids", core.serialization.list(ToolId_1.ToolId)),
     operation: GuidelinePayloadOperationDto_1.GuidelinePayloadOperationDto,
     updatedId: core.serialization.property("updated_id", core.serialization.string().optional()),
-    coherenceCheck: core.serialization.property("coherence_check", core.serialization.boolean()),
-    connectionProposition: core.serialization.property("connection_proposition", core.serialization.boolean()),
+    actionProposition: core.serialization.property("action_proposition", core.serialization.boolean()),
+    propertiesProposition: core.serialization.property("properties_proposition", core.serialization.boolean()),
 });
