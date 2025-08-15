@@ -5,10 +5,12 @@ import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { ConsumptionOffsetsUpdateParams } from "../../../../types/ConsumptionOffsetsUpdateParams";
+import { SessionModeDto } from "../../../../types/SessionModeDto";
 export declare const SessionUpdateParams: core.serialization.Schema<serializers.SessionUpdateParams.Raw, Parlant.SessionUpdateParams>;
 export declare namespace SessionUpdateParams {
     interface Raw {
         consumption_offsets?: ConsumptionOffsetsUpdateParams.Raw | null;
         title?: string | null;
+        mode?: SessionModeDto.Raw | null;
     }
 }

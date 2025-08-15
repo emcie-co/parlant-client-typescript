@@ -12,7 +12,9 @@ export interface GuidelinePayload {
     /** Unique identifier for the guideline */
     updatedId?: string;
     /** Whether the action proposition is enabled */
-    actionProposition: boolean;
+    actionProposition?: boolean;
     /** Properties proposition */
-    propertiesProposition: boolean;
+    propertiesProposition?: boolean;
+    /** Journey step proposition */
+    journeyNodeProposition?: boolean;
 }

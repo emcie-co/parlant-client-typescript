@@ -4,6 +4,7 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
+import { SessionModeDto } from "./SessionModeDto";
 import { ConsumptionOffsets } from "./ConsumptionOffsets";
 export declare const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Parlant.Session>;
 export declare namespace Session {
@@ -13,6 +14,7 @@ export declare namespace Session {
         customer_id: string;
         creation_utc: string;
         title?: string | null;
+        mode: SessionModeDto.Raw;
         consumption_offsets: ConsumptionOffsets.Raw;
     }
 }

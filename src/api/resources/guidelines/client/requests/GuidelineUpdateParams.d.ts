@@ -17,14 +17,7 @@ import * as Parlant from "../../../../index";
  *                     toolName: "old_tool"
  *                 }]
  *         },
- *         enabled: true,
- *         metadata: {
- *             add: {
- *                 "key1": "value1",
- *                 "key2": "value2"
- *             },
- *             remove: ["key3", "key4"]
- *         }
+ *         enabled: true
  *     }
  */
 export interface GuidelineUpdateParams {

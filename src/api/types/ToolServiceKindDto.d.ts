@@ -9,9 +9,12 @@
  *         like bidirectional communication and streaming results.
  *     "openapi": Integration via OpenAPI specification. Simpler to set up but limited
  *         to basic request/response patterns.
+ *     "mcp": Integration with tool servers using the popular MCP (Model Context Protocol)
+ *         implemented by wide variety of 3rd parties.
  */
-export type ToolServiceKindDto = "sdk" | "openapi";
+export type ToolServiceKindDto = "sdk" | "openapi" | "mcp";
 export declare const ToolServiceKindDto: {
     readonly Sdk: "sdk";
     readonly Openapi: "openapi";
+    readonly Mcp: "mcp";
 };

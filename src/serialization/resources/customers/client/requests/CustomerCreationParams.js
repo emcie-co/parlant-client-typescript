@@ -40,6 +40,6 @@ exports.CustomerCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
 exports.CustomerCreationParams = core.serialization.object({
     name: core.serialization.string(),
-    extra: core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.string().optional()).optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
 });

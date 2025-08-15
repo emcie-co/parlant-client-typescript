@@ -38,6 +38,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
 const core = __importStar(require("../../core"));
+const SessionModeDto_1 = require("./SessionModeDto");
 const ConsumptionOffsets_1 = require("./ConsumptionOffsets");
 exports.Session = core.serialization.object({
     id: core.serialization.string(),
@@ -45,5 +46,6 @@ exports.Session = core.serialization.object({
     customerId: core.serialization.property("customer_id", core.serialization.string()),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     title: core.serialization.string().optional(),
+    mode: SessionModeDto_1.SessionModeDto,
     consumptionOffsets: core.serialization.property("consumption_offsets", ConsumptionOffsets_1.ConsumptionOffsets),
 });

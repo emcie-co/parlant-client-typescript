@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ToolServiceKindDto = void 0;
 const core = __importStar(require("../../core"));
-exports.ToolServiceKindDto = core.serialization.enum_(["sdk", "openapi"]);
+exports.ToolServiceKindDto = core.serialization.enum_(["sdk", "openapi", "mcp"]);

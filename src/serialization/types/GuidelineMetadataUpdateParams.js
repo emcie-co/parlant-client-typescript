@@ -39,6 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineMetadataUpdateParams = void 0;
 const core = __importStar(require("../../core"));
 exports.GuidelineMetadataUpdateParams = core.serialization.object({
-    add: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    remove: core.serialization.list(core.serialization.string()).optional(),
+    set: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    unset: core.serialization.list(core.serialization.string()).optional(),
 });

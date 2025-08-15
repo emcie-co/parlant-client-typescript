@@ -6,5 +6,5 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 export declare const RelationshipKindDto: core.serialization.Schema<serializers.RelationshipKindDto.Raw, Parlant.RelationshipKindDto>;
 export declare namespace RelationshipKindDto {
-    type Raw = "entailment" | "priority" | "dependency" | "overlap";
+    type Raw = "entailment" | "priority" | "dependency" | "disambiguation" | "overlap" | "reevaluation";
 }

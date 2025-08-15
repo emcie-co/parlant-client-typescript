@@ -39,6 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineInvoiceData = void 0;
 const core = __importStar(require("../../core"));
 exports.GuidelineInvoiceData = core.serialization.object({
-    actionProposition: core.serialization.property("action_proposition", core.serialization.string()),
+    actionProposition: core.serialization.property("action_proposition", core.serialization.string().optional()),
     propertiesProposition: core.serialization.property("properties_proposition", core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()),
 });

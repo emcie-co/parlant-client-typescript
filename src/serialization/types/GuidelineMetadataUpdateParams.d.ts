@@ -7,7 +7,7 @@ import * as core from "../../core";
 export declare const GuidelineMetadataUpdateParams: core.serialization.ObjectSchema<serializers.GuidelineMetadataUpdateParams.Raw, Parlant.GuidelineMetadataUpdateParams>;
 export declare namespace GuidelineMetadataUpdateParams {
     interface Raw {
-        add?: Record<string, unknown> | null;
-        remove?: string[] | null;
+        set?: Record<string, unknown> | null;
+        unset?: string[] | null;
     }
 }

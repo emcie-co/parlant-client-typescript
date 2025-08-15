@@ -15,4 +15,6 @@ export interface SessionUpdateParams {
     consumptionOffsets?: Parlant.ConsumptionOffsetsUpdateParams;
     /** Descriptive title for the session */
     title?: string;
+    /** The mode of the session, either 'auto' or 'manual'. In manual mode, events added to a session will not be responded to automatically by the agent. */
+    mode?: Parlant.SessionModeDto;
 }

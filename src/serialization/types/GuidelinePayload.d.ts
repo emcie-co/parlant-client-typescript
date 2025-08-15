@@ -14,7 +14,8 @@ export declare namespace GuidelinePayload {
         tool_ids: ToolId.Raw[];
         operation: GuidelinePayloadOperationDto.Raw;
         updated_id?: string | null;
-        action_proposition: boolean;
-        properties_proposition: boolean;
+        action_proposition?: boolean | null;
+        properties_proposition?: boolean | null;
+        journey_node_proposition?: boolean | null;
     }
 }

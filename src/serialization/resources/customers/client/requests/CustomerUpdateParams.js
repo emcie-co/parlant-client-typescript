@@ -38,10 +38,10 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
-const CustomerExtraUpdateParams_1 = require("../../../../types/CustomerExtraUpdateParams");
+const CustomerMetadataUpdateParams_1 = require("../../../../types/CustomerMetadataUpdateParams");
 const CustomerTagUpdateParams_1 = require("../../../../types/CustomerTagUpdateParams");
 exports.CustomerUpdateParams = core.serialization.object({
     name: core.serialization.string().optional(),
-    extra: CustomerExtraUpdateParams_1.CustomerExtraUpdateParams.optional(),
+    metadata: CustomerMetadataUpdateParams_1.CustomerMetadataUpdateParams.optional(),
     tags: CustomerTagUpdateParams_1.CustomerTagUpdateParams.optional(),
 });

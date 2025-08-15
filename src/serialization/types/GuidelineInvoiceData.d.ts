@@ -7,7 +7,7 @@ import * as core from "../../core";
 export declare const GuidelineInvoiceData: core.serialization.ObjectSchema<serializers.GuidelineInvoiceData.Raw, Parlant.GuidelineInvoiceData>;
 export declare namespace GuidelineInvoiceData {
     interface Raw {
-        action_proposition: string;
+        action_proposition?: string | null;
         properties_proposition?: Record<string, unknown> | null;
     }
 }

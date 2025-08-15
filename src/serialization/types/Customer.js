@@ -42,6 +42,6 @@ exports.Customer = core.serialization.object({
     id: core.serialization.string(),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
     name: core.serialization.string(),
-    extra: core.serialization.record(core.serialization.string(), core.serialization.string()),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.string()),
     tags: core.serialization.list(core.serialization.string()),
 });

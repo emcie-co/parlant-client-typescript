@@ -41,8 +41,10 @@ const core = __importStar(require("../../../../../core"));
 const ToolServiceKindDto_1 = require("../../../../types/ToolServiceKindDto");
 const SdkServiceParams_1 = require("../../../../types/SdkServiceParams");
 const OpenApiServiceParams_1 = require("../../../../types/OpenApiServiceParams");
+const McpServiceParams_1 = require("../../../../types/McpServiceParams");
 exports.ServiceUpdateParams = core.serialization.object({
     kind: ToolServiceKindDto_1.ToolServiceKindDto,
     sdk: SdkServiceParams_1.SdkServiceParams.optional(),
     openapi: OpenApiServiceParams_1.OpenApiServiceParams.optional(),
+    mcp: McpServiceParams_1.McpServiceParams.optional(),
 });

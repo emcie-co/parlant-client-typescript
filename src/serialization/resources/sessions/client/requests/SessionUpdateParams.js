@@ -39,7 +39,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SessionUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const ConsumptionOffsetsUpdateParams_1 = require("../../../../types/ConsumptionOffsetsUpdateParams");
+const SessionModeDto_1 = require("../../../../types/SessionModeDto");
 exports.SessionUpdateParams = core.serialization.object({
     consumptionOffsets: core.serialization.property("consumption_offsets", ConsumptionOffsetsUpdateParams_1.ConsumptionOffsetsUpdateParams.optional()),
     title: core.serialization.string().optional(),
+    mode: SessionModeDto_1.SessionModeDto.optional(),
 });

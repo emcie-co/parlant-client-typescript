@@ -378,5 +378,63 @@ class Journeys {
             }
         });
     }
+    /**
+     * Returns the journey as a Mermaid 'stateDiagramv-v2' string.
+     * Content-Type: text/plain
+     *
+     * @param {string} journeyId - Unique identifier for the journey
+     * @param {Journeys.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.journeys.mermaid("journey_id")
+     */
+    mermaid(journeyId, requestOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a;
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `journeys/${encodeURIComponent(journeyId)}/mermaid`),
+                method: "GET",
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                contentType: "application/json",
+                requestType: "json",
+                responseType: "text",
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return _response.body;
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.ParlantError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /journeys/{journey_id}/mermaid.");
+                case "unknown":
+                    throw new errors.ParlantError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
 }
 exports.Journeys = Journeys;

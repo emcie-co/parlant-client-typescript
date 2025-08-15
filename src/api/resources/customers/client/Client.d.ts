@@ -39,7 +39,7 @@ export declare class Customers {
      * Creates a new customer in the system.
      *
      * A customer may be created with as little as a `name`.
-     * `extra` key-value pairs and additional `tags` may be attached to a customer.
+     * `metadata` key-value pairs and additional `tags` may be attached to a customer.
      *
      * @param {Parlant.CustomerCreationParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
@@ -49,7 +49,7 @@ export declare class Customers {
      * @example
      *     await client.customers.create({
      *         name: "Scooby",
-     *         extra: {
+     *         metadata: {
      *             "VIP": "Yes",
      *             "email": "scooby@dooby.do"
      *         }
@@ -105,13 +105,6 @@ export declare class Customers {
      * @example
      *     await client.customers.update("ck_IdAXUtp", {
      *         name: "Scooby",
-     *         extra: {
-     *             add: {
-     *                 "VIP": "Yes",
-     *                 "email": "scooby@dooby.do"
-     *             },
-     *             remove: ["old_email", "old_title"]
-     *         },
      *         tags: {
      *             add: ["t9a8g703f4", "tag_456abc"],
      *             remove: ["tag_789def", "tag_012ghi"]

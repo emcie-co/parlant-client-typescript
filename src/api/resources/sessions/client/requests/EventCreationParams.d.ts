@@ -19,5 +19,7 @@ export interface EventCreationParams {
     source: Parlant.EventSourceDto;
     /** Event payload data, format depends on kind */
     message?: string;
-    actions?: Parlant.UtteranceRequest[];
+    data?: unknown;
+    guidelines?: Parlant.AgentMessageGuideline[];
+    participant?: Parlant.Participant;
 }

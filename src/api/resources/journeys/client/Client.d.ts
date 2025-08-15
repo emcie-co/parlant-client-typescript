@@ -104,4 +104,18 @@ export declare class Journeys {
      *     })
      */
     update(journeyId: string, request?: Parlant.JourneyUpdateParams, requestOptions?: Journeys.RequestOptions): Promise<Parlant.Journey>;
+    /**
+     * Returns the journey as a Mermaid 'stateDiagramv-v2' string.
+     * Content-Type: text/plain
+     *
+     * @param {string} journeyId - Unique identifier for the journey
+     * @param {Journeys.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.journeys.mermaid("journey_id")
+     */
+    mermaid(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<string>;
 }

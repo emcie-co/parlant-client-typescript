@@ -10,12 +10,13 @@ const Client_3 = require("./api/resources/services/client/Client");
 const Client_4 = require("./api/resources/tags/client/Client");
 const Client_5 = require("./api/resources/glossary/client/Client");
 const Client_6 = require("./api/resources/customers/client/Client");
-const Client_7 = require("./api/resources/utterances/client/Client");
+const Client_7 = require("./api/resources/cannedResponses/client/Client");
 const Client_8 = require("./api/resources/contextVariables/client/Client");
 const Client_9 = require("./api/resources/guidelines/client/Client");
 const Client_10 = require("./api/resources/relationships/client/Client");
 const Client_11 = require("./api/resources/journeys/client/Client");
 const Client_12 = require("./api/resources/evaluations/client/Client");
+const Client_13 = require("./api/resources/capabilities/client/Client");
 class ParlantClient {
     constructor(_options) {
         this._options = _options;
@@ -44,9 +45,9 @@ class ParlantClient {
         var _a;
         return ((_a = this._customers) !== null && _a !== void 0 ? _a : (this._customers = new Client_6.Customers(this._options)));
     }
-    get utterances() {
+    get cannedResponses() {
         var _a;
-        return ((_a = this._utterances) !== null && _a !== void 0 ? _a : (this._utterances = new Client_7.Utterances(this._options)));
+        return ((_a = this._cannedResponses) !== null && _a !== void 0 ? _a : (this._cannedResponses = new Client_7.CannedResponses(this._options)));
     }
     get contextVariables() {
         var _a;
@@ -67,6 +68,10 @@ class ParlantClient {
     get evaluations() {
         var _a;
         return ((_a = this._evaluations) !== null && _a !== void 0 ? _a : (this._evaluations = new Client_12.Evaluations(this._options)));
+    }
+    get capabilities() {
+        var _a;
+        return ((_a = this._capabilities) !== null && _a !== void 0 ? _a : (this._capabilities = new Client_13.Capabilities(this._options)));
     }
 }
 exports.ParlantClient = ParlantClient;

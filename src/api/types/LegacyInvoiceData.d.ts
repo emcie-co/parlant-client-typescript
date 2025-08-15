@@ -5,7 +5,7 @@ import * as Parlant from "../index";
 /**
  * Contains the relevant invoice data.
  *
- * At this point only `guideline` is suppoerted.
+ * At this point only `guideline` is supported.
  */
 export interface LegacyInvoiceData {
     guideline?: Parlant.LegacyGuidelineInvoiceData;

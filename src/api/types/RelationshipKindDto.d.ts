@@ -4,10 +4,12 @@
 /**
  * The kind of relationship.
  */
-export type RelationshipKindDto = "entailment" | "priority" | "dependency" | "overlap";
+export type RelationshipKindDto = "entailment" | "priority" | "dependency" | "disambiguation" | "overlap" | "reevaluation";
 export declare const RelationshipKindDto: {
     readonly Entailment: "entailment";
     readonly Priority: "priority";
     readonly Dependency: "dependency";
+    readonly Disambiguation: "disambiguation";
     readonly Overlap: "overlap";
+    readonly Reevaluation: "reevaluation";
 };

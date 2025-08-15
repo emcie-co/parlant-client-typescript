@@ -40,10 +40,13 @@ exports.EventCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const EventKindDto_1 = require("../../../../types/EventKindDto");
 const EventSourceDto_1 = require("../../../../types/EventSourceDto");
-const UtteranceRequest_1 = require("../../../../types/UtteranceRequest");
+const AgentMessageGuideline_1 = require("../../../../types/AgentMessageGuideline");
+const Participant_1 = require("../../../../types/Participant");
 exports.EventCreationParams = core.serialization.object({
     kind: EventKindDto_1.EventKindDto,
     source: EventSourceDto_1.EventSourceDto,
     message: core.serialization.string().optional(),
-    actions: core.serialization.list(UtteranceRequest_1.UtteranceRequest).optional(),
+    data: core.serialization.unknown().optional(),
+    guidelines: core.serialization.list(AgentMessageGuideline_1.AgentMessageGuideline).optional(),
+    participant: Participant_1.Participant.optional(),
 });

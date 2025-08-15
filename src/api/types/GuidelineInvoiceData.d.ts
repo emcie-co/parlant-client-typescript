@@ -6,6 +6,6 @@
  */
 export interface GuidelineInvoiceData {
     /** Proposed action proposition */
-    actionProposition: string;
+    actionProposition?: string;
     propertiesProposition?: Record<string, unknown>;
 }

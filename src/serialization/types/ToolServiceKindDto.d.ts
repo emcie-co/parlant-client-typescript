@@ -6,5 +6,5 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 export declare const ToolServiceKindDto: core.serialization.Schema<serializers.ToolServiceKindDto.Raw, Parlant.ToolServiceKindDto>;
 export declare namespace ToolServiceKindDto {
-    type Raw = "sdk" | "openapi";
+    type Raw = "sdk" | "openapi" | "mcp";
 }

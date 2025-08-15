@@ -5,17 +5,17 @@
  * @example
  *     {
  *         name: "Scooby",
- *         extra: {
+ *         metadata: {
  *             "VIP": "Yes",
  *             "email": "scooby@dooby.do"
  *         }
  *     }
  */
 export interface CustomerCreationParams {
-    /** An arbitrary string that indentifies and/or describes the customer */
+    /** An arbitrary string that identifies and/or describes the customer */
     name: string;
     /** Key-value pairs (`str: str`) to describe the customer */
-    extra?: Record<string, string | undefined>;
+    metadata?: Record<string, string | undefined>;
     /** Collection of ids of tags that describe the customer */
     tags?: string[];
 }

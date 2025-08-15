@@ -46,6 +46,7 @@ exports.GuidelinePayload = core.serialization.object({
     toolIds: core.serialization.property("tool_ids", core.serialization.list(ToolId_1.ToolId)),
     operation: GuidelinePayloadOperationDto_1.GuidelinePayloadOperationDto,
     updatedId: core.serialization.property("updated_id", core.serialization.string().optional()),
-    actionProposition: core.serialization.property("action_proposition", core.serialization.boolean()),
-    propertiesProposition: core.serialization.property("properties_proposition", core.serialization.boolean()),
+    actionProposition: core.serialization.property("action_proposition", core.serialization.boolean().optional()),
+    propertiesProposition: core.serialization.property("properties_proposition", core.serialization.boolean().optional()),
+    journeyNodeProposition: core.serialization.property("journey_node_proposition", core.serialization.boolean().optional()),
 });

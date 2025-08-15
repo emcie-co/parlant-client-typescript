@@ -16,8 +16,7 @@ import * as Parlant from "../../../../index";
  *                             toolName: "send_email"
  *                         }],
  *                     operation: "add",
- *                     actionProposition: true,
- *                     propertiesProposition: true
+ *                     actionProposition: true
  *                 }
  *             }]
  *     }

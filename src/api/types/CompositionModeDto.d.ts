@@ -6,14 +6,14 @@
  *
  * Available options:
  * - fluid
- * - strict_utterance
- * - composited_utterance
- * - fluid_utterance
+ * - canned_fluid
+ * - composited_canned
+ * - strict_canned
  */
-export type CompositionModeDto = "fluid" | "strict_utterance" | "composited_utterance" | "fluid_utterance";
+export type CompositionModeDto = "fluid" | "canned_fluid" | "composited_canned" | "strict_canned";
 export declare const CompositionModeDto: {
     readonly Fluid: "fluid";
-    readonly StrictUtterance: "strict_utterance";
-    readonly CompositedUtterance: "composited_utterance";
-    readonly FluidUtterance: "fluid_utterance";
+    readonly CannedFluid: "canned_fluid";
+    readonly CompositedCanned: "composited_canned";
+    readonly StrictCanned: "strict_canned";
 };

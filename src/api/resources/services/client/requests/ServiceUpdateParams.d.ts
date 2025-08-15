@@ -18,4 +18,6 @@ export interface ServiceUpdateParams {
     sdk?: Parlant.SdkServiceParams;
     /** OpenAPI service configuration parameters. Required when kind is 'openapi'. */
     openapi?: Parlant.OpenApiServiceParams;
+    /** MCP service configuration parameters. Required when kind is 'mcp'. */
+    mcp?: Parlant.McpServiceParams;
 }

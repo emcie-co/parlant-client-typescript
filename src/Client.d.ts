@@ -8,12 +8,13 @@ import { Services } from "./api/resources/services/client/Client";
 import { Tags } from "./api/resources/tags/client/Client";
 import { Glossary } from "./api/resources/glossary/client/Client";
 import { Customers } from "./api/resources/customers/client/Client";
-import { Utterances } from "./api/resources/utterances/client/Client";
+import { CannedResponses } from "./api/resources/cannedResponses/client/Client";
 import { ContextVariables } from "./api/resources/contextVariables/client/Client";
 import { Guidelines } from "./api/resources/guidelines/client/Client";
 import { Relationships } from "./api/resources/relationships/client/Client";
 import { Journeys } from "./api/resources/journeys/client/Client";
 import { Evaluations } from "./api/resources/evaluations/client/Client";
+import { Capabilities } from "./api/resources/capabilities/client/Client";
 export declare namespace ParlantClient {
     interface Options {
         environment: core.Supplier<string>;
@@ -39,12 +40,13 @@ export declare class ParlantClient {
     protected _tags: Tags | undefined;
     protected _glossary: Glossary | undefined;
     protected _customers: Customers | undefined;
-    protected _utterances: Utterances | undefined;
+    protected _cannedResponses: CannedResponses | undefined;
     protected _contextVariables: ContextVariables | undefined;
     protected _guidelines: Guidelines | undefined;
     protected _relationships: Relationships | undefined;
     protected _journeys: Journeys | undefined;
     protected _evaluations: Evaluations | undefined;
+    protected _capabilities: Capabilities | undefined;
     constructor(_options: ParlantClient.Options);
     get agents(): Agents;
     get sessions(): Sessions;
@@ -52,10 +54,11 @@ export declare class ParlantClient {
     get tags(): Tags;
     get glossary(): Glossary;
     get customers(): Customers;
-    get utterances(): Utterances;
+    get cannedResponses(): CannedResponses;
     get contextVariables(): ContextVariables;
     get guidelines(): Guidelines;
     get relationships(): Relationships;
     get journeys(): Journeys;
     get evaluations(): Evaluations;
+    get capabilities(): Capabilities;
 }

@@ -349,14 +349,7 @@ class Guidelines {
      *                     toolName: "old_tool"
      *                 }]
      *         },
-     *         enabled: true,
-     *         metadata: {
-     *             add: {
-     *                 "key1": "value1",
-     *                 "key2": "value2"
-     *             },
-     *             remove: ["key3", "key4"]
-     *         }
+     *         enabled: true
      *     })
      */
     update(guidelineId_1) {

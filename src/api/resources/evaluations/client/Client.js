@@ -81,8 +81,7 @@ class Evaluations {
      *                             toolName: "send_email"
      *                         }],
      *                     operation: "add",
-     *                     actionProposition: true,
-     *                     propertiesProposition: true
+     *                     actionProposition: true
      *                 }
      *             }]
      *     })

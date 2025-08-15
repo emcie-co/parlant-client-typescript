@@ -6,7 +6,7 @@
  */
 export interface GuidelineMetadataUpdateParams {
     /** Metadata for the guideline */
-    add?: Record<string, unknown>;
+    set?: Record<string, unknown>;
     /** Metadata keys to remove from the guideline */
-    remove?: string[];
+    unset?: string[];
 }

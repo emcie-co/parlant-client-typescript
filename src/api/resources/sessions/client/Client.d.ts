@@ -198,21 +198,4 @@ export declare class Sessions {
      *     })
      */
     deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
-    /**
-     * Retrieves detailed inspection information about an event.
-     *
-     * For AI agent message events, includes information about message generation,
-     * tool calls, and preparation iterations.
-     *
-     * @param {string} sessionId - Unique identifier for the session
-     * @param {string} eventId - Unique identifier for the event
-     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Parlant.NotFoundError}
-     * @throws {@link Parlant.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.sessions.inspectEvent("sess_123yz", "evt_123xyz")
-     */
-    inspectEvent(sessionId: string, eventId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventInspectionResult>;
 }

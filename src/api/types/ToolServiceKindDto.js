@@ -7,4 +7,5 @@ exports.ToolServiceKindDto = void 0;
 exports.ToolServiceKindDto = {
     Sdk: "sdk",
     Openapi: "openapi",
+    Mcp: "mcp",
 };
