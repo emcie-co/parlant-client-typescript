@@ -22,4 +22,5 @@ export interface EventCreationParams {
     data?: unknown;
     guidelines?: Parlant.AgentMessageGuideline[];
     participant?: Parlant.Participant;
+    status?: Parlant.SessionStatusDto;
 }

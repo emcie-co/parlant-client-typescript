@@ -8,6 +8,7 @@ import { EventKindDto } from "../../../../types/EventKindDto";
 import { EventSourceDto } from "../../../../types/EventSourceDto";
 import { AgentMessageGuideline } from "../../../../types/AgentMessageGuideline";
 import { Participant } from "../../../../types/Participant";
+import { SessionStatusDto } from "../../../../types/SessionStatusDto";
 export declare const EventCreationParams: core.serialization.Schema<serializers.EventCreationParams.Raw, Omit<Parlant.EventCreationParams, "moderation">>;
 export declare namespace EventCreationParams {
     interface Raw {
@@ -17,5 +18,6 @@ export declare namespace EventCreationParams {
         data?: unknown | null;
         guidelines?: AgentMessageGuideline.Raw[] | null;
         participant?: Participant.Raw | null;
+        status?: SessionStatusDto.Raw | null;
     }
 }

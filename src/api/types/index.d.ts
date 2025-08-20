@@ -76,6 +76,7 @@ export * from "./SdkServiceParams";
 export * from "./Service";
 export * from "./Session";
 export * from "./SessionModeDto";
+export * from "./SessionStatusDto";
 export * from "./Tag";
 export * from "./Term";
 export * from "./TermTagsUpdateParams";

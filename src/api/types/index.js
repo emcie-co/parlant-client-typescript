@@ -92,6 +92,7 @@ __exportStar(require("./SdkServiceParams"), exports);
 __exportStar(require("./Service"), exports);
 __exportStar(require("./Session"), exports);
 __exportStar(require("./SessionModeDto"), exports);
+__exportStar(require("./SessionStatusDto"), exports);
 __exportStar(require("./Tag"), exports);
 __exportStar(require("./Term"), exports);
 __exportStar(require("./TermTagsUpdateParams"), exports);

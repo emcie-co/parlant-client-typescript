@@ -36,19 +36,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EventCreationParams = void 0;
-const core = __importStar(require("../../../../../core"));
-const EventKindDto_1 = require("../../../../types/EventKindDto");
-const EventSourceDto_1 = require("../../../../types/EventSourceDto");
-const AgentMessageGuideline_1 = require("../../../../types/AgentMessageGuideline");
-const Participant_1 = require("../../../../types/Participant");
-const SessionStatusDto_1 = require("../../../../types/SessionStatusDto");
-exports.EventCreationParams = core.serialization.object({
-    kind: EventKindDto_1.EventKindDto,
-    source: EventSourceDto_1.EventSourceDto,
-    message: core.serialization.string().optional(),
-    data: core.serialization.unknown().optional(),
-    guidelines: core.serialization.list(AgentMessageGuideline_1.AgentMessageGuideline).optional(),
-    participant: Participant_1.Participant.optional(),
-    status: SessionStatusDto_1.SessionStatusDto.optional(),
-});
+exports.SessionStatusDto = void 0;
+const core = __importStar(require("../../core"));
+exports.SessionStatusDto = core.serialization.enum_(["acknowledged", "cancelled", "processing", "ready", "typing", "error"]);
