@@ -56,7 +56,11 @@ export declare class Sessions {
      *     await client.sessions.create({
      *         agentId: "ag_123xyz",
      *         customerId: "cust_123xy",
-     *         title: "Product inquiry session"
+     *         title: "Product inquiry session",
+     *         metadata: {
+     *             "priority": "high",
+     *             "project": "demo"
+     *         }
      *     })
      */
     create(request: Parlant.SessionCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
@@ -123,7 +127,14 @@ export declare class Sessions {
      *         consumptionOffsets: {
      *             client: 42
      *         },
-     *         title: "Updated session title"
+     *         title: "Updated session title",
+     *         metadata: {
+     *             set: {
+     *                 "priority": "low",
+     *                 "simulation": true
+     *             },
+     *             unset: ["old_project"]
+     *         }
      *     })
      */
     update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
@@ -131,7 +142,7 @@ export declare class Sessions {
      * Lists events from a session with optional filtering and waiting capabilities.
      *
      * This endpoint retrieves events from a specified session and can:
-     * 1. Filter events by their offset, source, type, and correlation ID
+     * 1. Filter events by their offset, source, type, and trace ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
      *
@@ -155,7 +166,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.listEvents("sess_123yz", {
      *         minOffset: 0,
-     *         correlationId: "corr_13xyz",
+     *         traceId: "corr_13xyz",
      *         kinds: "message,tool"
      *     })
      */

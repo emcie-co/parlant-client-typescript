@@ -14,7 +14,7 @@ export interface EventCreationParams {
     /**
      * Content moderation level for the event
      */
-    moderation?: Parlant.Moderation;
+    moderation?: Parlant.ModerationDto;
     kind: Parlant.EventKindDto;
     source: Parlant.EventSourceDto;
     /** Event payload data, format depends on kind */

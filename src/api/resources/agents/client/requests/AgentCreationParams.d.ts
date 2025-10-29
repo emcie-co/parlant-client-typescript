@@ -15,6 +15,8 @@ import * as Parlant from "../../../../index";
 export interface AgentCreationParams {
     /** The display name of the agent, mainly for management purposes */
     name: string;
+    /** Unique identifier for the agent */
+    id?: string;
     /** Detailed description of the agent's purpose and capabilities */
     description?: string;
     /** Maximum number of processing iterations the agent can perform per request */

@@ -14,7 +14,7 @@ export declare namespace Event {
         kind: EventKindDto.Raw;
         offset: number;
         creation_utc: string;
-        correlation_id: string;
+        trace_id: string;
         data?: unknown;
         deleted: boolean;
     }

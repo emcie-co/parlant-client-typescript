@@ -61,4 +61,11 @@ export declare class ParlantClient {
     get journeys(): Journeys;
     get evaluations(): Evaluations;
     get capabilities(): Capabilities;
+    /**
+     * @param {ParlantClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.healthCheckHealthzGet()
+     */
+    healthCheckHealthzGet(requestOptions?: ParlantClient.RequestOptions): Promise<Record<string, string>>;
 }

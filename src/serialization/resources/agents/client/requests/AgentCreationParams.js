@@ -41,6 +41,7 @@ const core = __importStar(require("../../../../../core"));
 const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
 exports.AgentCreationParams = core.serialization.object({
     name: core.serialization.string(),
+    id: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),

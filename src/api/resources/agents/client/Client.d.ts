@@ -39,10 +39,11 @@ export declare class Agents {
      * Creates a new agent in the system.
      *
      * The agent will be initialized with the provided name and optional settings.
-     * A unique identifier will be automatically generated.
+     * A unique identifier will be automatically generated unless a custom ID is provided.
      *
      * Default behaviors:
      * - `name` defaults to `"Unnamed Agent"` if not provided
+     * - `id` is auto-generated if not provided
      * - `description` defaults to `None`
      * - `max_engine_iterations` defaults to `None` (uses system default)
      *

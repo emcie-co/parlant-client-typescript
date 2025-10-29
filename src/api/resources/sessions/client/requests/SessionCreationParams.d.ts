@@ -6,7 +6,11 @@
  *     {
  *         agentId: "ag_123xyz",
  *         customerId: "cust_123xy",
- *         title: "Product inquiry session"
+ *         title: "Product inquiry session",
+ *         metadata: {
+ *             "priority": "high",
+ *             "project": "demo"
+ *         }
  *     }
  */
 export interface SessionCreationParams {
@@ -20,4 +24,6 @@ export interface SessionCreationParams {
     customerId?: string;
     /** Descriptive title for the session */
     title?: string;
+    /** Metadata for the session */
+    metadata?: Record<string, unknown>;
 }

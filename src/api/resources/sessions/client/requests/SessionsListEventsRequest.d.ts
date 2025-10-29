@@ -6,14 +6,14 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         minOffset: 0,
- *         correlationId: "corr_13xyz",
+ *         traceId: "corr_13xyz",
  *         kinds: "message,tool"
  *     }
  */
 export interface SessionsListEventsRequest {
     minOffset?: number;
     source?: Parlant.EventSourceDto;
-    correlationId?: string;
+    traceId?: string;
     kinds?: string;
     waitForData?: number;
 }

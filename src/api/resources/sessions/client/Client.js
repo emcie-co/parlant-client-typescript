@@ -157,7 +157,11 @@ class Sessions {
      *     await client.sessions.create({
      *         agentId: "ag_123xyz",
      *         customerId: "cust_123xy",
-     *         title: "Product inquiry session"
+     *         title: "Product inquiry session",
+     *         metadata: {
+     *             "priority": "high",
+     *             "project": "demo"
+     *         }
      *     })
      */
     create(request, requestOptions) {
@@ -418,7 +422,14 @@ class Sessions {
      *         consumptionOffsets: {
      *             client: 42
      *         },
-     *         title: "Updated session title"
+     *         title: "Updated session title",
+     *         metadata: {
+     *             set: {
+     *                 "priority": "low",
+     *                 "simulation": true
+     *             },
+     *             unset: ["old_project"]
+     *         }
      *     })
      */
     update(sessionId_1) {
@@ -475,7 +486,7 @@ class Sessions {
      * Lists events from a session with optional filtering and waiting capabilities.
      *
      * This endpoint retrieves events from a specified session and can:
-     * 1. Filter events by their offset, source, type, and correlation ID
+     * 1. Filter events by their offset, source, type, and trace ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
      *
@@ -499,14 +510,14 @@ class Sessions {
      * @example
      *     await client.sessions.listEvents("sess_123yz", {
      *         minOffset: 0,
-     *         correlationId: "corr_13xyz",
+     *         traceId: "corr_13xyz",
      *         kinds: "message,tool"
      *     })
      */
     listEvents(sessionId_1) {
         return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
             var _a;
-            const { minOffset, source, correlationId, kinds, waitForData } = request;
+            const { minOffset, source, traceId, kinds, waitForData } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
@@ -516,8 +527,8 @@ class Sessions {
                     unrecognizedObjectKeys: "strip",
                 });
             }
-            if (correlationId != null) {
-                _queryParams["correlation_id"] = correlationId;
+            if (traceId != null) {
+                _queryParams["trace_id"] = traceId;
             }
             if (kinds != null) {
                 _queryParams["kinds"] = kinds;
@@ -599,7 +610,7 @@ class Sessions {
             const { moderation } = request, _body = __rest(request, ["moderation"]);
             const _queryParams = {};
             if (moderation != null) {
-                _queryParams["moderation"] = serializers.Moderation.jsonOrThrow(moderation, {
+                _queryParams["moderation"] = serializers.ModerationDto.jsonOrThrow(moderation, {
                     unrecognizedObjectKeys: "strip",
                 });
             }

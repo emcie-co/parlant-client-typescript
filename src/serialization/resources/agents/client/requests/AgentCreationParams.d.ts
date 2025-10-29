@@ -9,6 +9,7 @@ export declare const AgentCreationParams: core.serialization.Schema<serializers.
 export declare namespace AgentCreationParams {
     interface Raw {
         name: string;
+        id?: string | null;
         description?: string | null;
         max_engine_iterations?: number | null;
         composition_mode?: CompositionModeDto.Raw | null;

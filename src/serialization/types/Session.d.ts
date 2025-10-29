@@ -16,5 +16,6 @@ export declare namespace Session {
         title?: string | null;
         mode: SessionModeDto.Raw;
         consumption_offsets: ConsumptionOffsets.Raw;
+        metadata: Record<string, unknown>;
     }
 }
