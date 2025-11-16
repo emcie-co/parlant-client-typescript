@@ -16,6 +16,8 @@ export interface Event {
     creationUtc: Date;
     /** ID linking related events together */
     traceId: string;
+    /** ID linking related events together */
+    correlationId: string;
     data?: unknown;
     deleted: boolean;
 }

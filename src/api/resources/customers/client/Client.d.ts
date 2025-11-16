@@ -24,17 +24,30 @@ export declare class Customers {
     protected readonly _options: Customers.Options;
     constructor(_options: Customers.Options);
     /**
-     * Retrieves a list of all customers in the system.
+     * Retrieves a list of customers from the system.
+     *
+     * If a cursor is provided, the results are returned using cursor-based pagination
+     * with a configurable sort direction. If no cursor is provided, the full list of
+     * customers is returned.
      *
      * Returns an empty list if no customers exist.
-     * Customers are returned in no guaranteed order.
      *
+     * Note:
+     *     When using paginated results, the first page will always include the special
+     *     'guest' customer as first item.
+     *
+     * @param {Parlant.CustomersListRequest} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
      * @example
-     *     await client.customers.list()
+     *     await client.customers.list({
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *     })
      */
-    list(requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer[]>;
+    list(request?: Parlant.CustomersListRequest, requestOptions?: Customers.RequestOptions): Promise<Parlant.CustomersListResponse>;
     /**
      * Creates a new customer in the system.
      *

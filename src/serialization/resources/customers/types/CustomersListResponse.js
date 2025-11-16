@@ -36,7 +36,8 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Response = void 0;
+exports.CustomersListResponse = void 0;
 const core = __importStar(require("../../../../core"));
-const Session_1 = require("../../../types/Session");
-exports.Response = core.serialization.list(Session_1.Session);
+const PaginatedCustomers_1 = require("../../../types/PaginatedCustomers");
+const Customer_1 = require("../../../types/Customer");
+exports.CustomersListResponse = core.serialization.undiscriminatedUnion([PaginatedCustomers_1.PaginatedCustomers, core.serialization.list(Customer_1.Customer)]);

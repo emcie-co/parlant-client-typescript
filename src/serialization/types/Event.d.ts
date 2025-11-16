@@ -15,6 +15,7 @@ export declare namespace Event {
         offset: number;
         creation_utc: string;
         trace_id: string;
+        correlation_id: string;
         data?: unknown;
         deleted: boolean;
     }

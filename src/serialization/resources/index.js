@@ -36,13 +36,15 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.evaluations = exports.capabilities = exports.journeys = exports.relationships = exports.guidelines = exports.contextVariables = exports.cannedResponses = exports.customers = exports.glossary = exports.tags = exports.services = exports.sessions = exports.agents = void 0;
-exports.agents = __importStar(require("./agents"));
+exports.evaluations = exports.capabilities = exports.journeys = exports.relationships = exports.guidelines = exports.contextVariables = exports.cannedResponses = exports.glossary = exports.tags = exports.services = exports.agents = exports.customers = exports.sessions = void 0;
 exports.sessions = __importStar(require("./sessions"));
+__exportStar(require("./sessions/types"), exports);
+exports.customers = __importStar(require("./customers"));
+__exportStar(require("./customers/types"), exports);
+exports.agents = __importStar(require("./agents"));
 exports.services = __importStar(require("./services"));
 exports.tags = __importStar(require("./tags"));
 exports.glossary = __importStar(require("./glossary"));
-exports.customers = __importStar(require("./customers"));
 exports.cannedResponses = __importStar(require("./cannedResponses"));
 exports.contextVariables = __importStar(require("./contextVariables"));
 exports.guidelines = __importStar(require("./guidelines"));

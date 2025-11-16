@@ -36,7 +36,8 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Response = void 0;
+exports.SessionsListResponse = void 0;
 const core = __importStar(require("../../../../core"));
-const Customer_1 = require("../../../types/Customer");
-exports.Response = core.serialization.list(Customer_1.Customer);
+const SessionListing_1 = require("../../../types/SessionListing");
+const Session_1 = require("../../../types/Session");
+exports.SessionsListResponse = core.serialization.undiscriminatedUnion([SessionListing_1.SessionListing, core.serialization.list(Session_1.Session)]);

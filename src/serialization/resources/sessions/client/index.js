@@ -36,7 +36,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listEvents = exports.list = void 0;
-exports.list = __importStar(require("./list"));
+exports.listEvents = void 0;
 exports.listEvents = __importStar(require("./listEvents"));
 __exportStar(require("./requests"), exports);

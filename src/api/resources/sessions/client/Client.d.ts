@@ -24,10 +24,10 @@ export declare class Sessions {
     protected readonly _options: Sessions.Options;
     constructor(_options: Sessions.Options);
     /**
-     * Lists all sessions matching the specified filters.
+     * Lists all sessions matching the specified filters with pagination support.
      *
-     * Can filter by agent_id and/or customer_id. Returns all sessions if no
-     * filters are provided.
+     * Can filter by agent_id and/or customer_id. Supports cursor-based pagination
+     * with configurable sort direction.
      *
      * @param {Parlant.SessionsListRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -37,10 +37,12 @@ export declare class Sessions {
      * @example
      *     await client.sessions.list({
      *         agentId: "ag_123xyz",
-     *         customerId: "cust_123xy"
+     *         customerId: "cust_123xy",
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
      *     })
      */
-    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session[]>;
+    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.SessionsListResponse>;
     /**
      * Creates a new session between an agent and customer.
      *
@@ -166,6 +168,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.listEvents("sess_123yz", {
      *         minOffset: 0,
+     *         correlationId: "corr_13xyz",
      *         traceId: "corr_13xyz",
      *         kinds: "message,tool"
      *     })

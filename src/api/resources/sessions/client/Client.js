@@ -62,18 +62,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sessions = void 0;
 const core = __importStar(require("../../../../core"));
 const Parlant = __importStar(require("../../../index"));
-const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization/index"));
+const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Sessions {
     constructor(_options) {
         this._options = _options;
     }
     /**
-     * Lists all sessions matching the specified filters.
+     * Lists all sessions matching the specified filters with pagination support.
      *
-     * Can filter by agent_id and/or customer_id. Returns all sessions if no
-     * filters are provided.
+     * Can filter by agent_id and/or customer_id. Supports cursor-based pagination
+     * with configurable sort direction.
      *
      * @param {Parlant.SessionsListRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -83,19 +83,30 @@ class Sessions {
      * @example
      *     await client.sessions.list({
      *         agentId: "ag_123xyz",
-     *         customerId: "cust_123xy"
+     *         customerId: "cust_123xy",
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
      *     })
      */
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { agentId, customerId } = request;
+            const { agentId, customerId, limit, cursor, sort } = request;
             const _queryParams = {};
             if (agentId != null) {
                 _queryParams["agent_id"] = agentId;
             }
             if (customerId != null) {
                 _queryParams["customer_id"] = customerId;
+            }
+            if (limit != null) {
+                _queryParams["limit"] = limit.toString();
+            }
+            if (cursor != null) {
+                _queryParams["cursor"] = cursor;
+            }
+            if (sort != null) {
+                _queryParams["sort"] = serializers.SortDirectionDto.jsonOrThrow(sort, { unrecognizedObjectKeys: "strip" });
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
@@ -109,7 +120,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.sessions.list.Response.parseOrThrow(_response.body, {
+                return serializers.SessionsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -510,6 +521,7 @@ class Sessions {
      * @example
      *     await client.sessions.listEvents("sess_123yz", {
      *         minOffset: 0,
+     *         correlationId: "corr_13xyz",
      *         traceId: "corr_13xyz",
      *         kinds: "message,tool"
      *     })
@@ -517,7 +529,7 @@ class Sessions {
     listEvents(sessionId_1) {
         return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
             var _a;
-            const { minOffset, source, traceId, kinds, waitForData } = request;
+            const { minOffset, source, correlationId, traceId, kinds, waitForData } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
@@ -526,6 +538,9 @@ class Sessions {
                 _queryParams["source"] = serializers.EventSourceDto.jsonOrThrow(source, {
                     unrecognizedObjectKeys: "strip",
                 });
+            }
+            if (correlationId != null) {
+                _queryParams["correlation_id"] = correlationId;
             }
             if (traceId != null) {
                 _queryParams["trace_id"] = traceId;

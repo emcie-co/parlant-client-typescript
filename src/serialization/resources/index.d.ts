@@ -1,9 +1,11 @@
-export * as agents from "./agents";
 export * as sessions from "./sessions";
+export * from "./sessions/types";
+export * as customers from "./customers";
+export * from "./customers/types";
+export * as agents from "./agents";
 export * as services from "./services";
 export * as tags from "./tags";
 export * as glossary from "./glossary";
-export * as customers from "./customers";
 export * as cannedResponses from "./cannedResponses";
 export * as contextVariables from "./contextVariables";
 export * as guidelines from "./guidelines";

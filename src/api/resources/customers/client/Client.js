@@ -51,39 +51,64 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Customers = void 0;
 const core = __importStar(require("../../../../core"));
 const Parlant = __importStar(require("../../../index"));
-const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization/index"));
+const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Customers {
     constructor(_options) {
         this._options = _options;
     }
     /**
-     * Retrieves a list of all customers in the system.
+     * Retrieves a list of customers from the system.
+     *
+     * If a cursor is provided, the results are returned using cursor-based pagination
+     * with a configurable sort direction. If no cursor is provided, the full list of
+     * customers is returned.
      *
      * Returns an empty list if no customers exist.
-     * Customers are returned in no guaranteed order.
      *
+     * Note:
+     *     When using paginated results, the first page will always include the special
+     *     'guest' customer as first item.
+     *
+     * @param {Parlant.CustomersListRequest} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
      * @example
-     *     await client.customers.list()
+     *     await client.customers.list({
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *     })
      */
-    list(requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
+            const { limit, cursor, sort } = request;
+            const _queryParams = {};
+            if (limit != null) {
+                _queryParams["limit"] = limit.toString();
+            }
+            if (cursor != null) {
+                _queryParams["cursor"] = cursor;
+            }
+            if (sort != null) {
+                _queryParams["sort"] = serializers.SortDirectionDto.jsonOrThrow(sort, { unrecognizedObjectKeys: "strip" });
+            }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "customers"),
                 method: "GET",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.customers.list.Response.parseOrThrow(_response.body, {
+                return serializers.CustomersListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -91,10 +116,15 @@ class Customers {
                 });
             }
             if (_response.error.reason === "status-code") {
-                throw new errors.ParlantError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
-                });
+                switch (_response.error.statusCode) {
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
             }
             switch (_response.error.reason) {
                 case "non-json":
