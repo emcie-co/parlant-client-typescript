@@ -742,5 +742,81 @@ class Sessions {
             }
         });
     }
+    /**
+     * Updates an event's properties.
+     *
+     * Currently only supports updating metadata. Other event properties cannot be modified.
+     * This API is designed to be extensible for future event property updates.
+     *
+     * @param {string} sessionId - Unique identifier for the session
+     * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.EventUpdateParams} request
+     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sessions.updateEvent("sess_123yz", "evt_123xyz", {
+     *         metadata: {
+     *             set: {
+     *                 "agent_id": "agent_123",
+     *                 "category": "support",
+     *                 "priority": "high"
+     *             },
+     *             unset: ["old_priority"]
+     *         }
+     *     })
+     */
+    updateEvent(sessionId_1, eventId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, eventId, request = {}, requestOptions) {
+            var _a;
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
+                method: "PATCH",
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                contentType: "application/json",
+                requestType: "json",
+                body: serializers.EventUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.Event.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.ParlantError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /sessions/{session_id}/events/{event_id}.");
+                case "unknown":
+                    throw new errors.ParlantError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
 }
 exports.Sessions = Sessions;

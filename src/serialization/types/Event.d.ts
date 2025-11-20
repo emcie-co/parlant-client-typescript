@@ -17,6 +17,7 @@ export declare namespace Event {
         trace_id: string;
         correlation_id: string;
         data?: unknown;
+        metadata: Record<string, unknown>;
         deleted: boolean;
     }
 }

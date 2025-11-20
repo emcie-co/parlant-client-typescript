@@ -16,6 +16,7 @@ export declare namespace EventCreationParams {
         source: EventSourceDto.Raw;
         message?: string | null;
         data?: unknown | null;
+        metadata?: Record<string, unknown> | null;
         guidelines?: AgentMessageGuideline.Raw[] | null;
         participant?: Participant.Raw | null;
         status?: SessionStatusDto.Raw | null;

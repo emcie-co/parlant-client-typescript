@@ -19,5 +19,7 @@ export interface Event {
     /** ID linking related events together */
     correlationId: string;
     data?: unknown;
+    /** Metadata associated with the event */
+    metadata: Record<string, unknown>;
     deleted: boolean;
 }

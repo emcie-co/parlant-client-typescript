@@ -212,4 +212,31 @@ export declare class Sessions {
      *     })
      */
     deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    /**
+     * Updates an event's properties.
+     *
+     * Currently only supports updating metadata. Other event properties cannot be modified.
+     * This API is designed to be extensible for future event property updates.
+     *
+     * @param {string} sessionId - Unique identifier for the session
+     * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.EventUpdateParams} request
+     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sessions.updateEvent("sess_123yz", "evt_123xyz", {
+     *         metadata: {
+     *             set: {
+     *                 "agent_id": "agent_123",
+     *                 "category": "support",
+     *                 "priority": "high"
+     *             },
+     *             unset: ["old_priority"]
+     *         }
+     *     })
+     */
+    updateEvent(sessionId: string, eventId: string, request?: Parlant.EventUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event>;
 }

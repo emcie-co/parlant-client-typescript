@@ -20,6 +20,8 @@ export interface EventCreationParams {
     /** Event payload data, format depends on kind */
     message?: string;
     data?: unknown;
+    /** Metadata associated with the event */
+    metadata?: Record<string, unknown>;
     guidelines?: Parlant.AgentMessageGuideline[];
     participant?: Parlant.Participant;
     status?: Parlant.SessionStatusDto;

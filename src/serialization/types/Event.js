@@ -49,5 +49,6 @@ exports.Event = core.serialization.object({
     traceId: core.serialization.property("trace_id", core.serialization.string()),
     correlationId: core.serialization.property("correlation_id", core.serialization.string()),
     data: core.serialization.unknown(),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     deleted: core.serialization.boolean(),
 });
