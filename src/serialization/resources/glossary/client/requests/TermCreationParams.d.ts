@@ -11,5 +11,6 @@ export declare namespace TermCreationParams {
         description: string;
         synonyms?: string[] | null;
         tags?: string[] | null;
+        id?: string | null;
     }
 }

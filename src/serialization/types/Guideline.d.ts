@@ -4,14 +4,19 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
+import { CriticalityDto } from "./CriticalityDto";
+import { CompositionModeDto } from "./CompositionModeDto";
 export declare const Guideline: core.serialization.ObjectSchema<serializers.Guideline.Raw, Parlant.Guideline>;
 export declare namespace Guideline {
     interface Raw {
         id: string;
         condition: string;
         action?: string | null;
+        description?: string | null;
+        criticality?: CriticalityDto.Raw | null;
         enabled?: boolean | null;
         tags: string[];
         metadata: Record<string, unknown>;
+        composition_mode?: CompositionModeDto.Raw | null;
     }
 }

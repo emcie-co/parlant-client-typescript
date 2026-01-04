@@ -18,4 +18,5 @@ export interface TermCreationParams {
     synonyms?: string[];
     /** List of tag IDs associated with the term */
     tags?: string[];
+    id?: string;
 }

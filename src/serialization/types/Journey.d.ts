@@ -4,6 +4,7 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
+import { CompositionModeDto } from "./CompositionModeDto";
 export declare const Journey: core.serialization.ObjectSchema<serializers.Journey.Raw, Parlant.Journey>;
 export declare namespace Journey {
     interface Raw {
@@ -12,5 +13,6 @@ export declare namespace Journey {
         description: string;
         conditions: string[];
         tags?: string[] | null;
+        composition_mode?: CompositionModeDto.Raw | null;
     }
 }

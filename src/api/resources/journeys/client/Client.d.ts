@@ -39,7 +39,7 @@ export declare class Journeys {
      * Creates a new journey in the system.
      *
      * The journey will be initialized with the provided title, description, and conditions.
-     * A unique identifier will be automatically generated.
+     * A unique identifier will be automatically generated unless a custom ID is provided.
      *
      * @param {Parlant.JourneyCreationParams} request
      * @param {Journeys.RequestOptions} requestOptions - Request-specific configuration.
@@ -51,6 +51,7 @@ export declare class Journeys {
      *         title: "Customer Onboarding",
      *         description: "1. Customer wants to lock their card\n2. Customer reports that their card doesn't work\n3. Customer suspects their card has been stolen",
      *         conditions: ["customer needs unlocking their card", "customer needs help with card"],
+     *         id: "IUCGT-lvpS",
      *         tags: ["tag1", "tag2"]
      *     })
      */

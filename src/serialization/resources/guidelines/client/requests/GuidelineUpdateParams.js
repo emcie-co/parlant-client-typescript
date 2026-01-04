@@ -38,14 +38,19 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
+const CriticalityDto_1 = require("../../../../types/CriticalityDto");
 const GuidelineToolAssociationUpdateParams_1 = require("../../../../types/GuidelineToolAssociationUpdateParams");
 const GuidelineTagsUpdateParams_1 = require("../../../../types/GuidelineTagsUpdateParams");
 const GuidelineMetadataUpdateParams_1 = require("../../../../types/GuidelineMetadataUpdateParams");
+const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
 exports.GuidelineUpdateParams = core.serialization.object({
     condition: core.serialization.string().optional(),
     action: core.serialization.string().optional(),
+    description: core.serialization.string().optional(),
+    criticality: CriticalityDto_1.CriticalityDto.optional(),
     toolAssociations: core.serialization.property("tool_associations", GuidelineToolAssociationUpdateParams_1.GuidelineToolAssociationUpdateParams.optional()),
     enabled: core.serialization.boolean().optional(),
     tags: GuidelineTagsUpdateParams_1.GuidelineTagsUpdateParams.optional(),
     metadata: GuidelineMetadataUpdateParams_1.GuidelineMetadataUpdateParams.optional(),
+    compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
 });

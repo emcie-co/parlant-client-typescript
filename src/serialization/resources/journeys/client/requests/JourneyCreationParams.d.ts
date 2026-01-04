@@ -4,12 +4,15 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { CompositionModeDto } from "../../../../types/CompositionModeDto";
 export declare const JourneyCreationParams: core.serialization.Schema<serializers.JourneyCreationParams.Raw, Parlant.JourneyCreationParams>;
 export declare namespace JourneyCreationParams {
     interface Raw {
         title: string;
         description: string;
         conditions: string[];
+        id?: string | null;
         tags?: string[] | null;
+        composition_mode?: CompositionModeDto.Raw | null;
     }
 }
