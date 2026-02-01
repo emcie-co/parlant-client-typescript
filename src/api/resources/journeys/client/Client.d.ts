@@ -68,7 +68,7 @@ export declare class Journeys {
      * @example
      *     await client.journeys.retrieve("IUCGT-lvpS")
      */
-    retrieve(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<Parlant.Journey>;
+    retrieve(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<Parlant.JourneyGraph>;
     /**
      * Deletes a journey from the system.
      *
