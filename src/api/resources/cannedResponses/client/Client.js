@@ -140,7 +140,11 @@ class CannedResponses {
      *                 name: "balance",
      *                 description: "Account's balance",
      *                 examples: ["9000"]
-     *             }]
+     *             }],
+     *         metadata: {
+     *             "category": "account",
+     *             "priority": 1
+     *         }
      *     })
      */
     create(request, requestOptions) {
@@ -327,7 +331,14 @@ class CannedResponses {
      *                 name: "balance",
      *                 description: "Updated account balance",
      *                 examples: ["10000"]
-     *             }]
+     *             }],
+     *         metadata: {
+     *             set: {
+     *                 "category": "account",
+     *                 "priority": 2
+     *             },
+     *             unset: ["old_field"]
+     *         }
      *     })
      */
     update(cannedResponseId_1) {

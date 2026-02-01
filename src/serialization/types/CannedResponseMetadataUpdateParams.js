@@ -36,18 +36,9 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Guideline = void 0;
+exports.CannedResponseMetadataUpdateParams = void 0;
 const core = __importStar(require("../../core"));
-const CriticalityDto_1 = require("./CriticalityDto");
-const CompositionModeDto_1 = require("./CompositionModeDto");
-exports.Guideline = core.serialization.object({
-    id: core.serialization.string(),
-    condition: core.serialization.string(),
-    action: core.serialization.string().optional(),
-    description: core.serialization.string().optional(),
-    criticality: CriticalityDto_1.CriticalityDto.optional(),
-    enabled: core.serialization.boolean().optional(),
-    tags: core.serialization.list(core.serialization.string()),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
-    compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
+exports.CannedResponseMetadataUpdateParams = core.serialization.object({
+    set: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    unset: core.serialization.list(core.serialization.string()).optional(),
 });

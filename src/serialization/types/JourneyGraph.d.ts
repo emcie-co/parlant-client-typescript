@@ -5,8 +5,10 @@ import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { CompositionModeDto } from "./CompositionModeDto";
-export declare const Journey: core.serialization.ObjectSchema<serializers.Journey.Raw, Parlant.Journey>;
-export declare namespace Journey {
+import { JourneyNode } from "./JourneyNode";
+import { JourneyEdge } from "./JourneyEdge";
+export declare const JourneyGraph: core.serialization.ObjectSchema<serializers.JourneyGraph.Raw, Parlant.JourneyGraph>;
+export declare namespace JourneyGraph {
     interface Raw {
         id: string;
         title: string;
@@ -14,5 +16,7 @@ export declare namespace Journey {
         conditions: string[];
         tags?: string[] | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        nodes?: JourneyNode.Raw[] | null;
+        edges?: JourneyEdge.Raw[] | null;
     }
 }

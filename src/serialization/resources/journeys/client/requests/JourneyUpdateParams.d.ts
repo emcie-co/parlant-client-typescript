@@ -6,6 +6,7 @@ import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { JourneyConditionUpdateParams } from "../../../../types/JourneyConditionUpdateParams";
 import { JourneyTagUpdateParams } from "../../../../types/JourneyTagUpdateParams";
+import { CompositionModeDto } from "../../../../types/CompositionModeDto";
 export declare const JourneyUpdateParams: core.serialization.Schema<serializers.JourneyUpdateParams.Raw, Parlant.JourneyUpdateParams>;
 export declare namespace JourneyUpdateParams {
     interface Raw {
@@ -13,5 +14,6 @@ export declare namespace JourneyUpdateParams {
         description?: string | null;
         conditions?: JourneyConditionUpdateParams.Raw | null;
         tags?: JourneyTagUpdateParams.Raw | null;
+        composition_mode?: CompositionModeDto.Raw | null;
     }
 }

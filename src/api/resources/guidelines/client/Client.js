@@ -129,6 +129,9 @@ class Guidelines {
     /**
      * Creates a new guideline.
      *
+     * The guideline will be initialized with the provided condition and optional action and settings.
+     * A unique identifier will be automatically generated unless a custom ID is provided.
+     *
      * See the [documentation](https://parlant.io/docs/concepts/customization/guidelines) for more information.
      *
      * @param {Parlant.GuidelineCreationParams} request
@@ -144,7 +147,8 @@ class Guidelines {
      *             "key1": "value1",
      *             "key2": "value2"
      *         },
-     *         enabled: false
+     *         enabled: false,
+     *         compositionMode: "strict_canned"
      *     })
      */
     create(request, requestOptions) {
@@ -349,7 +353,14 @@ class Guidelines {
      *                     toolName: "old_tool"
      *                 }]
      *         },
-     *         enabled: true
+     *         enabled: true,
+     *         metadata: {
+     *             set: {
+     *                 "key1": "value1",
+     *                 "key2": "value2"
+     *             },
+     *             unset: ["key3", "key4"]
+     *         }
      *     })
      */
     update(guidelineId_1) {

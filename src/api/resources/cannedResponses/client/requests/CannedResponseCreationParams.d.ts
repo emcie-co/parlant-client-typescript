@@ -10,7 +10,11 @@ import * as Parlant from "../../../../index";
  *                 name: "balance",
  *                 description: "Account's balance",
  *                 examples: ["9000"]
- *             }]
+ *             }],
+ *         metadata: {
+ *             "category": "account",
+ *             "priority": 1
+ *         }
  *     }
  */
 export interface CannedResponseCreationParams {
@@ -22,4 +26,6 @@ export interface CannedResponseCreationParams {
     tags?: string[];
     /** A sequence of signals associated with the canned response, to help with filtering and matching. */
     signals?: string[];
+    /** Additional metadata associated with the canned response. */
+    metadata?: Record<string, unknown>;
 }

@@ -10,7 +10,14 @@ import * as Parlant from "../../../../index";
  *                 name: "balance",
  *                 description: "Updated account balance",
  *                 examples: ["10000"]
- *             }]
+ *             }],
+ *         metadata: {
+ *             set: {
+ *                 "category": "account",
+ *                 "priority": 2
+ *             },
+ *             unset: ["old_field"]
+ *         }
  *     }
  */
 export interface CannedResponseUpdateParams {
@@ -19,4 +26,5 @@ export interface CannedResponseUpdateParams {
     /** A sequence of canned response fields associated with the canned response. */
     fields?: Parlant.CannedResponseField[];
     tags?: Parlant.CannedResponseTagUpdateParams;
+    metadata?: Parlant.CannedResponseMetadataUpdateParams;
 }

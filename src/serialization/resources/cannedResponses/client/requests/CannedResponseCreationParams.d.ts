@@ -12,5 +12,6 @@ export declare namespace CannedResponseCreationParams {
         fields: CannedResponseField.Raw[];
         tags?: string[] | null;
         signals?: string[] | null;
+        metadata?: Record<string, unknown> | null;
     }
 }

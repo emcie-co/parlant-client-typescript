@@ -38,10 +38,12 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Journey = void 0;
 const core = __importStar(require("../../core"));
+const CompositionModeDto_1 = require("./CompositionModeDto");
 exports.Journey = core.serialization.object({
     id: core.serialization.string(),
     title: core.serialization.string(),
     description: core.serialization.string(),
     conditions: core.serialization.list(core.serialization.string()),
     tags: core.serialization.list(core.serialization.string()).optional(),
+    compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
 });

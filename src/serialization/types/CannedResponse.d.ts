@@ -14,5 +14,6 @@ export declare namespace CannedResponse {
         fields: CannedResponseField.Raw[];
         tags: string[];
         signals: string[];
+        metadata: Record<string, unknown>;
     }
 }

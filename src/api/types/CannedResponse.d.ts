@@ -15,4 +15,6 @@ export interface CannedResponse {
     tags: string[];
     /** A sequence of signals associated with the canned response, to help with filtering and matching. */
     signals: string[];
+    /** Additional metadata associated with the canned response. */
+    metadata: Record<string, unknown>;
 }
