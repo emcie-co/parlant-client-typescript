@@ -61,7 +61,8 @@ export declare class Guidelines {
      *             "key2": "value2"
      *         },
      *         enabled: false,
-     *         compositionMode: "strict_canned"
+     *         compositionMode: "strict_canned",
+     *         labels: ["vip", "priority"]
      *     })
      */
     create(request: Parlant.GuidelineCreationParams, requestOptions?: Guidelines.RequestOptions): Promise<Parlant.Guideline>;

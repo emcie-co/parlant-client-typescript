@@ -91,13 +91,21 @@ class Sessions {
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { agentId, customerId, limit, cursor, sort } = request;
+            const { agentId, customerId, labels, limit, cursor, sort } = request;
             const _queryParams = {};
             if (agentId != null) {
                 _queryParams["agent_id"] = agentId;
             }
             if (customerId != null) {
                 _queryParams["customer_id"] = customerId;
+            }
+            if (labels != null) {
+                if (Array.isArray(labels)) {
+                    _queryParams["labels"] = labels.map((item) => item);
+                }
+                else {
+                    _queryParams["labels"] = labels;
+                }
             }
             if (limit != null) {
                 _queryParams["limit"] = limit.toString();
@@ -172,7 +180,8 @@ class Sessions {
      *         metadata: {
      *             "priority": "high",
      *             "project": "demo"
-     *         }
+     *         },
+     *         labels: ["vip", "priority"]
      *     })
      */
     create(request, requestOptions) {
@@ -440,6 +449,10 @@ class Sessions {
      *                 "simulation": true
      *             },
      *             unset: ["old_project"]
+     *         },
+     *         labels: {
+     *             upsert: ["vip", "priority"],
+     *             remove: ["old_label"]
      *         }
      *     })
      */
@@ -500,15 +513,21 @@ class Sessions {
      * 1. Filter events by their offset, source, type, and trace ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
+     * 4. Stream events via Server-Sent Events (SSE) when sse=true
      *
      * Notes:
-     *     Long Polling Behavior:
+     *     Long Polling Behavior (when sse=false):
      *     - When wait_for_data = 0:
      *         Returns immediately with any existing events that match the criteria
      *     - When wait_for_data > 0:
      *         - If new matching events arrive within the timeout period, returns with those events
      *         - If no new events arrive before timeout, raises 504 Gateway Timeout
      *         - If matching events already exist, returns immediately with those events
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Continuously sends events as they arrive
+     *     - wait_for_data is used as the timeout between events before closing the stream
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {Parlant.SessionsListEventsRequest} request
@@ -529,7 +548,7 @@ class Sessions {
     listEvents(sessionId_1) {
         return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
             var _a;
-            const { minOffset, source, correlationId, traceId, kinds, waitForData } = request;
+            const { minOffset, source, correlationId, traceId, kinds, waitForData, sse } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
@@ -550,6 +569,9 @@ class Sessions {
             }
             if (waitForData != null) {
                 _queryParams["wait_for_data"] = waitForData.toString();
+            }
+            if (sse != null) {
+                _queryParams["sse"] = sse.toString();
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
@@ -735,6 +757,101 @@ class Sessions {
                     });
                 case "timeout":
                     throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}/events.");
+                case "unknown":
+                    throw new errors.ParlantError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * Reads a single event from a session.
+     *
+     * This endpoint retrieves a specific event by its ID and optionally waits
+     * for the event to complete (useful for streaming messages).
+     *
+     * Args:
+     *     wait_for_completion: If true, wait for the event to complete (for streaming events,
+     *         this means waiting until chunks contains None terminator)
+     *     wait_for_data: Timeout in seconds for wait_for_completion
+     *     sse: If true, stream event updates via Server-Sent Events until completion
+     *
+     * Notes:
+     *     For streaming message events (events with 'chunks' property):
+     *     - The event is considered complete when chunks contains a None terminator
+     *     - Use wait_for_completion=true to wait for the full message
+     *     - Use sse=true to stream updates as chunks are added
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Sends the event each time it's updated
+     *     - Closes when the event is complete (chunks ends with None)
+     *
+     * @param {string} sessionId - Unique identifier for the session
+     * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.SessionsReadEventRequest} request
+     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sessions.readEvent("sess_123yz", "evt_123xyz")
+     */
+    readEvent(sessionId_1, eventId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, eventId, request = {}, requestOptions) {
+            var _a;
+            const { waitForCompletion, waitForData, sse } = request;
+            const _queryParams = {};
+            if (waitForCompletion != null) {
+                _queryParams["wait_for_completion"] = waitForCompletion.toString();
+            }
+            if (waitForData != null) {
+                _queryParams["wait_for_data"] = waitForData.toString();
+            }
+            if (sse != null) {
+                _queryParams["sse"] = sse.toString();
+            }
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
+                method: "GET",
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                contentType: "application/json",
+                queryParameters: _queryParams,
+                requestType: "json",
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.Event.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.ParlantError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events/{event_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,

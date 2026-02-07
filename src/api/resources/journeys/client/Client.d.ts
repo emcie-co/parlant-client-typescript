@@ -52,7 +52,8 @@ export declare class Journeys {
      *         description: "1. Customer wants to lock their card\n2. Customer reports that their card doesn't work\n3. Customer suspects their card has been stolen",
      *         conditions: ["customer needs unlocking their card", "customer needs help with card"],
      *         id: "IUCGT-lvpS",
-     *         tags: ["tag1", "tag2"]
+     *         tags: ["tag1", "tag2"],
+     *         labels: ["vip", "priority"]
      *     })
      */
     create(request: Parlant.JourneyCreationParams, requestOptions?: Journeys.RequestOptions): Promise<Parlant.Journey>;
@@ -68,7 +69,7 @@ export declare class Journeys {
      * @example
      *     await client.journeys.retrieve("IUCGT-lvpS")
      */
-    retrieve(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<Parlant.JourneyGraph>;
+    retrieve(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<Parlant.Journey>;
     /**
      * Deletes a journey from the system.
      *

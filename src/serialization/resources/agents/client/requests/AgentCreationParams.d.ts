@@ -5,6 +5,7 @@ import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { CompositionModeDto } from "../../../../types/CompositionModeDto";
+import { MessageOutputModeDto } from "../../../../types/MessageOutputModeDto";
 export declare const AgentCreationParams: core.serialization.Schema<serializers.AgentCreationParams.Raw, Parlant.AgentCreationParams>;
 export declare namespace AgentCreationParams {
     interface Raw {
@@ -13,6 +14,7 @@ export declare namespace AgentCreationParams {
         description?: string | null;
         max_engine_iterations?: number | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        message_output_mode?: MessageOutputModeDto.Raw | null;
         tags?: string[] | null;
     }
 }

@@ -50,4 +50,6 @@ exports.Guideline = core.serialization.object({
     tags: core.serialization.list(core.serialization.string()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
+    track: core.serialization.boolean().optional(),
+    labels: core.serialization.list(core.serialization.string()).optional(),
 });

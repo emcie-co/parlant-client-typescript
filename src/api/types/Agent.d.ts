@@ -20,6 +20,7 @@ export interface Agent {
     /** Maximum number of processing iterations the agent can perform per request */
     maxEngineIterations?: number;
     compositionMode: Parlant.CompositionModeDto;
+    messageOutputMode: Parlant.MessageOutputModeDto;
     /** List of tag IDs associated with the agent */
     tags?: string[];
 }

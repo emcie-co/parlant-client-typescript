@@ -17,4 +17,6 @@ export interface CannedResponse {
     signals: string[];
     /** Additional metadata associated with the canned response. */
     metadata: Record<string, unknown>;
+    /** A sequence of field names that must be available in context for this response to be considered. */
+    fieldDependencies?: string[];
 }

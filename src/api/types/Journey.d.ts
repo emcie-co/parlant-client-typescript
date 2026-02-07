@@ -17,4 +17,6 @@ export interface Journey {
     /** List of tag IDs associated with the journey */
     tags?: string[];
     compositionMode?: Parlant.CompositionModeDto;
+    /** Labels associated with the journey */
+    labels?: string[];
 }

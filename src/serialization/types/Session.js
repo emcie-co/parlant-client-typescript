@@ -49,4 +49,5 @@ exports.Session = core.serialization.object({
     mode: SessionModeDto_1.SessionModeDto,
     consumptionOffsets: core.serialization.property("consumption_offsets", ConsumptionOffsets_1.ConsumptionOffsets),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+    labels: core.serialization.list(core.serialization.string()).optional(),
 });

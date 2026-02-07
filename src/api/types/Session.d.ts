@@ -21,4 +21,6 @@ export interface Session {
     consumptionOffsets: Parlant.ConsumptionOffsets;
     /** Metadata for the session */
     metadata: Record<string, unknown>;
+    /** Labels associated with the session */
+    labels?: string[];
 }

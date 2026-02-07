@@ -43,6 +43,7 @@ const GuidelineToolAssociationUpdateParams_1 = require("../../../../types/Guidel
 const GuidelineTagsUpdateParams_1 = require("../../../../types/GuidelineTagsUpdateParams");
 const GuidelineMetadataUpdateParams_1 = require("../../../../types/GuidelineMetadataUpdateParams");
 const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
+const GuidelineLabelsUpdateParams_1 = require("../../../../types/GuidelineLabelsUpdateParams");
 exports.GuidelineUpdateParams = core.serialization.object({
     condition: core.serialization.string().optional(),
     action: core.serialization.string().optional(),
@@ -53,4 +54,5 @@ exports.GuidelineUpdateParams = core.serialization.object({
     tags: GuidelineTagsUpdateParams_1.GuidelineTagsUpdateParams.optional(),
     metadata: GuidelineMetadataUpdateParams_1.GuidelineMetadataUpdateParams.optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
+    labels: GuidelineLabelsUpdateParams_1.GuidelineLabelsUpdateParams.optional(),
 });

@@ -36,14 +36,9 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JourneyNode = void 0;
+exports.JourneyLabelsUpdateParams = void 0;
 const core = __importStar(require("../../core"));
-exports.JourneyNode = core.serialization.object({
-    id: core.serialization.string(),
-    creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
-    action: core.serialization.string().optional(),
-    tools: core.serialization.list(core.serialization.string()).optional(),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    description: core.serialization.string().optional(),
-    compositionMode: core.serialization.property("composition_mode", core.serialization.string().optional()),
+exports.JourneyLabelsUpdateParams = core.serialization.object({
+    upsert: core.serialization.list(core.serialization.string()).optional(),
+    remove: core.serialization.list(core.serialization.string()).optional(),
 });

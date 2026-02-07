@@ -43,4 +43,5 @@ exports.SessionCreationParams = core.serialization.object({
     customerId: core.serialization.property("customer_id", core.serialization.string().optional()),
     title: core.serialization.string().optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    labels: core.serialization.list(core.serialization.string()).optional(),
 });

@@ -18,5 +18,7 @@ export declare namespace Guideline {
         tags: string[];
         metadata: Record<string, unknown>;
         composition_mode?: CompositionModeDto.Raw | null;
+        track?: boolean | null;
+        labels?: string[] | null;
     }
 }

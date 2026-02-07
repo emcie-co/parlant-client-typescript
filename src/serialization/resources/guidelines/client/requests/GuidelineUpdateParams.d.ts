@@ -9,6 +9,7 @@ import { GuidelineToolAssociationUpdateParams } from "../../../../types/Guidelin
 import { GuidelineTagsUpdateParams } from "../../../../types/GuidelineTagsUpdateParams";
 import { GuidelineMetadataUpdateParams } from "../../../../types/GuidelineMetadataUpdateParams";
 import { CompositionModeDto } from "../../../../types/CompositionModeDto";
+import { GuidelineLabelsUpdateParams } from "../../../../types/GuidelineLabelsUpdateParams";
 export declare const GuidelineUpdateParams: core.serialization.Schema<serializers.GuidelineUpdateParams.Raw, Parlant.GuidelineUpdateParams>;
 export declare namespace GuidelineUpdateParams {
     interface Raw {
@@ -21,5 +22,6 @@ export declare namespace GuidelineUpdateParams {
         tags?: GuidelineTagsUpdateParams.Raw | null;
         metadata?: GuidelineMetadataUpdateParams.Raw | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        labels?: GuidelineLabelsUpdateParams.Raw | null;
     }
 }

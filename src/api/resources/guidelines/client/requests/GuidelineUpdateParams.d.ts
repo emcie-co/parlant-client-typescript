@@ -41,4 +41,5 @@ export interface GuidelineUpdateParams {
     tags?: Parlant.GuidelineTagsUpdateParams;
     metadata?: Parlant.GuidelineMetadataUpdateParams;
     compositionMode?: Parlant.CompositionModeDto;
+    labels?: Parlant.GuidelineLabelsUpdateParams;
 }

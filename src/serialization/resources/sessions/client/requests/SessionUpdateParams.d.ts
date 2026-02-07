@@ -7,6 +7,7 @@ import * as core from "../../../../../core";
 import { ConsumptionOffsetsUpdateParams } from "../../../../types/ConsumptionOffsetsUpdateParams";
 import { SessionModeDto } from "../../../../types/SessionModeDto";
 import { SessionMetadataUpdateParams } from "../../../../types/SessionMetadataUpdateParams";
+import { SessionLabelsUpdateParams } from "../../../../types/SessionLabelsUpdateParams";
 export declare const SessionUpdateParams: core.serialization.Schema<serializers.SessionUpdateParams.Raw, Parlant.SessionUpdateParams>;
 export declare namespace SessionUpdateParams {
     interface Raw {
@@ -16,5 +17,6 @@ export declare namespace SessionUpdateParams {
         customer_id?: string | null;
         agent_id?: string | null;
         metadata?: SessionMetadataUpdateParams.Raw | null;
+        labels?: SessionLabelsUpdateParams.Raw | null;
     }
 }

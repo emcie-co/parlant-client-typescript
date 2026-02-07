@@ -14,5 +14,6 @@ export declare namespace Journey {
         conditions: string[];
         tags?: string[] | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        labels?: string[] | null;
     }
 }

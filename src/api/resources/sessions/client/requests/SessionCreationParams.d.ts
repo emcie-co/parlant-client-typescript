@@ -10,7 +10,8 @@
  *         metadata: {
  *             "priority": "high",
  *             "project": "demo"
- *         }
+ *         },
+ *         labels: ["vip", "priority"]
  *     }
  */
 export interface SessionCreationParams {
@@ -26,4 +27,6 @@ export interface SessionCreationParams {
     title?: string;
     /** Metadata for the session */
     metadata?: Record<string, unknown>;
+    /** Labels associated with the session */
+    labels?: string[];
 }

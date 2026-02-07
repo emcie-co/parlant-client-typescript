@@ -62,7 +62,8 @@ export declare class Sessions {
      *         metadata: {
      *             "priority": "high",
      *             "project": "demo"
-     *         }
+     *         },
+     *         labels: ["vip", "priority"]
      *     })
      */
     create(request: Parlant.SessionCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
@@ -136,6 +137,10 @@ export declare class Sessions {
      *                 "simulation": true
      *             },
      *             unset: ["old_project"]
+     *         },
+     *         labels: {
+     *             upsert: ["vip", "priority"],
+     *             remove: ["old_label"]
      *         }
      *     })
      */
@@ -147,15 +152,21 @@ export declare class Sessions {
      * 1. Filter events by their offset, source, type, and trace ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
+     * 4. Stream events via Server-Sent Events (SSE) when sse=true
      *
      * Notes:
-     *     Long Polling Behavior:
+     *     Long Polling Behavior (when sse=false):
      *     - When wait_for_data = 0:
      *         Returns immediately with any existing events that match the criteria
      *     - When wait_for_data > 0:
      *         - If new matching events arrive within the timeout period, returns with those events
      *         - If no new events arrive before timeout, raises 504 Gateway Timeout
      *         - If matching events already exist, returns immediately with those events
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Continuously sends events as they arrive
+     *     - wait_for_data is used as the timeout between events before closing the stream
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {Parlant.SessionsListEventsRequest} request
@@ -212,6 +223,41 @@ export declare class Sessions {
      *     })
      */
     deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
+    /**
+     * Reads a single event from a session.
+     *
+     * This endpoint retrieves a specific event by its ID and optionally waits
+     * for the event to complete (useful for streaming messages).
+     *
+     * Args:
+     *     wait_for_completion: If true, wait for the event to complete (for streaming events,
+     *         this means waiting until chunks contains None terminator)
+     *     wait_for_data: Timeout in seconds for wait_for_completion
+     *     sse: If true, stream event updates via Server-Sent Events until completion
+     *
+     * Notes:
+     *     For streaming message events (events with 'chunks' property):
+     *     - The event is considered complete when chunks contains a None terminator
+     *     - Use wait_for_completion=true to wait for the full message
+     *     - Use sse=true to stream updates as chunks are added
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Sends the event each time it's updated
+     *     - Closes when the event is complete (chunks ends with None)
+     *
+     * @param {string} sessionId - Unique identifier for the session
+     * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.SessionsReadEventRequest} request
+     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sessions.readEvent("sess_123yz", "evt_123xyz")
+     */
+    readEvent(sessionId: string, eventId: string, request?: Parlant.SessionsReadEventRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event>;
     /**
      * Updates an event's properties.
      *

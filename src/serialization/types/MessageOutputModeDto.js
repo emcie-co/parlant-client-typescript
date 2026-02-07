@@ -36,13 +36,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JourneyEdge = void 0;
+exports.MessageOutputModeDto = void 0;
 const core = __importStar(require("../../core"));
-exports.JourneyEdge = core.serialization.object({
-    id: core.serialization.string(),
-    creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
-    source: core.serialization.string(),
-    target: core.serialization.string(),
-    condition: core.serialization.string().optional(),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-});
+exports.MessageOutputModeDto = core.serialization.enum_(["block", "stream"]);

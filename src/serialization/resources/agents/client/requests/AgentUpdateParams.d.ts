@@ -5,6 +5,7 @@ import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { CompositionModeDto } from "../../../../types/CompositionModeDto";
+import { MessageOutputModeDto } from "../../../../types/MessageOutputModeDto";
 import { AgentTagUpdateParams } from "../../../../types/AgentTagUpdateParams";
 export declare const AgentUpdateParams: core.serialization.Schema<serializers.AgentUpdateParams.Raw, Parlant.AgentUpdateParams>;
 export declare namespace AgentUpdateParams {
@@ -13,6 +14,7 @@ export declare namespace AgentUpdateParams {
         description?: string | null;
         max_engine_iterations?: number | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        message_output_mode?: MessageOutputModeDto.Raw | null;
         tags?: AgentTagUpdateParams.Raw | null;
     }
 }

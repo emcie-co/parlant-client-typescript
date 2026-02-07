@@ -15,6 +15,10 @@ import * as Parlant from "../../../../index";
  *                 "simulation": true
  *             },
  *             unset: ["old_project"]
+ *         },
+ *         labels: {
+ *             upsert: ["vip", "priority"],
+ *             remove: ["old_label"]
  *         }
  *     }
  */
@@ -27,4 +31,5 @@ export interface SessionUpdateParams {
     customerId?: string;
     agentId?: string;
     metadata?: Parlant.SessionMetadataUpdateParams;
+    labels?: Parlant.SessionLabelsUpdateParams;
 }

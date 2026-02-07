@@ -13,5 +13,6 @@ export declare namespace CannedResponseCreationParams {
         tags?: string[] | null;
         signals?: string[] | null;
         metadata?: Record<string, unknown> | null;
+        field_dependencies?: string[] | null;
     }
 }

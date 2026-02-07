@@ -41,10 +41,12 @@ const core = __importStar(require("../../../../../core"));
 const JourneyConditionUpdateParams_1 = require("../../../../types/JourneyConditionUpdateParams");
 const JourneyTagUpdateParams_1 = require("../../../../types/JourneyTagUpdateParams");
 const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
+const JourneyLabelsUpdateParams_1 = require("../../../../types/JourneyLabelsUpdateParams");
 exports.JourneyUpdateParams = core.serialization.object({
     title: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     conditions: JourneyConditionUpdateParams_1.JourneyConditionUpdateParams.optional(),
     tags: JourneyTagUpdateParams_1.JourneyTagUpdateParams.optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
+    labels: JourneyLabelsUpdateParams_1.JourneyLabelsUpdateParams.optional(),
 });

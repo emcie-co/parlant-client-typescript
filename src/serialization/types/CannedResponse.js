@@ -47,4 +47,5 @@ exports.CannedResponse = core.serialization.object({
     tags: core.serialization.list(core.serialization.string()),
     signals: core.serialization.list(core.serialization.string()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+    fieldDependencies: core.serialization.property("field_dependencies", core.serialization.list(core.serialization.string()).optional()),
 });

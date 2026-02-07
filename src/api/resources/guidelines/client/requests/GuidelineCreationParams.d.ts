@@ -12,7 +12,8 @@ import * as Parlant from "../../../../index";
  *             "key2": "value2"
  *         },
  *         enabled: false,
- *         compositionMode: "strict_canned"
+ *         compositionMode: "strict_canned",
+ *         labels: ["vip", "priority"]
  *     }
  */
 export interface GuidelineCreationParams {
@@ -32,4 +33,7 @@ export interface GuidelineCreationParams {
     /** The tags associated with the guideline */
     tags?: string[];
     compositionMode?: Parlant.CompositionModeDto;
+    track?: boolean;
+    /** The labels associated with the guideline */
+    labels?: string[];
 }

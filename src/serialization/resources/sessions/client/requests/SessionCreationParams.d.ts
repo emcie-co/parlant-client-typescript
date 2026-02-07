@@ -11,5 +11,6 @@ export declare namespace SessionCreationParams {
         customer_id?: string | null;
         title?: string | null;
         metadata?: Record<string, unknown> | null;
+        labels?: string[] | null;
     }
 }

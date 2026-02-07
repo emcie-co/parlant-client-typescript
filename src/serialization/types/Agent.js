@@ -39,11 +39,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Agent = void 0;
 const core = __importStar(require("../../core"));
 const CompositionModeDto_1 = require("./CompositionModeDto");
+const MessageOutputModeDto_1 = require("./MessageOutputModeDto");
 exports.Agent = core.serialization.object({
     id: core.serialization.string(),
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto),
+    messageOutputMode: core.serialization.property("message_output_mode", MessageOutputModeDto_1.MessageOutputModeDto),
     tags: core.serialization.list(core.serialization.string()).optional(),
 });

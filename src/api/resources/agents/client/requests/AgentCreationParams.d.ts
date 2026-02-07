@@ -9,6 +9,7 @@ import * as Parlant from "../../../../index";
  *         description: "Technical Support Assistant",
  *         maxEngineIterations: 3,
  *         compositionMode: "fluid",
+ *         messageOutputMode: "block",
  *         tags: ["tag1", "tag2"]
  *     }
  */
@@ -22,6 +23,7 @@ export interface AgentCreationParams {
     /** Maximum number of processing iterations the agent can perform per request */
     maxEngineIterations?: number;
     compositionMode?: Parlant.CompositionModeDto;
+    messageOutputMode?: Parlant.MessageOutputModeDto;
     /** List of tag IDs associated with the agent */
     tags?: string[];
 }

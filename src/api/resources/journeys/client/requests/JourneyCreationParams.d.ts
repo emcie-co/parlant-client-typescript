@@ -9,7 +9,8 @@ import * as Parlant from "../../../../index";
  *         description: "1. Customer wants to lock their card\n2. Customer reports that their card doesn't work\n3. Customer suspects their card has been stolen",
  *         conditions: ["customer needs unlocking their card", "customer needs help with card"],
  *         id: "IUCGT-lvpS",
- *         tags: ["tag1", "tag2"]
+ *         tags: ["tag1", "tag2"],
+ *         labels: ["vip", "priority"]
  *     }
  */
 export interface JourneyCreationParams {
@@ -22,4 +23,6 @@ export interface JourneyCreationParams {
     /** List of tag IDs associated with the journey */
     tags?: string[];
     compositionMode?: Parlant.CompositionModeDto;
+    /** Labels associated with the journey */
+    labels?: string[];
 }

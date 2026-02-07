@@ -18,4 +18,5 @@ export interface SessionsListEventsRequest {
     traceId?: string;
     kinds?: string;
     waitForData?: number;
+    sse?: boolean;
 }

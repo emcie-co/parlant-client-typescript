@@ -46,4 +46,5 @@ exports.JourneyCreationParams = core.serialization.object({
     id: core.serialization.string().optional(),
     tags: core.serialization.list(core.serialization.string()).optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
+    labels: core.serialization.list(core.serialization.string()).optional(),
 });

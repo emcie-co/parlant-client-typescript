@@ -14,5 +14,6 @@ export declare namespace JourneyCreationParams {
         id?: string | null;
         tags?: string[] | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        labels?: string[] | null;
     }
 }

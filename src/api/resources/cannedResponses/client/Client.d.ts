@@ -52,7 +52,8 @@ export declare class CannedResponses {
      *         metadata: {
      *             "category": "account",
      *             "priority": 1
-     *         }
+     *         },
+     *         fieldDependencies: ["account"]
      *     })
      */
     create(request: Parlant.CannedResponseCreationParams, requestOptions?: CannedResponses.RequestOptions): Promise<Parlant.CannedResponse>;

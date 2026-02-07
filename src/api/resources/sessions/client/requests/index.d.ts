@@ -5,4 +5,5 @@ export { type SessionUpdateParams } from "./SessionUpdateParams";
 export { type SessionsListEventsRequest } from "./SessionsListEventsRequest";
 export { type EventCreationParams } from "./EventCreationParams";
 export { type SessionsDeleteEventsRequest } from "./SessionsDeleteEventsRequest";
+export { type SessionsReadEventRequest } from "./SessionsReadEventRequest";
 export { type EventUpdateParams } from "./EventUpdateParams";

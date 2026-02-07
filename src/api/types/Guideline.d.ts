@@ -23,4 +23,7 @@ export interface Guideline {
     /** Metadata for the guideline */
     metadata: Record<string, unknown>;
     compositionMode?: Parlant.CompositionModeDto;
+    track?: boolean;
+    /** The labels associated with the guideline */
+    labels?: string[];
 }

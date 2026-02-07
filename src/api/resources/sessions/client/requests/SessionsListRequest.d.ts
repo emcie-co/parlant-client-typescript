@@ -14,6 +14,7 @@ import * as Parlant from "../../../../index";
 export interface SessionsListRequest {
     agentId?: string;
     customerId?: string;
+    labels?: string | string[];
     limit?: number;
     cursor?: string;
     sort?: Parlant.SortDirectionDto;

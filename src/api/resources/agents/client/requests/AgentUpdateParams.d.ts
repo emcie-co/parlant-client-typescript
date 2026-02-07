@@ -8,7 +8,8 @@ import * as Parlant from "../../../../index";
  *         name: "Haxon",
  *         description: "Technical Support Assistant",
  *         maxEngineIterations: 3,
- *         compositionMode: "fluid"
+ *         compositionMode: "fluid",
+ *         messageOutputMode: "block"
  *     }
  */
 export interface AgentUpdateParams {
@@ -19,5 +20,6 @@ export interface AgentUpdateParams {
     /** Maximum number of processing iterations the agent can perform per request */
     maxEngineIterations?: number;
     compositionMode?: Parlant.CompositionModeDto;
+    messageOutputMode?: Parlant.MessageOutputModeDto;
     tags?: Parlant.AgentTagUpdateParams;
 }

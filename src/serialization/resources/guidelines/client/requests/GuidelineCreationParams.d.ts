@@ -18,5 +18,7 @@ export declare namespace GuidelineCreationParams {
         enabled?: boolean | null;
         tags?: string[] | null;
         composition_mode?: CompositionModeDto.Raw | null;
+        track?: boolean | null;
+        labels?: string[] | null;
     }
 }

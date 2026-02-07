@@ -36,18 +36,9 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SessionUpdateParams = void 0;
-const core = __importStar(require("../../../../../core"));
-const ConsumptionOffsetsUpdateParams_1 = require("../../../../types/ConsumptionOffsetsUpdateParams");
-const SessionModeDto_1 = require("../../../../types/SessionModeDto");
-const SessionMetadataUpdateParams_1 = require("../../../../types/SessionMetadataUpdateParams");
-const SessionLabelsUpdateParams_1 = require("../../../../types/SessionLabelsUpdateParams");
-exports.SessionUpdateParams = core.serialization.object({
-    consumptionOffsets: core.serialization.property("consumption_offsets", ConsumptionOffsetsUpdateParams_1.ConsumptionOffsetsUpdateParams.optional()),
-    title: core.serialization.string().optional(),
-    mode: SessionModeDto_1.SessionModeDto.optional(),
-    customerId: core.serialization.property("customer_id", core.serialization.string().optional()),
-    agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
-    metadata: SessionMetadataUpdateParams_1.SessionMetadataUpdateParams.optional(),
-    labels: SessionLabelsUpdateParams_1.SessionLabelsUpdateParams.optional(),
+exports.SessionLabelsUpdateParams = void 0;
+const core = __importStar(require("../../core"));
+exports.SessionLabelsUpdateParams = core.serialization.object({
+    upsert: core.serialization.list(core.serialization.string()).optional(),
+    remove: core.serialization.list(core.serialization.string()).optional(),
 });

@@ -14,7 +14,8 @@ import * as Parlant from "../../../../index";
  *         metadata: {
  *             "category": "account",
  *             "priority": 1
- *         }
+ *         },
+ *         fieldDependencies: ["account"]
  *     }
  */
 export interface CannedResponseCreationParams {
@@ -28,4 +29,6 @@ export interface CannedResponseCreationParams {
     signals?: string[];
     /** Additional metadata associated with the canned response. */
     metadata?: Record<string, unknown>;
+    /** A sequence of field names that must be available in context for this response to be considered. */
+    fieldDependencies?: string[];
 }

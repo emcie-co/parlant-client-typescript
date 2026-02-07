@@ -36,18 +36,9 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JourneyGraph = void 0;
+exports.GuidelineLabelsUpdateParams = void 0;
 const core = __importStar(require("../../core"));
-const CompositionModeDto_1 = require("./CompositionModeDto");
-const JourneyNode_1 = require("./JourneyNode");
-const JourneyEdge_1 = require("./JourneyEdge");
-exports.JourneyGraph = core.serialization.object({
-    id: core.serialization.string(),
-    title: core.serialization.string(),
-    description: core.serialization.string(),
-    conditions: core.serialization.list(core.serialization.string()),
-    tags: core.serialization.list(core.serialization.string()).optional(),
-    compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
-    nodes: core.serialization.list(JourneyNode_1.JourneyNode).optional(),
-    edges: core.serialization.list(JourneyEdge_1.JourneyEdge).optional(),
+exports.GuidelineLabelsUpdateParams = core.serialization.object({
+    upsert: core.serialization.list(core.serialization.string()).optional(),
+    remove: core.serialization.list(core.serialization.string()).optional(),
 });

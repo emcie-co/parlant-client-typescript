@@ -15,5 +15,6 @@ export declare namespace CannedResponse {
         tags: string[];
         signals: string[];
         metadata: Record<string, unknown>;
+        field_dependencies?: string[] | null;
     }
 }
