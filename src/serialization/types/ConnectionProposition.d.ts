@@ -6,13 +6,11 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { ConnectionPropositionKindDto } from "./ConnectionPropositionKindDto";
 import { GuidelineContent } from "./GuidelineContent";
-import { ConnectionKindDto } from "./ConnectionKindDto";
 export declare const ConnectionProposition: core.serialization.ObjectSchema<serializers.ConnectionProposition.Raw, Parlant.ConnectionProposition>;
 export declare namespace ConnectionProposition {
     interface Raw {
         check_kind: ConnectionPropositionKindDto.Raw;
         source: GuidelineContent.Raw;
         target: GuidelineContent.Raw;
-        connection_kind: ConnectionKindDto.Raw;
     }
 }

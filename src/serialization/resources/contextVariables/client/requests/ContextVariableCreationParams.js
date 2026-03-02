@@ -29,10 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContextVariableCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const ToolId_1 = require("../../../../types/ToolId");
-const FreshnessRules_1 = require("../../../../types/FreshnessRules");
 exports.ContextVariableCreationParams = core.serialization.object({
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     toolId: core.serialization.property("tool_id", ToolId_1.ToolId.optional()),
-    freshnessRules: core.serialization.property("freshness_rules", FreshnessRules_1.FreshnessRules.optional()),
+    freshnessRules: core.serialization.property("freshness_rules", core.serialization.string().optional()),
 });

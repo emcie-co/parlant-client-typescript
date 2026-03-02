@@ -6,5 +6,5 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 export declare const Moderation: core.serialization.Schema<serializers.Moderation.Raw, Parlant.Moderation>;
 export declare namespace Moderation {
-    type Raw = "auto" | "none";
+    type Raw = "auto" | "paranoid" | "none";
 }

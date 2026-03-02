@@ -28,7 +28,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
-const GuidelineInvoice_1 = require("../../../../types/GuidelineInvoice");
+const Invoice_1 = require("../../../../types/Invoice");
 exports.GuidelineCreationParams = core.serialization.object({
-    invoices: core.serialization.list(GuidelineInvoice_1.GuidelineInvoice),
+    invoices: core.serialization.list(Invoice_1.Invoice),
 });

@@ -49,9 +49,12 @@ class ContextVariables {
         this._options = _options;
     }
     /**
-     * @param {string} agentId
+     * Lists all context variables set for the provided agent
+     *
+     * @param {string} agentId - Unique identifier of the agent
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -74,7 +77,7 @@ class ContextVariables {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ContextVariableListResponse.parseOrThrow(_response.body, {
+                return serializers.contextVariables.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -83,13 +86,10 @@ class ContextVariables {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -113,15 +113,30 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
+     * Creates a new context variable for tracking customer-specific or tag-specific data.
+     *
+     * Example uses:
+     *
+     * - Track subscription tiers to control feature access
+     * - Store usage patterns for personalized recommendations
+     * - Remember customer preferences for tailored responses
+     *
+     * @param {string} agentId - Unique identifier of the agent
      * @param {Parlant.ContextVariableCreationParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.contextVariables.create("agent_id", {
-     *         name: "name"
+     *         name: "UserBalance",
+     *         description: "Stores the account balances of users",
+     *         toolId: {
+     *             serviceName: "finance_service",
+     *             toolName: "balance_checker"
+     *         },
+     *         freshnessRules: "freshness_rules"
      *     })
      */
     create(agentId, request, requestOptions) {
@@ -142,7 +157,7 @@ class ContextVariables {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ContextVariableCreationResponse.parseOrThrow(_response.body, {
+                return serializers.ContextVariable.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -151,13 +166,10 @@ class ContextVariables {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -181,9 +193,12 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
+     * Deletes all context variables and their values for the provided agent ID
+     *
+     * @param {string} agentId - Unique identifier of the agent
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -210,13 +225,10 @@ class ContextVariables {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -240,11 +252,16 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} variableId
+     * Retrieves a context variable's details and optionally its values.
+     *
+     * Can return all customer or tag values for this variable type if include_values=True.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariablesRetrieveRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -273,7 +290,7 @@ class ContextVariables {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ContextVariableReadResponse.parseOrThrow(_response.body, {
+                return serializers.ContextVariableReadResult.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -282,13 +299,10 @@ class ContextVariables {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -312,10 +326,13 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} variableId
+     * Deletes a specific context variable and all its values.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -338,22 +355,14 @@ class ContextVariables {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ContextVariableDeletionResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -377,11 +386,88 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} variableId
-     * @param {string} key
+     * Updates an existing context variable.
+     *
+     * Only provided fields will be updated; others remain unchanged.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {Parlant.ContextVariableUpdateParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.contextVariables.update("agent_id", "variable_id", {
+     *         name: "CustomerBalance",
+     *         freshnessRules: "freshness_rules"
+     *     })
+     */
+    update(agentId, variableId, request = {}, requestOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                method: "PATCH",
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                requestType: "json",
+                body: serializers.ContextVariableUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.ContextVariable.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.ParlantError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.ParlantTimeoutError();
+                case "unknown":
+                    throw new errors.ParlantError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * Retrieves the value of a context variable for a specific customer or tag.
+     *
+     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {string} key - Key for the variable value
+     * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -413,13 +499,10 @@ class ContextVariables {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -443,18 +526,28 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} variableId
-     * @param {string} key
+     * Updates the value of a context variable.
+     *
+     * The `key` represents a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     * If `key="DEFAULT"`, the update applies to all customers.
+     * The `params` parameter contains the actual context information being stored.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {string} key - Key for the variable value
      * @param {Parlant.ContextVariableValueUpdateParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.setValue("string", "string", "string", {
+     *     await client.contextVariables.setValue("agent_id", "variable_id", "key", {
      *         data: {
-     *             "key": "value"
+     *             "balance": 5000.5,
+     *             "currency": "USD",
+     *             "last_transaction": "2024-03-23T15:30:00Z",
+     *             "status": "active"
      *         }
      *     })
      */
@@ -478,7 +571,7 @@ class ContextVariables {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ContextVariableValueUpdateResponse.parseOrThrow(_response.body, {
+                return serializers.ContextVariableValue.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -487,13 +580,10 @@ class ContextVariables {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -517,11 +607,17 @@ class ContextVariables {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} variableId
-     * @param {string} key
+     * Deletes a specific customer's or tag's value for this context variable.
+     *
+     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
+     * Removes only the value for the specified key while keeping the variable's configuration.
+     *
+     * @param {string} agentId - Unique identifier of the agent
+     * @param {string} variableId - Unique identifier for the context variable
+     * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -544,22 +640,14 @@ class ContextVariables {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ContextVariableValueDeletionResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

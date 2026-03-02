@@ -4,6 +4,7 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
+import { PreparationIterationGenerations } from "./PreparationIterationGenerations";
 import { GuidelineProposition } from "./GuidelineProposition";
 import { ToolCall } from "./ToolCall";
 import { Term } from "./Term";
@@ -11,6 +12,7 @@ import { ContextVariableAndValue } from "./ContextVariableAndValue";
 export declare const PreparationIteration: core.serialization.ObjectSchema<serializers.PreparationIteration.Raw, Parlant.PreparationIteration>;
 export declare namespace PreparationIteration {
     interface Raw {
+        generations: PreparationIterationGenerations.Raw;
         guideline_propositions: GuidelineProposition.Raw[];
         tool_calls: ToolCall.Raw[];
         terms: Term.Raw[];

@@ -7,5 +7,5 @@
  */
 export interface SessionsDeleteManyRequest {
     agentId?: string;
-    endUserId?: string;
+    customerId?: string;
 }

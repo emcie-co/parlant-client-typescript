@@ -7,34 +7,50 @@ import * as Parlant from "../../../../index";
  *     {
  *         invoices: [{
  *                 payload: {
- *                     content: {
- *                         condition: "condition",
- *                         action: "action"
- *                     },
- *                     operation: Parlant.GuidelinePayloadOperationDto.Add,
- *                     coherenceCheck: true,
- *                     connectionProposition: true
+ *                     kind: "guideline",
+ *                     guideline: {
+ *                         content: {
+ *                             condition: "when the customer asks about pricing",
+ *                             action: "provide current pricing information"
+ *                         },
+ *                         operation: "add",
+ *                         coherenceCheck: true,
+ *                         connectionProposition: true
+ *                     }
  *                 },
- *                 checksum: "checksum",
+ *                 checksum: "abc123",
  *                 approved: true,
  *                 data: {
- *                     coherenceChecks: [{
- *                             kind: Parlant.CoherenceCheckKindDto.ContradictionWithExistingGuideline,
- *                             first: {
- *                                 condition: "condition",
- *                                 action: "action"
- *                             },
- *                             second: {
- *                                 condition: "condition",
- *                                 action: "action"
- *                             },
- *                             issue: "issue",
- *                             severity: 1
- *                         }]
+ *                     guideline: {
+ *                         coherenceChecks: [{
+ *                                 kind: "contradiction_with_existing_guideline",
+ *                                 first: {
+ *                                     condition: "User is frustrated",
+ *                                     action: "Respond with technical details"
+ *                                 },
+ *                                 second: {
+ *                                     condition: "User is frustrated",
+ *                                     action: "Focus on emotional support first"
+ *                                 },
+ *                                 issue: "Conflicting approaches to handling user frustration",
+ *                                 severity: 7
+ *                             }],
+ *                         connectionPropositions: [{
+ *                                 checkKind: "connection_with_existing_guideline",
+ *                                 source: {
+ *                                     condition: "User mentions technical problem",
+ *                                     action: "Request system logs"
+ *                                 },
+ *                                 target: {
+ *                                     condition: "System logs are available",
+ *                                     action: "Analyze logs for error patterns"
+ *                                 }
+ *                             }]
+ *                     }
  *                 }
  *             }]
  *     }
  */
 export interface GuidelineCreationParams {
-    invoices: Parlant.GuidelineInvoice[];
+    invoices: Parlant.Invoice[];
 }

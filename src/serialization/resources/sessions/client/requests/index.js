@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EventCreationParams = exports.SessionUpdateParams = exports.CreateSessionRequest = void 0;
-var CreateSessionRequest_1 = require("./CreateSessionRequest");
-Object.defineProperty(exports, "CreateSessionRequest", { enumerable: true, get: function () { return CreateSessionRequest_1.CreateSessionRequest; } });
+exports.EventCreationParams = exports.SessionUpdateParams = exports.SessionCreationParams = void 0;
+var SessionCreationParams_1 = require("./SessionCreationParams");
+Object.defineProperty(exports, "SessionCreationParams", { enumerable: true, get: function () { return SessionCreationParams_1.SessionCreationParams; } });
 var SessionUpdateParams_1 = require("./SessionUpdateParams");
 Object.defineProperty(exports, "SessionUpdateParams", { enumerable: true, get: function () { return SessionUpdateParams_1.SessionUpdateParams; } });
 var EventCreationParams_1 = require("./EventCreationParams");

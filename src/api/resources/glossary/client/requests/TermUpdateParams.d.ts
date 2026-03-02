@@ -3,10 +3,17 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         name: "Gas",
+ *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
+ *         synonyms: ["Transaction Fee", "Blockchain Fuel"]
+ *     }
  */
 export interface TermUpdateParams {
+    /** The name of the term, e.g., 'Gas' in blockchain. */
     name?: string;
+    /** A detailed description of the term */
     description?: string;
+    /** A list of synonyms for the term, including alternate contexts if applicable. */
     synonyms?: string[];
 }

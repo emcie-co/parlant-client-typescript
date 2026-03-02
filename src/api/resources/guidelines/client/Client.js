@@ -49,9 +49,16 @@ class Guidelines {
         this._options = _options;
     }
     /**
-     * @param {string} agentId
+     * Lists all guidelines for the specified agent.
+     *
+     * Returns an empty list if no guidelines exist.
+     * Guidelines are returned in no guaranteed order.
+     * Does not include connections or tool associations.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -74,7 +81,7 @@ class Guidelines {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.GuidelineListResponse.parseOrThrow(_response.body, {
+                return serializers.guidelines.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -83,13 +90,10 @@ class Guidelines {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -113,40 +117,66 @@ class Guidelines {
         });
     }
     /**
-     * @param {string} agentId
+     * Creates new guidelines from the provided invoices.
+     *
+     * Invoices are obtained by calling the `create_evaluation` method of the client.
+     * (Equivalent to making a POST request to `/index/evaluations`)
+     * See the [documentation](https://parlant.io/docs/concepts/customization/guidelines) for more information.
+     *
+     * The guidelines are created in the specified agent's guideline set.
+     * Tool associations and connections are automatically handled.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Parlant.GuidelineCreationParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.guidelines.create("agent_id", {
      *         invoices: [{
      *                 payload: {
-     *                     content: {
-     *                         condition: "condition",
-     *                         action: "action"
-     *                     },
-     *                     operation: Parlant.GuidelinePayloadOperationDto.Add,
-     *                     coherenceCheck: true,
-     *                     connectionProposition: true
+     *                     kind: "guideline",
+     *                     guideline: {
+     *                         content: {
+     *                             condition: "when the customer asks about pricing",
+     *                             action: "provide current pricing information"
+     *                         },
+     *                         operation: "add",
+     *                         coherenceCheck: true,
+     *                         connectionProposition: true
+     *                     }
      *                 },
-     *                 checksum: "checksum",
+     *                 checksum: "abc123",
      *                 approved: true,
      *                 data: {
-     *                     coherenceChecks: [{
-     *                             kind: Parlant.CoherenceCheckKindDto.ContradictionWithExistingGuideline,
-     *                             first: {
-     *                                 condition: "condition",
-     *                                 action: "action"
-     *                             },
-     *                             second: {
-     *                                 condition: "condition",
-     *                                 action: "action"
-     *                             },
-     *                             issue: "issue",
-     *                             severity: 1
-     *                         }]
+     *                     guideline: {
+     *                         coherenceChecks: [{
+     *                                 kind: "contradiction_with_existing_guideline",
+     *                                 first: {
+     *                                     condition: "User is frustrated",
+     *                                     action: "Respond with technical details"
+     *                                 },
+     *                                 second: {
+     *                                     condition: "User is frustrated",
+     *                                     action: "Focus on emotional support first"
+     *                                 },
+     *                                 issue: "Conflicting approaches to handling user frustration",
+     *                                 severity: 7
+     *                             }],
+     *                         connectionPropositions: [{
+     *                                 checkKind: "connection_with_existing_guideline",
+     *                                 source: {
+     *                                     condition: "User mentions technical problem",
+     *                                     action: "Request system logs"
+     *                                 },
+     *                                 target: {
+     *                                     condition: "System logs are available",
+     *                                     action: "Analyze logs for error patterns"
+     *                                 }
+     *                             }]
+     *                     }
      *                 }
      *             }]
      *     })
@@ -169,7 +199,7 @@ class Guidelines {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.GuidelineCreationResponse.parseOrThrow(_response.body, {
+                return serializers.GuidelineCreationResult.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -178,13 +208,10 @@ class Guidelines {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -208,10 +235,16 @@ class Guidelines {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} guidelineId
+     * Retrieves a specific guideline with all its connections and tool associations.
+     *
+     * Returns both direct and indirect connections between guidelines.
+     * Tool associations indicate which tools the guideline can use.
+     *
+     * @param {string} agentId - Unique identifier for the agent
+     * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -243,13 +276,10 @@ class Guidelines {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -273,10 +303,17 @@ class Guidelines {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} guidelineId
+     * Deletes a guideline from the agent.
+     *
+     * Also removes all associated connections and tool associations.
+     * Deleting a non-existent guideline will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} agentId - Unique identifier for the agent
+     * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -299,22 +336,14 @@ class Guidelines {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.GuidelineDeletionResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -338,15 +367,48 @@ class Guidelines {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {string} guidelineId
+     * Updates a guideline's connections and tool associations.
+     *
+     * Only provided attributes will be updated; others remain unchanged.
+     *
+     * Connection rules:
+     *
+     * - A guideline cannot connect to itself
+     * - Only direct connections can be removed
+     * - The connection must specify this guideline as source or target
+     *
+     * Tool Association rules:
+     *
+     * - Tool services and tools must exist before creating associations
+     *
+     * @param {string} agentId - Unique identifier for the agent
+     * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Parlant.GuidelineUpdateParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.update("agent_id", "guideline_id")
+     *     await client.guidelines.update("agent_id", "guideline_id", {
+     *         connections: {
+     *             add: [{
+     *                     source: "guide_123xyz",
+     *                     target: "guide_789xyz"
+     *                 }],
+     *             remove: ["guide_456xyz"]
+     *         },
+     *         toolAssociations: {
+     *             add: [{
+     *                     serviceName: "pricing_service",
+     *                     toolName: "get_prices"
+     *                 }],
+     *             remove: [{
+     *                     serviceName: "old_service",
+     *                     toolName: "old_tool"
+     *                 }]
+     *         }
+     *     })
      */
     update(agentId, guidelineId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -375,13 +437,10 @@ class Guidelines {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

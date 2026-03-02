@@ -6,5 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Moderation = void 0;
 exports.Moderation = {
     Auto: "auto",
+    Paranoid: "paranoid",
     None: "none",
 };

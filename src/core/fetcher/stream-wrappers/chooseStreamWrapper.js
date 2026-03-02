@@ -39,7 +39,7 @@ function chooseStreamWrapper(responseBody) {
         if (runtime_1.RUNTIME.type === "node" && runtime_1.RUNTIME.parsedVersion != null && runtime_1.RUNTIME.parsedVersion >= 18) {
             return new (yield Promise.resolve().then(() => __importStar(require("./Node18UniversalStreamWrapper")))).Node18UniversalStreamWrapper(responseBody);
         }
-        else if (runtime_1.RUNTIME.type !== "node" && typeof fetch == "function") {
+        else if (runtime_1.RUNTIME.type !== "node" && typeof fetch === "function") {
             return new (yield Promise.resolve().then(() => __importStar(require("./UndiciStreamWrapper")))).UndiciStreamWrapper(responseBody);
         }
         else {

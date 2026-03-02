@@ -49,10 +49,26 @@ class Services {
         this._options = _options;
     }
     /**
-     * @param {string} name
+     * Get details about a specific service including all its tools.
+     *
+     * The response includes:
+     *
+     * - Basic service information (name, kind, URL)
+     * - Complete list of available tools
+     * - Parameter definitions for each tool
+     *
+     * Notes:
+     *
+     * - Tools list may be empty if service is still initializing
+     * - Parameters marked as required must be provided when using a tool
+     * - Enum parameters restrict inputs to the listed values
+     *
+     * @param {string} name - Unique identifier for the service
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
+     * @throws {@link Parlant.ServiceUnavailableError}
      *
      * @example
      *     await client.services.retrieve("name")
@@ -83,13 +99,12 @@ class Services {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    case 503:
+                        throw new Parlant.ServiceUnavailableError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -113,15 +128,38 @@ class Services {
         });
     }
     /**
-     * @param {string} name
+     * Creates a new service or updates an existing one.
+     *
+     * For SDK services:
+     *
+     * - Target server must implement the Parlant SDK protocol
+     * - Supports bidirectional communication and streaming
+     *
+     * For OpenAPI services:
+     *
+     * - Spec must be accessible and compatible with OpenAPI 3.0
+     * - Limited to request/response patterns
+     *
+     * Common requirements:
+     *
+     * - Service names must be unique and kebab-case
+     * - URLs must include http:// or https:// scheme
+     * - Updates cause brief service interruption while reconnecting
+     *
+     * @param {string} name - Unique identifier for the service
      * @param {Parlant.ServiceUpdateParams} request
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.services.createOrUpdate("name", {
-     *         kind: Parlant.ToolServiceKindDto.Sdk
+     *         kind: "openapi",
+     *         openapi: {
+     *             url: "https://email-service.example.com/api/v1",
+     *             source: "https://email-service.example.com/api/openapi.json"
+     *         }
      *     })
      */
     createOrUpdate(name, request, requestOptions) {
@@ -142,7 +180,7 @@ class Services {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ServiceUpdateResponse.parseOrThrow(_response.body, {
+                return serializers.Service.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -151,13 +189,10 @@ class Services {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -181,9 +216,19 @@ class Services {
         });
     }
     /**
-     * @param {string} name
+     * Removes a service integration.
+     *
+     * Effects:
+     *
+     * - Active connections are terminated immediately
+     * - Service tools become unavailable to agents
+     * - Historical data about tool usage is preserved
+     * - Running operations may fail
+     *
+     * @param {string} name - Unique identifier for the service
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -206,22 +251,14 @@ class Services {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ServiceDeletionResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    breadcrumbsPrefix: ["response"],
-                });
+                return;
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -245,6 +282,12 @@ class Services {
         });
     }
     /**
+     * Returns basic info about all registered services.
+     *
+     * For performance reasons, tool details are omitted from the response.
+     * Use the retrieve endpoint to get complete information including
+     * tools for a specific service.
+     *
      * @param {Services.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -253,7 +296,7 @@ class Services {
     list(requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "services/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "services"),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -267,7 +310,7 @@ class Services {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.ServiceListResponse.parseOrThrow(_response.body, {
+                return serializers.services.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

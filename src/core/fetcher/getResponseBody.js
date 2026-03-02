@@ -16,6 +16,9 @@ function getResponseBody(response, responseType) {
         if (response.body != null && responseType === "blob") {
             return yield response.blob();
         }
+        else if (response.body != null && responseType === "arrayBuffer") {
+            return yield response.arrayBuffer();
+        }
         else if (response.body != null && responseType === "sse") {
             return response.body;
         }

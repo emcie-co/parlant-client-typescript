@@ -4,9 +4,15 @@
 import * as Parlant from "../../../../index";
 /**
  * @example
- *     {}
+ *     {
+ *         consumptionOffsets: {
+ *             client: 42
+ *         },
+ *         title: "Updated session title"
+ *     }
  */
 export interface SessionUpdateParams {
     consumptionOffsets?: Parlant.ConsumptionOffsetsUpdateParams;
+    /** Descriptive title for the session */
     title?: string;
 }

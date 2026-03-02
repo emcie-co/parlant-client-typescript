@@ -7,6 +7,7 @@ import * as core from "../../../../../core";
 export declare const AgentUpdateParams: core.serialization.Schema<serializers.AgentUpdateParams.Raw, Parlant.AgentUpdateParams>;
 export declare namespace AgentUpdateParams {
     interface Raw {
+        name?: string | null;
         description?: string | null;
         max_engine_iterations?: number | null;
     }

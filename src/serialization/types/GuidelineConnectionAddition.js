@@ -28,9 +28,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuidelineConnectionAddition = void 0;
 const core = __importStar(require("../../core"));
-const ConnectionKindDto_1 = require("./ConnectionKindDto");
 exports.GuidelineConnectionAddition = core.serialization.object({
     source: core.serialization.string(),
     target: core.serialization.string(),
-    kind: ConnectionKindDto_1.ConnectionKindDto,
 });

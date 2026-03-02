@@ -10,7 +10,7 @@ export declare namespace Session {
     interface Raw {
         id: string;
         agent_id: string;
-        end_user_id: string;
+        customer_id: string;
         creation_utc: string;
         title?: string | null;
         consumption_offsets: ConsumptionOffsets.Raw;

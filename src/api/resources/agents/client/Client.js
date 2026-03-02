@@ -49,6 +49,11 @@ class Agents {
         this._options = _options;
     }
     /**
+     * Retrieves a list of all agents in the system.
+     *
+     * Returns an empty list if no agents exist.
+     * Agents are returned in no guaranteed order.
+     *
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @example
@@ -57,7 +62,7 @@ class Agents {
     list(requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents"),
                 method: "GET",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -71,7 +76,7 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.AgentListResponse.parseOrThrow(_response.body, {
+                return serializers.agents.list.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -100,6 +105,17 @@ class Agents {
         });
     }
     /**
+     * Creates a new agent in the system.
+     *
+     * The agent will be initialized with the provided name and optional settings.
+     * A unique identifier will be automatically generated.
+     *
+     * Default behaviors:
+     *
+     * - `name` defaults to `"Unnamed Agent"` if not provided
+     * - `description` defaults to `None`
+     * - `max_engine_iterations` defaults to `None` (uses system default)
+     *
      * @param {Parlant.AgentCreationParams} request
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -107,13 +123,15 @@ class Agents {
      *
      * @example
      *     await client.agents.create({
-     *         name: "name"
+     *         name: "Haxon",
+     *         description: "Technical Support Assistant",
+     *         maxEngineIterations: 3
      *     })
      */
     create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents/"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents"),
                 method: "POST",
                 headers: {
                     "X-Fern-Language": "JavaScript",
@@ -128,7 +146,7 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.AgentCreationResponse.parseOrThrow(_response.body, {
+                return serializers.Agent.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -138,12 +156,7 @@ class Agents {
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -167,9 +180,12 @@ class Agents {
         });
     }
     /**
-     * @param {string} agentId
+     * Retrieves details of a specific agent by ID.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
@@ -201,13 +217,10 @@ class Agents {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,
@@ -231,14 +244,86 @@ class Agents {
         });
     }
     /**
-     * @param {string} agentId
-     * @param {Parlant.AgentUpdateParams} request
+     * Deletes an agent from the agent.
+     *
+     * Deleting a non-existent agent will return 404.
+     * No content will be returned from a successful deletion.
+     *
+     * @param {string} agentId - Unique identifier for the agent
      * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.update("agent_id")
+     *     await client.agents.delete("agent_id")
+     */
+    delete(agentId, requestOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
+                method: "DELETE",
+                headers: {
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                },
+                contentType: "application/json",
+                requestType: "json",
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return;
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.ParlantError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.ParlantTimeoutError();
+                case "unknown":
+                    throw new errors.ParlantError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * Updates an existing agent's attributes.
+     *
+     * Only the provided attributes will be updated; others will remain unchanged.
+     * The agent's ID and creation timestamp cannot be modified.
+     *
+     * @param {string} agentId - Unique identifier for the agent
+     * @param {Parlant.AgentUpdateParams} request
+     * @param {Agents.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.agents.update("agent_id", {
+     *         name: "Haxon",
+     *         description: "Technical Support Assistant",
+     *         maxEngineIterations: 3
+     *     })
      */
     update(agentId, request = {}, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -258,17 +343,19 @@ class Agents {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return _response.body;
+                return serializers.Agent.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
-                        throw new Parlant.UnprocessableEntityError(serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        }));
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

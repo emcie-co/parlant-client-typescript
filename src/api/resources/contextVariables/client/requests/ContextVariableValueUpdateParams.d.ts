@@ -5,7 +5,10 @@
  * @example
  *     {
  *         data: {
- *             "key": "value"
+ *             "balance": 5000.5,
+ *             "currency": "USD",
+ *             "last_transaction": "2024-03-23T15:30:00Z",
+ *             "status": "active"
  *         }
  *     }
  */

@@ -7,6 +7,6 @@ import * as core from "../../core";
 export declare const ConsumptionOffsets: core.serialization.ObjectSchema<serializers.ConsumptionOffsets.Raw, Parlant.ConsumptionOffsets>;
 export declare namespace ConsumptionOffsets {
     interface Raw {
-        client: number;
+        client?: number | null;
     }
 }

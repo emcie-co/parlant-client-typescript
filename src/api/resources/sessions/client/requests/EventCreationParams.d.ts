@@ -5,14 +5,19 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         kind: Parlant.EventKindDto.Message,
- *         source: Parlant.EventSourceDto.EndUser,
- *         content: "content"
+ *         kind: "message",
+ *         source: "customer",
+ *         message: "Hello, I need help with my order"
  *     }
  */
 export interface EventCreationParams {
+    /**
+     * Content moderation level for the event
+     */
     moderation?: Parlant.Moderation;
     kind: Parlant.EventKindDto;
     source: Parlant.EventSourceDto;
-    content: string;
+    /** Event payload data, format depends on kind */
+    message?: string;
+    actions?: Parlant.UtteranceRequest[];
 }
