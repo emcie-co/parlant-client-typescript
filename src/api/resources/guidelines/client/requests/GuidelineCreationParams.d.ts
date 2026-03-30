@@ -36,4 +36,5 @@ export interface GuidelineCreationParams {
     track?: boolean;
     /** The labels associated with the guideline */
     labels?: string[];
+    priority?: number;
 }

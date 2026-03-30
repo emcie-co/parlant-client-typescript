@@ -20,5 +20,6 @@ export declare namespace Guideline {
         composition_mode?: CompositionModeDto.Raw | null;
         track?: boolean | null;
         labels?: string[] | null;
+        priority?: number | null;
     }
 }

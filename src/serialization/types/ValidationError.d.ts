@@ -11,5 +11,7 @@ export declare namespace ValidationError {
         loc: ValidationErrorLocItem.Raw[];
         msg: string;
         type: string;
+        input?: unknown | null;
+        ctx?: Record<string, unknown> | null;
     }
 }

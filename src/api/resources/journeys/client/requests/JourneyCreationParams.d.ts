@@ -25,4 +25,5 @@ export interface JourneyCreationParams {
     compositionMode?: Parlant.CompositionModeDto;
     /** Labels associated with the journey */
     labels?: string[];
+    priority?: number;
 }

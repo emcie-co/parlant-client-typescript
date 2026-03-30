@@ -26,4 +26,5 @@ export interface Guideline {
     track?: boolean;
     /** The labels associated with the guideline */
     labels?: string[];
+    priority?: number;
 }

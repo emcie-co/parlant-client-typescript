@@ -49,4 +49,5 @@ exports.JourneyUpdateParams = core.serialization.object({
     tags: JourneyTagUpdateParams_1.JourneyTagUpdateParams.optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     labels: JourneyLabelsUpdateParams_1.JourneyLabelsUpdateParams.optional(),
+    priority: core.serialization.number().optional(),
 });

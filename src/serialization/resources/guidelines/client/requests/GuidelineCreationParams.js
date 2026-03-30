@@ -52,4 +52,5 @@ exports.GuidelineCreationParams = core.serialization.object({
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     track: core.serialization.boolean().optional(),
     labels: core.serialization.list(core.serialization.string()).optional(),
+    priority: core.serialization.number().optional(),
 });

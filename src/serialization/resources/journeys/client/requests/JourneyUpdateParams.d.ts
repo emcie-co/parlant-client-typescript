@@ -17,5 +17,6 @@ export declare namespace JourneyUpdateParams {
         tags?: JourneyTagUpdateParams.Raw | null;
         composition_mode?: CompositionModeDto.Raw | null;
         labels?: JourneyLabelsUpdateParams.Raw | null;
+        priority?: number | null;
     }
 }

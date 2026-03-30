@@ -47,4 +47,5 @@ exports.Journey = core.serialization.object({
     tags: core.serialization.list(core.serialization.string()).optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     labels: core.serialization.list(core.serialization.string()).optional(),
+    priority: core.serialization.number().optional(),
 });

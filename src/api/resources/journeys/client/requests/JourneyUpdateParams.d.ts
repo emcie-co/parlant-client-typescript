@@ -17,4 +17,5 @@ export interface JourneyUpdateParams {
     tags?: Parlant.JourneyTagUpdateParams;
     compositionMode?: Parlant.CompositionModeDto;
     labels?: Parlant.JourneyLabelsUpdateParams;
+    priority?: number;
 }

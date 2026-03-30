@@ -43,4 +43,6 @@ exports.ValidationError = core.serialization.object({
     loc: core.serialization.list(ValidationErrorLocItem_1.ValidationErrorLocItem),
     msg: core.serialization.string(),
     type: core.serialization.string(),
+    input: core.serialization.unknown().optional(),
+    ctx: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
 });

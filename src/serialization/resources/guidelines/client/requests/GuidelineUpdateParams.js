@@ -55,4 +55,5 @@ exports.GuidelineUpdateParams = core.serialization.object({
     metadata: GuidelineMetadataUpdateParams_1.GuidelineMetadataUpdateParams.optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     labels: GuidelineLabelsUpdateParams_1.GuidelineLabelsUpdateParams.optional(),
+    priority: core.serialization.number().optional(),
 });

@@ -23,5 +23,6 @@ export declare namespace GuidelineUpdateParams {
         metadata?: GuidelineMetadataUpdateParams.Raw | null;
         composition_mode?: CompositionModeDto.Raw | null;
         labels?: GuidelineLabelsUpdateParams.Raw | null;
+        priority?: number | null;
     }
 }
