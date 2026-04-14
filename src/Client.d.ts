@@ -67,5 +67,5 @@ export declare class ParlantClient {
      * @example
      *     await client.healthCheckHealthzGet()
      */
-    healthCheckHealthzGet(requestOptions?: ParlantClient.RequestOptions): Promise<Record<string, string>>;
+    healthCheckHealthzGet(requestOptions?: ParlantClient.RequestOptions): Promise<Record<string, unknown>>;
 }

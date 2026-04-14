@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Response = void 0;
 const core = __importStar(require("../../core"));
-exports.Response = core.serialization.record(core.serialization.string(), core.serialization.string());
+exports.Response = core.serialization.record(core.serialization.string(), core.serialization.unknown());

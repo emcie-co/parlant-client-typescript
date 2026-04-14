@@ -59,24 +59,33 @@ class Tags {
         this._options = _options;
     }
     /**
-     * Lists all tags in the system.
+     * Lists all tags in the system, optionally filtered by name.
      *
-     * Returns an empty list if no tags exist.
+     * Returns an empty list if no tags exist or none match the filter.
      * Tags are returned in no particular order.
      *
+     * @param {Parlant.TagsListRequest} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.tags.list()
      */
-    list(requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
+            const { name } = request;
+            const _queryParams = {};
+            if (name != null) {
+                _queryParams["name"] = name;
+            }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "tags"),
                 method: "GET",
                 headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -91,10 +100,15 @@ class Tags {
                 });
             }
             if (_response.error.reason === "status-code") {
-                throw new errors.ParlantError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.body,
-                });
+                switch (_response.error.statusCode) {
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
             }
             switch (_response.error.reason) {
                 case "non-json":

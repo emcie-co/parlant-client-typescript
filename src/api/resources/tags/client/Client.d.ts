@@ -24,17 +24,20 @@ export declare class Tags {
     protected readonly _options: Tags.Options;
     constructor(_options: Tags.Options);
     /**
-     * Lists all tags in the system.
+     * Lists all tags in the system, optionally filtered by name.
      *
-     * Returns an empty list if no tags exist.
+     * Returns an empty list if no tags exist or none match the filter.
      * Tags are returned in no particular order.
      *
+     * @param {Parlant.TagsListRequest} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.tags.list()
      */
-    list(requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
+    list(request?: Parlant.TagsListRequest, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
     /**
      * Creates a new tag with the specified name.
      *

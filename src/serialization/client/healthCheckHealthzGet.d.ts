@@ -3,7 +3,7 @@
  */
 import * as serializers from "../index";
 import * as core from "../../core";
-export declare const Response: core.serialization.Schema<serializers.healthCheckHealthzGet.Response.Raw, Record<string, string>>;
+export declare const Response: core.serialization.Schema<serializers.healthCheckHealthzGet.Response.Raw, Record<string, unknown>>;
 export declare namespace Response {
-    type Raw = Record<string, string>;
+    type Raw = Record<string, unknown>;
 }
