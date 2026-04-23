@@ -8,7 +8,6 @@ import { Payload } from "../../../../types/Payload";
 export declare const EvaluationCreationParams: core.serialization.Schema<serializers.EvaluationCreationParams.Raw, Parlant.EvaluationCreationParams>;
 export declare namespace EvaluationCreationParams {
     interface Raw {
-        agent_id: string;
         payloads: Payload.Raw[];
     }
 }

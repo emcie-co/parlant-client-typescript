@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Tags {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,23 +16,28 @@ export declare namespace Tags {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Tags {
     protected readonly _options: Tags.Options;
     constructor(_options: Tags.Options);
     /**
-     * Lists all tags in the system.
+     * Lists all tags in the system, optionally filtered by name.
      *
-     * Returns an empty list if no tags exist.
+     * Returns an empty list if no tags exist or none match the filter.
      * Tags are returned in no particular order.
      *
+     * @param {Parlant.TagsListRequest} request
      * @param {Tags.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
      *     await client.tags.list()
      */
-    list(requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
+    list(request?: Parlant.TagsListRequest, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag[]>;
     /**
      * Creates a new tag with the specified name.
      *
@@ -60,7 +67,7 @@ export declare class Tags {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.tags.retrieve("tag_id")
+     *     await client.tags.retrieve("tag_123xyz")
      */
     retrieve(tagId: string, requestOptions?: Tags.RequestOptions): Promise<Parlant.Tag>;
     /**
@@ -93,7 +100,7 @@ export declare class Tags {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.tags.update("tag_id", {
+     *     await client.tags.update("tag_123xyz", {
      *         name: "enterprise-customer"
      *     })
      */

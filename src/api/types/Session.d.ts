@@ -16,5 +16,11 @@ export interface Session {
     creationUtc: Date;
     /** Descriptive title for the session */
     title?: string;
+    /** The mode of the session, either 'auto' or 'manual'. In manual mode, events added to a session will not be responded to automatically by the agent. */
+    mode: Parlant.SessionModeDto;
     consumptionOffsets: Parlant.ConsumptionOffsets;
+    /** Metadata for the session */
+    metadata: Record<string, unknown>;
+    /** Labels associated with the session */
+    labels?: string[];
 }

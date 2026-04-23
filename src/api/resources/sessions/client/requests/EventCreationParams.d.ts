@@ -14,10 +14,15 @@ export interface EventCreationParams {
     /**
      * Content moderation level for the event
      */
-    moderation?: Parlant.Moderation;
+    moderation?: Parlant.ModerationDto;
     kind: Parlant.EventKindDto;
     source: Parlant.EventSourceDto;
     /** Event payload data, format depends on kind */
     message?: string;
-    actions?: Parlant.UtteranceRequest[];
+    data?: unknown;
+    /** Metadata associated with the event */
+    metadata?: Record<string, unknown>;
+    guidelines?: Parlant.AgentMessageGuideline[];
+    participant?: Parlant.Participant;
+    status?: Parlant.SessionStatusDto;
 }

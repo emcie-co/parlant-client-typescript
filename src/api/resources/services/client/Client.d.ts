@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Services {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,6 +16,8 @@ export declare namespace Services {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Services {
@@ -23,13 +27,11 @@ export declare class Services {
      * Get details about a specific service including all its tools.
      *
      * The response includes:
-     *
      * - Basic service information (name, kind, URL)
      * - Complete list of available tools
      * - Parameter definitions for each tool
      *
      * Notes:
-     *
      * - Tools list may be empty if service is still initializing
      * - Parameters marked as required must be provided when using a tool
      * - Enum parameters restrict inputs to the listed values
@@ -42,24 +44,21 @@ export declare class Services {
      * @throws {@link Parlant.ServiceUnavailableError}
      *
      * @example
-     *     await client.services.retrieve("name")
+     *     await client.services.retrieve("email-service")
      */
     retrieve(name: string, requestOptions?: Services.RequestOptions): Promise<Parlant.Service>;
     /**
      * Creates a new service or updates an existing one.
      *
      * For SDK services:
-     *
      * - Target server must implement the Parlant SDK protocol
      * - Supports bidirectional communication and streaming
      *
      * For OpenAPI services:
-     *
      * - Spec must be accessible and compatible with OpenAPI 3.0
      * - Limited to request/response patterns
      *
      * Common requirements:
-     *
      * - Service names must be unique and kebab-case
      * - URLs must include http:// or https:// scheme
      * - Updates cause brief service interruption while reconnecting
@@ -72,7 +71,7 @@ export declare class Services {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.services.createOrUpdate("name", {
+     *     await client.services.createOrUpdate("email-service", {
      *         kind: "openapi",
      *         openapi: {
      *             url: "https://email-service.example.com/api/v1",
@@ -85,7 +84,6 @@ export declare class Services {
      * Removes a service integration.
      *
      * Effects:
-     *
      * - Active connections are terminated immediately
      * - Service tools become unavailable to agents
      * - Historical data about tool usage is preserved
@@ -98,7 +96,7 @@ export declare class Services {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.services.delete("name")
+     *     await client.services.delete("email-service")
      */
     delete(name: string, requestOptions?: Services.RequestOptions): Promise<void>;
     /**

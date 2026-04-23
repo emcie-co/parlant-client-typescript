@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49,28 +59,31 @@ class ContextVariables {
         this._options = _options;
     }
     /**
-     * Lists all context variables set for the provided agent
+     * Lists all context variables set for the provided tag or all context variables if no tag is provided
      *
-     * @param {string} agentId - Unique identifier of the agent
+     * @param {Parlant.ContextVariablesListRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.list("agent_id")
+     *     await client.contextVariables.list()
      */
-    list(agentId, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
+            const { tagId } = request;
+            const _queryParams = {};
+            if (tagId != null) {
+                _queryParams["tag_id"] = tagId;
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "context-variables"),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -104,7 +117,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /context-variables.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -113,15 +126,13 @@ class ContextVariables {
         });
     }
     /**
-     * Creates a new context variable for tracking customer-specific or tag-specific data.
+     * Creates a new context variable
      *
      * Example uses:
-     *
      * - Track subscription tiers to control feature access
      * - Store usage patterns for personalized recommendations
-     * - Remember customer preferences for tailored responses
+     * - Remember preferences for tailored responses
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {Parlant.ContextVariableCreationParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -129,26 +140,23 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.create("agent_id", {
+     *     await client.contextVariables.create({
      *         name: "UserBalance",
      *         description: "Stores the account balances of users",
      *         toolId: {
      *             serviceName: "finance_service",
      *             toolName: "balance_checker"
      *         },
-     *         freshnessRules: "freshness_rules"
+     *         freshnessRules: "30 2 * * *"
      *     })
      */
-    create(agentId, request, requestOptions) {
+    create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "context-variables"),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.ContextVariableCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -184,7 +192,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /context-variables.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -193,28 +201,31 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes all context variables and their values for the provided agent ID
+     * Deletes all context variables for the provided tag
      *
-     * @param {string} agentId - Unique identifier of the agent
+     * @param {Parlant.ContextVariablesDeleteManyRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.deleteMany("agent_id")
+     *     await client.contextVariables.deleteMany()
      */
-    deleteMany(agentId, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    deleteMany() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
+            const { tagId } = request;
+            const _queryParams = {};
+            if (tagId != null) {
+                _queryParams["tag_id"] = tagId;
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "context-variables"),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -243,7 +254,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /context-variables.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -256,7 +267,6 @@ class ContextVariables {
      *
      * Can return all customer or tag values for this variable type if include_values=True.
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariablesRetrieveRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -265,23 +275,22 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.retrieve("agent_id", "variable_id")
+     *     await client.contextVariables.retrieve("v9a8r7i6b5", {
+     *         includeValues: true
+     *     })
      */
-    retrieve(agentId, variableId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    retrieve(variableId_1) {
+        return __awaiter(this, arguments, void 0, function* (variableId, request = {}, requestOptions) {
+            var _a;
             const { includeValues } = request;
             const _queryParams = {};
             if (includeValues != null) {
                 _queryParams["include_values"] = includeValues.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `context-variables/${encodeURIComponent(variableId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -317,7 +326,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /context-variables/{variable_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -326,9 +335,8 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes a specific context variable and all its values.
+     * Deletes a context variable
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -336,18 +344,15 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.delete("agent_id", "variable_id")
+     *     await client.contextVariables.delete("v9a8r7i6b5")
      */
-    delete(agentId, variableId, requestOptions) {
+    delete(variableId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `context-variables/${encodeURIComponent(variableId)}`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -377,7 +382,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /context-variables/{variable_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -390,7 +395,6 @@ class ContextVariables {
      *
      * Only provided fields will be updated; others remain unchanged.
      *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariableUpdateParams} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -399,21 +403,27 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.update("agent_id", "variable_id", {
-     *         name: "CustomerBalance",
-     *         freshnessRules: "freshness_rules"
+     *     await client.contextVariables.update("v9a8r7i6b5", {
+     *         name: "UserBalance",
+     *         description: "Stores the account balances of users",
+     *         toolId: {
+     *             serviceName: "finance_service",
+     *             toolName: "balance_checker"
+     *         },
+     *         freshnessRules: "0 8,20 * * *",
+     *         tags: {
+     *             add: ["tag:123", "tag:456"],
+     *             remove: ["tag:789", "tag:012"]
+     *         }
      *     })
      */
-    update(agentId, variableId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    update(variableId_1) {
+        return __awaiter(this, arguments, void 0, function* (variableId, request = {}, requestOptions) {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `context-variables/${encodeURIComponent(variableId)}`),
                 method: "PATCH",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.ContextVariableUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -449,7 +459,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /context-variables/{variable_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -458,11 +468,8 @@ class ContextVariables {
         });
     }
     /**
-     * Retrieves the value of a context variable for a specific customer or tag.
+     * Retrieves a customer or tag value for the provided context variable
      *
-     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -471,18 +478,15 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.getValue("agent_id", "variable_id", "key")
+     *     await client.contextVariables.getValue("v9a8r7i6b5", "user_1")
      */
-    getValue(agentId, variableId, key, requestOptions) {
+    getValue(variableId, key, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -517,7 +521,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /context-variables/{variable_id}/{key}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -526,13 +530,8 @@ class ContextVariables {
         });
     }
     /**
-     * Updates the value of a context variable.
+     * Updates a customer or tag value for the provided context variable
      *
-     * The `key` represents a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     * If `key="DEFAULT"`, the update applies to all customers.
-     * The `params` parameter contains the actual context information being stored.
-     *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
      * @param {Parlant.ContextVariableValueUpdateParams} request
@@ -542,7 +541,7 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.setValue("agent_id", "variable_id", "key", {
+     *     await client.contextVariables.setValue("v9a8r7i6b5", "user_1", {
      *         data: {
      *             "balance": 5000.5,
      *             "currency": "USD",
@@ -551,16 +550,13 @@ class ContextVariables {
      *         }
      *     })
      */
-    setValue(agentId, variableId, key, request, requestOptions) {
+    setValue(variableId, key, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
                 method: "PUT",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.ContextVariableValueUpdateParams.jsonOrThrow(request, {
@@ -598,7 +594,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PUT /context-variables/{variable_id}/{key}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -607,12 +603,8 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes a specific customer's or tag's value for this context variable.
+     * Deletes a customer or tag value for the provided context variable
      *
-     * The key should be a customer identifier or a customer tag in the format `tag:{tag_id}`.
-     * Removes only the value for the specified key while keeping the variable's configuration.
-     *
-     * @param {string} agentId - Unique identifier of the agent
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -621,18 +613,15 @@ class ContextVariables {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.contextVariables.deleteValue("agent_id", "variable_id", "key")
+     *     await client.contextVariables.deleteValue("v9a8r7i6b5", "user_1")
      */
-    deleteValue(agentId, variableId, key, requestOptions) {
+    deleteValue(variableId, key, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `context-variables/${encodeURIComponent(variableId)}/${encodeURIComponent(key)}`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -662,7 +651,7 @@ class ContextVariables {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /context-variables/{variable_id}/{key}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,

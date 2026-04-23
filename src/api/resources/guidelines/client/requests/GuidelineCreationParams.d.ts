@@ -5,52 +5,36 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         invoices: [{
- *                 payload: {
- *                     kind: "guideline",
- *                     guideline: {
- *                         content: {
- *                             condition: "when the customer asks about pricing",
- *                             action: "provide current pricing information"
- *                         },
- *                         operation: "add",
- *                         coherenceCheck: true,
- *                         connectionProposition: true
- *                     }
- *                 },
- *                 checksum: "abc123",
- *                 approved: true,
- *                 data: {
- *                     guideline: {
- *                         coherenceChecks: [{
- *                                 kind: "contradiction_with_existing_guideline",
- *                                 first: {
- *                                     condition: "User is frustrated",
- *                                     action: "Respond with technical details"
- *                                 },
- *                                 second: {
- *                                     condition: "User is frustrated",
- *                                     action: "Focus on emotional support first"
- *                                 },
- *                                 issue: "Conflicting approaches to handling user frustration",
- *                                 severity: 7
- *                             }],
- *                         connectionPropositions: [{
- *                                 checkKind: "connection_with_existing_guideline",
- *                                 source: {
- *                                     condition: "User mentions technical problem",
- *                                     action: "Request system logs"
- *                                 },
- *                                 target: {
- *                                     condition: "System logs are available",
- *                                     action: "Analyze logs for error patterns"
- *                                 }
- *                             }]
- *                     }
- *                 }
- *             }]
+ *         condition: "when the customer asks about pricing",
+ *         action: "provide current pricing information and mention any ongoing promotions",
+ *         metadata: {
+ *             "key1": "value1",
+ *             "key2": "value2"
+ *         },
+ *         enabled: false,
+ *         compositionMode: "strict_canned",
+ *         labels: ["vip", "priority"]
  *     }
  */
 export interface GuidelineCreationParams {
-    invoices: Parlant.Invoice[];
+    /** Unique identifier for the guideline */
+    id?: string;
+    /** If this condition is satisfied, the action will be performed */
+    condition: string;
+    /** This action will be performed if the condition is satisfied */
+    action?: string;
+    /** Optional description providing additional context for the guideline */
+    description?: string;
+    criticality?: Parlant.CriticalityDto;
+    /** Metadata for the guideline */
+    metadata?: Record<string, unknown>;
+    /** Whether the guideline is enabled */
+    enabled?: boolean;
+    /** The tags associated with the guideline */
+    tags?: string[];
+    compositionMode?: Parlant.CompositionModeDto;
+    track?: boolean;
+    /** The labels associated with the guideline */
+    labels?: string[];
+    priority?: number;
 }

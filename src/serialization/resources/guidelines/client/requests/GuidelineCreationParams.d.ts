@@ -4,10 +4,22 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { Invoice } from "../../../../types/Invoice";
+import { CriticalityDto } from "../../../../types/CriticalityDto";
+import { CompositionModeDto } from "../../../../types/CompositionModeDto";
 export declare const GuidelineCreationParams: core.serialization.Schema<serializers.GuidelineCreationParams.Raw, Parlant.GuidelineCreationParams>;
 export declare namespace GuidelineCreationParams {
     interface Raw {
-        invoices: Invoice.Raw[];
+        id?: string | null;
+        condition: string;
+        action?: string | null;
+        description?: string | null;
+        criticality?: CriticalityDto.Raw | null;
+        metadata?: Record<string, unknown> | null;
+        enabled?: boolean | null;
+        tags?: string[] | null;
+        composition_mode?: CompositionModeDto.Raw | null;
+        track?: boolean | null;
+        labels?: string[] | null;
+        priority?: number | null;
     }
 }

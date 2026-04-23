@@ -3,11 +3,7 @@
  */
 import * as Parlant from "../index";
 /**
- * Represents a type of customer or tag data that the agent tracks.
- *
- * Context variables store information that helps the agent provide
- * personalized responses based on each customer's or group's specific situation,
- * such as their subscription tier, usage patterns, or preferences.
+ * Represents a context variable type.
  */
 export interface ContextVariable {
     /** Unique identifier for the context variable */
@@ -19,4 +15,6 @@ export interface ContextVariable {
     toolId?: Parlant.ToolId;
     /** Cron expression defining the freshness rules */
     freshnessRules?: string;
+    /** List of tags associated with the context variable */
+    tags?: string[];
 }
