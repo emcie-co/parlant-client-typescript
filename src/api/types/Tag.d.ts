@@ -10,8 +10,6 @@
 export interface Tag {
     /** Unique identifier for the tag */
     id: string;
-    /** UTC timestamp of when the tag was created, in ISO 8601 format */
-    creationUtc: Date;
     /** Human-readable name for the tag, used for display and organization */
     name: string;
 }

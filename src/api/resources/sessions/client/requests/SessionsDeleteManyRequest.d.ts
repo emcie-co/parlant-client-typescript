@@ -3,7 +3,10 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         agentId: "ag_123xyz",
+ *         customerId: "cust_123xy"
+ *     }
  */
 export interface SessionsDeleteManyRequest {
     agentId?: string;

@@ -6,7 +6,7 @@
  *
  * Represents different types of interactions that can occur within a conversation.
  */
-export declare type EventKindDto = "message" | "tool" | "status" | "custom";
+export type EventKindDto = "message" | "tool" | "status" | "custom";
 export declare const EventKindDto: {
     readonly Message: "message";
     readonly Tool: "tool";

@@ -6,13 +6,19 @@ import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { EventKindDto } from "../../../../types/EventKindDto";
 import { EventSourceDto } from "../../../../types/EventSourceDto";
-import { UtteranceRequest } from "../../../../types/UtteranceRequest";
+import { AgentMessageGuideline } from "../../../../types/AgentMessageGuideline";
+import { Participant } from "../../../../types/Participant";
+import { SessionStatusDto } from "../../../../types/SessionStatusDto";
 export declare const EventCreationParams: core.serialization.Schema<serializers.EventCreationParams.Raw, Omit<Parlant.EventCreationParams, "moderation">>;
 export declare namespace EventCreationParams {
     interface Raw {
         kind: EventKindDto.Raw;
         source: EventSourceDto.Raw;
         message?: string | null;
-        actions?: UtteranceRequest.Raw[] | null;
+        data?: unknown | null;
+        metadata?: Record<string, unknown> | null;
+        guidelines?: AgentMessageGuideline.Raw[] | null;
+        participant?: Participant.Raw | null;
+        status?: SessionStatusDto.Raw | null;
     }
 }

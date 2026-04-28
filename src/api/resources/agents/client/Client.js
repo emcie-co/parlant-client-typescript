@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -61,14 +71,11 @@ class Agents {
      */
     list(requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "agents"),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -96,7 +103,7 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /agents.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -108,11 +115,11 @@ class Agents {
      * Creates a new agent in the system.
      *
      * The agent will be initialized with the provided name and optional settings.
-     * A unique identifier will be automatically generated.
+     * A unique identifier will be automatically generated unless a custom ID is provided.
      *
      * Default behaviors:
-     *
      * - `name` defaults to `"Unnamed Agent"` if not provided
+     * - `id` is auto-generated if not provided
      * - `description` defaults to `None`
      * - `max_engine_iterations` defaults to `None` (uses system default)
      *
@@ -125,19 +132,19 @@ class Agents {
      *     await client.agents.create({
      *         name: "Haxon",
      *         description: "Technical Support Assistant",
-     *         maxEngineIterations: 3
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid",
+     *         messageOutputMode: "block",
+     *         tags: ["tag1", "tag2"]
      *     })
      */
     create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "agents"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "agents"),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.AgentCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -171,7 +178,7 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /agents.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -189,18 +196,15 @@ class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.retrieve("agent_id")
+     *     await client.agents.retrieve("IUCGT-lvpS")
      */
     retrieve(agentId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `agents/${encodeURIComponent(agentId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -235,7 +239,7 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /agents/{agent_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -256,18 +260,15 @@ class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.delete("agent_id")
+     *     await client.agents.delete("IUCGT-lvpS")
      */
     delete(agentId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `agents/${encodeURIComponent(agentId)}`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -297,7 +298,7 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /agents/{agent_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -319,22 +320,21 @@ class Agents {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.agents.update("agent_id", {
+     *     await client.agents.update("IUCGT-lvpS", {
      *         name: "Haxon",
      *         description: "Technical Support Assistant",
-     *         maxEngineIterations: 3
+     *         maxEngineIterations: 3,
+     *         compositionMode: "fluid",
+     *         messageOutputMode: "block"
      *     })
      */
-    update(agentId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    update(agentId_1) {
+        return __awaiter(this, arguments, void 0, function* (agentId, request = {}, requestOptions) {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `agents/${encodeURIComponent(agentId)}`),
                 method: "PATCH",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.AgentUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -370,7 +370,7 @@ class Agents {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /agents/{agent_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,

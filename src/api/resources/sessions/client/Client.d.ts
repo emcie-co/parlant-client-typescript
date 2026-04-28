@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Sessions {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,16 +16,18 @@ export declare namespace Sessions {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Sessions {
     protected readonly _options: Sessions.Options;
     constructor(_options: Sessions.Options);
     /**
-     * Lists all sessions matching the specified filters.
+     * Lists all sessions matching the specified filters with pagination support.
      *
-     * Can filter by agent_id and/or customer_id. Returns all sessions if no
-     * filters are provided.
+     * Can filter by agent_id and/or customer_id. Supports cursor-based pagination
+     * with configurable sort direction.
      *
      * @param {Parlant.SessionsListRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -31,9 +35,14 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.list()
+     *     await client.sessions.list({
+     *         agentId: "ag_123xyz",
+     *         customerId: "cust_123xy",
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *     })
      */
-    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session[]>;
+    list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.SessionsListResponse>;
     /**
      * Creates a new session between an agent and customer.
      *
@@ -49,7 +58,12 @@ export declare class Sessions {
      *     await client.sessions.create({
      *         agentId: "ag_123xyz",
      *         customerId: "cust_123xy",
-     *         title: "Product inquiry session"
+     *         title: "Product inquiry session",
+     *         metadata: {
+     *             "priority": "high",
+     *             "project": "demo"
+     *         },
+     *         labels: ["vip", "priority"]
      *     })
      */
     create(request: Parlant.SessionCreationParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
@@ -65,7 +79,10 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.deleteMany()
+     *     await client.sessions.deleteMany({
+     *         agentId: "ag_123xyz",
+     *         customerId: "cust_123xy"
+     *     })
      */
     deleteMany(request?: Parlant.SessionsDeleteManyRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
     /**
@@ -78,7 +95,7 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.retrieve("session_id")
+     *     await client.sessions.retrieve("sess_123yz")
      */
     retrieve(sessionId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
     /**
@@ -93,7 +110,7 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.delete("session_id")
+     *     await client.sessions.delete("sess_123yz")
      */
     delete(sessionId: string, requestOptions?: Sessions.RequestOptions): Promise<void>;
     /**
@@ -109,11 +126,22 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.update("session_id", {
+     *     await client.sessions.update("sess_123yz", {
      *         consumptionOffsets: {
      *             client: 42
      *         },
-     *         title: "Updated session title"
+     *         title: "Updated session title",
+     *         metadata: {
+     *             set: {
+     *                 "priority": "low",
+     *                 "simulation": true
+     *             },
+     *             unset: ["old_project"]
+     *         },
+     *         labels: {
+     *             upsert: ["vip", "priority"],
+     *             remove: ["old_label"]
+     *         }
      *     })
      */
     update(sessionId: string, request?: Parlant.SessionUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Session>;
@@ -121,14 +149,24 @@ export declare class Sessions {
      * Lists events from a session with optional filtering and waiting capabilities.
      *
      * This endpoint retrieves events from a specified session and can:
-     *
-     * 1. Filter events by their offset, source, type, and correlation ID
+     * 1. Filter events by their offset, source, type, and trace ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
+     * 4. Stream events via Server-Sent Events (SSE) when sse=true
      *
      * Notes:
-     * Long Polling Behavior: - When wait_for_data = 0:
-     * Returns immediately with any existing events that match the criteria - When wait_for_data > 0: - If new matching events arrive within the timeout period, returns with those events - If no new events arrive before timeout, raises 504 Gateway Timeout - If matching events already exist, returns immediately with those events
+     *     Long Polling Behavior (when sse=false):
+     *     - When wait_for_data = 0:
+     *         Returns immediately with any existing events that match the criteria
+     *     - When wait_for_data > 0:
+     *         - If new matching events arrive within the timeout period, returns with those events
+     *         - If no new events arrive before timeout, raises 504 Gateway Timeout
+     *         - If matching events already exist, returns immediately with those events
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Continuously sends events as they arrive
+     *     - wait_for_data is used as the timeout between events before closing the stream
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {Parlant.SessionsListEventsRequest} request
@@ -139,7 +177,12 @@ export declare class Sessions {
      * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
-     *     await client.sessions.listEvents("session_id")
+     *     await client.sessions.listEvents("sess_123yz", {
+     *         minOffset: 0,
+     *         correlationId: "corr_13xyz",
+     *         traceId: "corr_13xyz",
+     *         kinds: "message,tool"
+     *     })
      */
     listEvents(sessionId: string, request?: Parlant.SessionsListEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event[]>;
     /**
@@ -155,7 +198,7 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.createEvent("session_id", {
+     *     await client.sessions.createEvent("sess_123yz", {
      *         kind: "message",
      *         source: "customer",
      *         message: "Hello, I need help with my order"
@@ -175,26 +218,71 @@ export declare class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.deleteEvents("session_id", {
-     *         minOffset: 1
+     *     await client.sessions.deleteEvents("sess_123yz", {
+     *         minOffset: 0
      *     })
      */
     deleteEvents(sessionId: string, request: Parlant.SessionsDeleteEventsRequest, requestOptions?: Sessions.RequestOptions): Promise<void>;
     /**
-     * Retrieves detailed inspection information about an event.
+     * Reads a single event from a session.
      *
-     * For AI agent message events, includes information about message generation,
-     * tool calls, and preparation iterations.
+     * This endpoint retrieves a specific event by its ID and optionally waits
+     * for the event to complete (useful for streaming messages).
+     *
+     * Args:
+     *     wait_for_completion: If true, wait for the event to complete (for streaming events,
+     *         this means waiting until chunks contains None terminator)
+     *     wait_for_data: Timeout in seconds for wait_for_completion
+     *     sse: If true, stream event updates via Server-Sent Events until completion
+     *
+     * Notes:
+     *     For streaming message events (events with 'chunks' property):
+     *     - The event is considered complete when chunks contains a None terminator
+     *     - Use wait_for_completion=true to wait for the full message
+     *     - Use sse=true to stream updates as chunks are added
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Sends the event each time it's updated
+     *     - Closes when the event is complete (chunks ends with None)
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.SessionsReadEventRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.inspectEvent("session_id", "event_id")
+     *     await client.sessions.readEvent("sess_123yz", "evt_123xyz")
      */
-    inspectEvent(sessionId: string, eventId: string, requestOptions?: Sessions.RequestOptions): Promise<Parlant.EventInspectionResult>;
+    readEvent(sessionId: string, eventId: string, request?: Parlant.SessionsReadEventRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event>;
+    /**
+     * Updates an event's properties.
+     *
+     * Currently only supports updating metadata. Other event properties cannot be modified.
+     * This API is designed to be extensible for future event property updates.
+     *
+     * @param {string} sessionId - Unique identifier for the session
+     * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.EventUpdateParams} request
+     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sessions.updateEvent("sess_123yz", "evt_123xyz", {
+     *         metadata: {
+     *             set: {
+     *                 "agent_id": "agent_123",
+     *                 "category": "support",
+     *                 "priority": "high"
+     *             },
+     *             unset: ["old_priority"]
+     *         }
+     *     })
+     */
+    updateEvent(sessionId: string, eventId: string, request?: Parlant.EventUpdateParams, requestOptions?: Sessions.RequestOptions): Promise<Parlant.Event>;
 }

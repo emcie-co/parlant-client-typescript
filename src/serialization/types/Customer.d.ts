@@ -10,7 +10,7 @@ export declare namespace Customer {
         id: string;
         creation_utc: string;
         name: string;
-        extra: Record<string, string>;
+        metadata: Record<string, string>;
         tags: string[];
     }
 }

@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Evaluations {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,18 +16,15 @@ export declare namespace Evaluations {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Evaluations {
     protected readonly _options: Evaluations.Options;
     constructor(_options: Evaluations.Options);
     /**
-     * Creates a new evaluation task for the specified agent.
-     *
-     * An evaluation analyzes proposed changes (payloads) to an agent's guidelines
-     * to ensure coherence and consistency with existing guidelines and the agent's
-     * configuration. This helps maintain predictable agent behavior by detecting
-     * potential conflicts and unintended consequences before applying changes.
+     * Creates a new evaluation task for the specified payloads.
      *
      * Returns immediately with the created evaluation's initial state.
      *
@@ -36,17 +35,18 @@ export declare class Evaluations {
      *
      * @example
      *     await client.evaluations.create({
-     *         agentId: "a1g2e3n4t5",
      *         payloads: [{
      *                 kind: "guideline",
      *                 guideline: {
      *                     content: {
-     *                         condition: "when customer asks about pricing",
-     *                         action: "provide current pricing information"
+     *                         condition: "when customer asks about pricing"
      *                     },
+     *                     toolIds: [{
+     *                             serviceName: "email_service",
+     *                             toolName: "send_email"
+     *                         }],
      *                     operation: "add",
-     *                     coherenceCheck: true,
-     *                     connectionProposition: true
+     *                     actionProposition: true
      *                 }
      *             }]
      *     })
@@ -55,12 +55,11 @@ export declare class Evaluations {
     /**
      * Retrieves the current state of an evaluation.
      *
-     * - If wait_for_completion == 0, returns current state immediately.
-     * - If wait_for_completion > 0, waits for completion/failure or timeout. Defaults to 60.
+     * * If wait_for_completion == 0, returns current state immediately.
+     * * If wait_for_completion > 0, waits for completion/failure or timeout. Defaults to 60.
      *
      * Notes:
      * When wait_for_completion > 0:
-     *
      * - Returns final state if evaluation completes within timeout
      * - Raises 504 if timeout is reached before completion
      *
@@ -73,7 +72,7 @@ export declare class Evaluations {
      * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
-     *     await client.evaluations.retrieve("evaluation_id")
+     *     await client.evaluations.retrieve("eval_123xz")
      */
     retrieve(evaluationId: string, request?: Parlant.EvaluationsRetrieveRequest, requestOptions?: Evaluations.RequestOptions): Promise<Parlant.Evaluation>;
 }

@@ -8,11 +8,28 @@ import * as Parlant from "../../../../index";
  *         consumptionOffsets: {
  *             client: 42
  *         },
- *         title: "Updated session title"
+ *         title: "Updated session title",
+ *         metadata: {
+ *             set: {
+ *                 "priority": "low",
+ *                 "simulation": true
+ *             },
+ *             unset: ["old_project"]
+ *         },
+ *         labels: {
+ *             upsert: ["vip", "priority"],
+ *             remove: ["old_label"]
+ *         }
  *     }
  */
 export interface SessionUpdateParams {
     consumptionOffsets?: Parlant.ConsumptionOffsetsUpdateParams;
     /** Descriptive title for the session */
     title?: string;
+    /** The mode of the session, either 'auto' or 'manual'. In manual mode, events added to a session will not be responded to automatically by the agent. */
+    mode?: Parlant.SessionModeDto;
+    customerId?: string;
+    agentId?: string;
+    metadata?: Parlant.SessionMetadataUpdateParams;
+    labels?: Parlant.SessionLabelsUpdateParams;
 }

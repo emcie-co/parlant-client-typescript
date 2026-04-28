@@ -6,6 +6,8 @@ import * as Parlant from "../../../index";
 export declare namespace Customers {
     interface Options {
         environment: core.Supplier<string>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
     }
     interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
@@ -14,28 +16,43 @@ export declare namespace Customers {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 export declare class Customers {
     protected readonly _options: Customers.Options;
     constructor(_options: Customers.Options);
     /**
-     * Retrieves a list of all customers in the system.
+     * Retrieves a list of customers from the system.
+     *
+     * If a cursor is provided, the results are returned using cursor-based pagination
+     * with a configurable sort direction. If no cursor is provided, the full list of
+     * customers is returned.
      *
      * Returns an empty list if no customers exist.
-     * Customers are returned in no guaranteed order.
      *
+     * Note:
+     *     When using paginated results, the first page will always include the special
+     *     'guest' customer as first item.
+     *
+     * @param {Parlant.CustomersListRequest} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
      * @example
-     *     await client.customers.list()
+     *     await client.customers.list({
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *     })
      */
-    list(requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer[]>;
+    list(request?: Parlant.CustomersListRequest, requestOptions?: Customers.RequestOptions): Promise<Parlant.CustomersListResponse>;
     /**
      * Creates a new customer in the system.
      *
      * A customer may be created with as little as a `name`.
-     * `extra` key-value pairs and additional `tags` may be attached to a customer.
+     * `metadata` key-value pairs and additional `tags` may be attached to a customer.
      *
      * @param {Parlant.CustomerCreationParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
@@ -45,7 +62,7 @@ export declare class Customers {
      * @example
      *     await client.customers.create({
      *         name: "Scooby",
-     *         extra: {
+     *         metadata: {
      *             "VIP": "Yes",
      *             "email": "scooby@dooby.do"
      *         }
@@ -65,7 +82,7 @@ export declare class Customers {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.retrieve("customer_id")
+     *     await client.customers.retrieve("ck_IdAXUtp")
      */
     retrieve(customerId: string, requestOptions?: Customers.RequestOptions): Promise<Parlant.Customer>;
     /**
@@ -81,7 +98,7 @@ export declare class Customers {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.delete("customer_id")
+     *     await client.customers.delete("ck_IdAXUtp")
      */
     delete(customerId: string, requestOptions?: Customers.RequestOptions): Promise<void>;
     /**
@@ -99,15 +116,8 @@ export declare class Customers {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.customers.update("customer_id", {
+     *     await client.customers.update("ck_IdAXUtp", {
      *         name: "Scooby",
-     *         extra: {
-     *             add: {
-     *                 "VIP": "Yes",
-     *                 "email": "scooby@dooby.do"
-     *             },
-     *             remove: ["old_email", "old_title"]
-     *         },
      *         tags: {
      *             add: ["t9a8g703f4", "tag_456abc"],
      *             remove: ["tag_789def", "tag_012ghi"]

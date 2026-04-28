@@ -6,4 +6,6 @@ export interface ValidationError {
     loc: Parlant.ValidationErrorLocItem[];
     msg: string;
     type: string;
+    input?: unknown;
+    ctx?: Record<string, unknown>;
 }

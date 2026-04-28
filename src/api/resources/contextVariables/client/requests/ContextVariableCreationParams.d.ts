@@ -11,7 +11,7 @@ import * as Parlant from "../../../../index";
  *             serviceName: "finance_service",
  *             toolName: "balance_checker"
  *         },
- *         freshnessRules: "freshness_rules"
+ *         freshnessRules: "30 2 * * *"
  *     }
  */
 export interface ContextVariableCreationParams {
@@ -22,4 +22,6 @@ export interface ContextVariableCreationParams {
     toolId?: Parlant.ToolId;
     /** Cron expression defining the freshness rules */
     freshnessRules?: string;
+    /** List of tags associated with the context variable */
+    tags?: string[];
 }

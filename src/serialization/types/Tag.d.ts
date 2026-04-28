@@ -8,7 +8,6 @@ export declare const Tag: core.serialization.ObjectSchema<serializers.Tag.Raw, P
 export declare namespace Tag {
     interface Raw {
         id: string;
-        creation_utc: string;
         name: string;
     }
 }

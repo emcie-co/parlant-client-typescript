@@ -13,5 +13,7 @@ export declare namespace ContextVariable {
         description?: string | null;
         tool_id?: ToolId.Raw | null;
         freshness_rules?: string | null;
+        tags?: string[] | null;
+        last_modified: string;
     }
 }

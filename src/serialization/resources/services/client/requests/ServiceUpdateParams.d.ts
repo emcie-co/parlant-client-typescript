@@ -7,11 +7,13 @@ import * as core from "../../../../../core";
 import { ToolServiceKindDto } from "../../../../types/ToolServiceKindDto";
 import { SdkServiceParams } from "../../../../types/SdkServiceParams";
 import { OpenApiServiceParams } from "../../../../types/OpenApiServiceParams";
+import { McpServiceParams } from "../../../../types/McpServiceParams";
 export declare const ServiceUpdateParams: core.serialization.Schema<serializers.ServiceUpdateParams.Raw, Parlant.ServiceUpdateParams>;
 export declare namespace ServiceUpdateParams {
     interface Raw {
         kind: ToolServiceKindDto.Raw;
         sdk?: SdkServiceParams.Raw | null;
         openapi?: OpenApiServiceParams.Raw | null;
+        mcp?: McpServiceParams.Raw | null;
     }
 }

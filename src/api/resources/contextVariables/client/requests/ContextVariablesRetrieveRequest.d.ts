@@ -3,7 +3,9 @@
  */
 /**
  * @example
- *     {}
+ *     {
+ *         includeValues: true
+ *     }
  */
 export interface ContextVariablesRetrieveRequest {
     /**

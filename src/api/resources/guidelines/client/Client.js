@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49,32 +59,34 @@ class Guidelines {
         this._options = _options;
     }
     /**
-     * Lists all guidelines for the specified agent.
+     * Lists all guidelines for the specified tag or all guidelines if no tag is provided.
      *
      * Returns an empty list if no guidelines exist.
      * Guidelines are returned in no guaranteed order.
-     * Does not include connections or tool associations.
+     * Does not include relationships or tool associations.
      *
-     * @param {string} agentId - Unique identifier for the agent
+     * @param {Parlant.GuidelinesListRequest} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.list("agent_id")
+     *     await client.guidelines.list()
      */
-    list(agentId, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
+            const { tagId } = request;
+            const _queryParams = {};
+            if (tagId != null) {
+                _queryParams["tag_id"] = tagId;
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/guidelines`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "guidelines"),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
@@ -90,8 +102,6 @@ class Guidelines {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
-                    case 404:
-                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
                         throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
@@ -108,7 +118,7 @@ class Guidelines {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /guidelines.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -117,80 +127,38 @@ class Guidelines {
         });
     }
     /**
-     * Creates new guidelines from the provided invoices.
+     * Creates a new guideline.
      *
-     * Invoices are obtained by calling the `create_evaluation` method of the client.
-     * (Equivalent to making a POST request to `/index/evaluations`)
+     * The guideline will be initialized with the provided condition and optional action and settings.
+     * A unique identifier will be automatically generated unless a custom ID is provided.
+     *
      * See the [documentation](https://parlant.io/docs/concepts/customization/guidelines) for more information.
      *
-     * The guidelines are created in the specified agent's guideline set.
-     * Tool associations and connections are automatically handled.
-     *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {Parlant.GuidelineCreationParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.create("agent_id", {
-     *         invoices: [{
-     *                 payload: {
-     *                     kind: "guideline",
-     *                     guideline: {
-     *                         content: {
-     *                             condition: "when the customer asks about pricing",
-     *                             action: "provide current pricing information"
-     *                         },
-     *                         operation: "add",
-     *                         coherenceCheck: true,
-     *                         connectionProposition: true
-     *                     }
-     *                 },
-     *                 checksum: "abc123",
-     *                 approved: true,
-     *                 data: {
-     *                     guideline: {
-     *                         coherenceChecks: [{
-     *                                 kind: "contradiction_with_existing_guideline",
-     *                                 first: {
-     *                                     condition: "User is frustrated",
-     *                                     action: "Respond with technical details"
-     *                                 },
-     *                                 second: {
-     *                                     condition: "User is frustrated",
-     *                                     action: "Focus on emotional support first"
-     *                                 },
-     *                                 issue: "Conflicting approaches to handling user frustration",
-     *                                 severity: 7
-     *                             }],
-     *                         connectionPropositions: [{
-     *                                 checkKind: "connection_with_existing_guideline",
-     *                                 source: {
-     *                                     condition: "User mentions technical problem",
-     *                                     action: "Request system logs"
-     *                                 },
-     *                                 target: {
-     *                                     condition: "System logs are available",
-     *                                     action: "Analyze logs for error patterns"
-     *                                 }
-     *                             }]
-     *                     }
-     *                 }
-     *             }]
+     *     await client.guidelines.create({
+     *         condition: "when the customer asks about pricing",
+     *         action: "provide current pricing information and mention any ongoing promotions",
+     *         metadata: {
+     *             "key1": "value1",
+     *             "key2": "value2"
+     *         },
+     *         enabled: false,
+     *         compositionMode: "strict_canned",
+     *         labels: ["vip", "priority"]
      *     })
      */
-    create(agentId, request, requestOptions) {
+    create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/guidelines`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "guidelines"),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.GuidelineCreationParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -199,7 +167,7 @@ class Guidelines {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.GuidelineCreationResult.parseOrThrow(_response.body, {
+                return serializers.Guideline.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -208,8 +176,6 @@ class Guidelines {
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
-                    case 404:
-                        throw new Parlant.NotFoundError(_response.error.body);
                     case 422:
                         throw new Parlant.UnprocessableEntityError(_response.error.body);
                     default:
@@ -226,7 +192,7 @@ class Guidelines {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /guidelines.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -235,12 +201,11 @@ class Guidelines {
         });
     }
     /**
-     * Retrieves a specific guideline with all its connections and tool associations.
+     * Retrieves a specific guideline with all its relationships and tool associations.
      *
-     * Returns both direct and indirect connections between guidelines.
+     * Returns both direct and indirect relationships between guidelines.
      * Tool associations indicate which tools the guideline can use.
      *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -248,18 +213,15 @@ class Guidelines {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.retrieve("agent_id", "guideline_id")
+     *     await client.guidelines.retrieve("IUCGT-l4pS")
      */
-    retrieve(agentId, guidelineId, requestOptions) {
+    retrieve(guidelineId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/guidelines/${encodeURIComponent(guidelineId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `guidelines/${encodeURIComponent(guidelineId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -267,7 +229,7 @@ class Guidelines {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.GuidelineWithConnectionsAndToolAssociations.parseOrThrow(_response.body, {
+                return serializers.GuidelineWithRelationshipsAndToolAssociations.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -294,7 +256,7 @@ class Guidelines {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /guidelines/{guideline_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -303,13 +265,6 @@ class Guidelines {
         });
     }
     /**
-     * Deletes a guideline from the agent.
-     *
-     * Also removes all associated connections and tool associations.
-     * Deleting a non-existent guideline will return 404.
-     * No content will be returned from a successful deletion.
-     *
-     * @param {string} agentId - Unique identifier for the agent
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -317,18 +272,15 @@ class Guidelines {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.delete("agent_id", "guideline_id")
+     *     await client.guidelines.delete("IUCGT-l4pS")
      */
-    delete(agentId, guidelineId, requestOptions) {
+    delete(guidelineId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/guidelines/${encodeURIComponent(guidelineId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `guidelines/${encodeURIComponent(guidelineId)}`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -358,7 +310,7 @@ class Guidelines {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /guidelines/{guideline_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -367,21 +319,20 @@ class Guidelines {
         });
     }
     /**
-     * Updates a guideline's connections and tool associations.
+     * Updates a guideline's relationships and tool associations.
      *
      * Only provided attributes will be updated; others remain unchanged.
      *
-     * Connection rules:
-     *
-     * - A guideline cannot connect to itself
-     * - Only direct connections can be removed
-     * - The connection must specify this guideline as source or target
+     * Relationship rules:
+     * - A guideline cannot relate to itself
+     * - Only direct relationships can be removed
+     * - The relationship must specify this guideline as source or target
      *
      * Tool Association rules:
-     *
      * - Tool services and tools must exist before creating associations
      *
-     * @param {string} agentId - Unique identifier for the agent
+     * Action with text can not be updated to None.
+     *
      * @param {string} guidelineId - Unique identifier for the guideline
      * @param {Parlant.GuidelineUpdateParams} request
      * @param {Guidelines.RequestOptions} requestOptions - Request-specific configuration.
@@ -390,36 +341,36 @@ class Guidelines {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.guidelines.update("agent_id", "guideline_id", {
-     *         connections: {
-     *             add: [{
-     *                     source: "guide_123xyz",
-     *                     target: "guide_789xyz"
-     *                 }],
-     *             remove: ["guide_456xyz"]
-     *         },
+     *     await client.guidelines.update("IUCGT-l4pS", {
+     *         condition: "when the customer asks about pricing",
+     *         action: "provide current pricing information",
      *         toolAssociations: {
      *             add: [{
-     *                     serviceName: "pricing_service",
-     *                     toolName: "get_prices"
+     *                     serviceName: "new_service",
+     *                     toolName: "new_tool"
      *                 }],
      *             remove: [{
      *                     serviceName: "old_service",
      *                     toolName: "old_tool"
      *                 }]
+     *         },
+     *         enabled: true,
+     *         metadata: {
+     *             set: {
+     *                 "key1": "value1",
+     *                 "key2": "value2"
+     *             },
+     *             unset: ["key3", "key4"]
      *         }
      *     })
      */
-    update(agentId, guidelineId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    update(guidelineId_1) {
+        return __awaiter(this, arguments, void 0, function* (guidelineId, request = {}, requestOptions) {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `agents/${encodeURIComponent(agentId)}/guidelines/${encodeURIComponent(guidelineId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `guidelines/${encodeURIComponent(guidelineId)}`),
                 method: "PATCH",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.GuidelineUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -428,7 +379,7 @@ class Guidelines {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.GuidelineWithConnectionsAndToolAssociations.parseOrThrow(_response.body, {
+                return serializers.GuidelineWithRelationshipsAndToolAssociations.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -455,7 +406,7 @@ class Guidelines {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /guidelines/{guideline_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,

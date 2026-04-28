@@ -6,13 +6,6 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         name: "Scooby",
- *         extra: {
- *             add: {
- *                 "VIP": "Yes",
- *                 "email": "scooby@dooby.do"
- *             },
- *             remove: ["old_email", "old_title"]
- *         },
  *         tags: {
  *             add: ["t9a8g703f4", "tag_456abc"],
  *             remove: ["tag_789def", "tag_012ghi"]
@@ -20,8 +13,8 @@ import * as Parlant from "../../../../index";
  *     }
  */
 export interface CustomerUpdateParams {
-    /** An arbitrary string that indentifies and/or describes the customer */
+    /** An arbitrary string that identifies and/or describes the customer */
     name?: string;
-    extra?: Parlant.CustomerExtraUpdateParams;
+    metadata?: Parlant.CustomerMetadataUpdateParams;
     tags?: Parlant.CustomerTagUpdateParams;
 }

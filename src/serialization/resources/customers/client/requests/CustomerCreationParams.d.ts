@@ -8,6 +8,8 @@ export declare const CustomerCreationParams: core.serialization.Schema<serialize
 export declare namespace CustomerCreationParams {
     interface Raw {
         name: string;
-        extra?: Record<string, string | null | undefined> | null;
+        id?: string | null;
+        metadata?: Record<string, string | null | undefined> | null;
+        tags?: string[] | null;
     }
 }

@@ -5,13 +5,16 @@
  * The type of service integration available in the system.
  *
  * Attributes:
- * "sdk": Native integration using the Parlant SDK protocol. Enables advanced features
- * like bidirectional communication and streaming results.
- * "openapi": Integration via OpenAPI specification. Simpler to set up but limited
- * to basic request/response patterns.
+ *     "sdk": Native integration using the Parlant SDK protocol. Enables advanced features
+ *         like bidirectional communication and streaming results.
+ *     "openapi": (Deprecated) Integration via OpenAPI specification. Simpler to set up but limited
+ *         to basic request/response patterns. Please migrate to SDK services.
+ *     "mcp": Integration with tool servers using the popular MCP (Model Context Protocol)
+ *         implemented by wide variety of 3rd parties.
  */
-export declare type ToolServiceKindDto = "sdk" | "openapi";
+export type ToolServiceKindDto = "sdk" | "openapi" | "mcp";
 export declare const ToolServiceKindDto: {
     readonly Sdk: "sdk";
     readonly Openapi: "openapi";
+    readonly Mcp: "mcp";
 };

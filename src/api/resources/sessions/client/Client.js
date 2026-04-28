@@ -18,13 +18,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -52,18 +62,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sessions = void 0;
 const core = __importStar(require("../../../../core"));
 const Parlant = __importStar(require("../../../index"));
-const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization/index"));
+const url_join_1 = __importDefault(require("url-join"));
 const errors = __importStar(require("../../../../errors/index"));
 class Sessions {
     constructor(_options) {
         this._options = _options;
     }
     /**
-     * Lists all sessions matching the specified filters.
+     * Lists all sessions matching the specified filters with pagination support.
      *
-     * Can filter by agent_id and/or customer_id. Returns all sessions if no
-     * filters are provided.
+     * Can filter by agent_id and/or customer_id. Supports cursor-based pagination
+     * with configurable sort direction.
      *
      * @param {Parlant.SessionsListRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -71,11 +81,17 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.list()
+     *     await client.sessions.list({
+     *         agentId: "ag_123xyz",
+     *         customerId: "cust_123xy",
+     *         limit: 10,
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *     })
      */
-    list(request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { agentId, customerId } = request;
+    list() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
+            const { agentId, customerId, labels, limit, cursor, sort } = request;
             const _queryParams = {};
             if (agentId != null) {
                 _queryParams["agent_id"] = agentId;
@@ -83,14 +99,27 @@ class Sessions {
             if (customerId != null) {
                 _queryParams["customer_id"] = customerId;
             }
+            if (labels != null) {
+                if (Array.isArray(labels)) {
+                    _queryParams["labels"] = labels.map((item) => item);
+                }
+                else {
+                    _queryParams["labels"] = labels;
+                }
+            }
+            if (limit != null) {
+                _queryParams["limit"] = limit.toString();
+            }
+            if (cursor != null) {
+                _queryParams["cursor"] = cursor;
+            }
+            if (sort != null) {
+                _queryParams["sort"] = serializers.SortDirectionDto.jsonOrThrow(sort, { unrecognizedObjectKeys: "strip" });
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -99,7 +128,7 @@ class Sessions {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.sessions.list.Response.parseOrThrow(_response.body, {
+                return serializers.SessionsListResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -124,7 +153,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -147,24 +176,26 @@ class Sessions {
      *     await client.sessions.create({
      *         agentId: "ag_123xyz",
      *         customerId: "cust_123xy",
-     *         title: "Product inquiry session"
+     *         title: "Product inquiry session",
+     *         metadata: {
+     *             "priority": "high",
+     *             "project": "demo"
+     *         },
+     *         labels: ["vip", "priority"]
      *     })
      */
     create(request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { allowGreeting } = request, _body = __rest(request, ["allowGreeting"]);
             const _queryParams = {};
             if (allowGreeting != null) {
                 _queryParams["allow_greeting"] = allowGreeting.toString();
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -199,7 +230,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /sessions.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -219,10 +250,14 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.deleteMany()
+     *     await client.sessions.deleteMany({
+     *         agentId: "ag_123xyz",
+     *         customerId: "cust_123xy"
+     *     })
      */
-    deleteMany(request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    deleteMany() {
+        return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
+            var _a;
             const { agentId, customerId } = request;
             const _queryParams = {};
             if (agentId != null) {
@@ -232,13 +267,9 @@ class Sessions {
                 _queryParams["customer_id"] = customerId;
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "sessions"),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -267,7 +298,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -285,18 +316,15 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.retrieve("session_id")
+     *     await client.sessions.retrieve("sess_123yz")
      */
     retrieve(sessionId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -331,7 +359,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -351,18 +379,15 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.delete("session_id")
+     *     await client.sessions.delete("sess_123yz")
      */
     delete(sessionId, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -392,7 +417,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -413,23 +438,31 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.update("session_id", {
+     *     await client.sessions.update("sess_123yz", {
      *         consumptionOffsets: {
      *             client: 42
      *         },
-     *         title: "Updated session title"
+     *         title: "Updated session title",
+     *         metadata: {
+     *             set: {
+     *                 "priority": "low",
+     *                 "simulation": true
+     *             },
+     *             unset: ["old_project"]
+     *         },
+     *         labels: {
+     *             upsert: ["vip", "priority"],
+     *             remove: ["old_label"]
+     *         }
      *     })
      */
-    update(sessionId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    update(sessionId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
+            var _a;
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}`),
                 method: "PATCH",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 requestType: "json",
                 body: serializers.SessionUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -465,7 +498,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /sessions/{session_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -477,14 +510,24 @@ class Sessions {
      * Lists events from a session with optional filtering and waiting capabilities.
      *
      * This endpoint retrieves events from a specified session and can:
-     *
-     * 1. Filter events by their offset, source, type, and correlation ID
+     * 1. Filter events by their offset, source, type, and trace ID
      * 2. Wait for new events to arrive if requested
      * 3. Return events in chronological order based on their offset
+     * 4. Stream events via Server-Sent Events (SSE) when sse=true
      *
      * Notes:
-     * Long Polling Behavior: - When wait_for_data = 0:
-     * Returns immediately with any existing events that match the criteria - When wait_for_data > 0: - If new matching events arrive within the timeout period, returns with those events - If no new events arrive before timeout, raises 504 Gateway Timeout - If matching events already exist, returns immediately with those events
+     *     Long Polling Behavior (when sse=false):
+     *     - When wait_for_data = 0:
+     *         Returns immediately with any existing events that match the criteria
+     *     - When wait_for_data > 0:
+     *         - If new matching events arrive within the timeout period, returns with those events
+     *         - If no new events arrive before timeout, raises 504 Gateway Timeout
+     *         - If matching events already exist, returns immediately with those events
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Continuously sends events as they arrive
+     *     - wait_for_data is used as the timeout between events before closing the stream
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {Parlant.SessionsListEventsRequest} request
@@ -495,20 +538,31 @@ class Sessions {
      * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
-     *     await client.sessions.listEvents("session_id")
+     *     await client.sessions.listEvents("sess_123yz", {
+     *         minOffset: 0,
+     *         correlationId: "corr_13xyz",
+     *         traceId: "corr_13xyz",
+     *         kinds: "message,tool"
+     *     })
      */
-    listEvents(sessionId, request = {}, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { minOffset, source, correlationId, kinds, waitForData } = request;
+    listEvents(sessionId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
+            var _a;
+            const { minOffset, source, correlationId, traceId, kinds, waitForData, sse } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
             }
             if (source != null) {
-                _queryParams["source"] = source;
+                _queryParams["source"] = serializers.EventSourceDto.jsonOrThrow(source, {
+                    unrecognizedObjectKeys: "strip",
+                });
             }
             if (correlationId != null) {
                 _queryParams["correlation_id"] = correlationId;
+            }
+            if (traceId != null) {
+                _queryParams["trace_id"] = traceId;
             }
             if (kinds != null) {
                 _queryParams["kinds"] = kinds;
@@ -516,14 +570,13 @@ class Sessions {
             if (waitForData != null) {
                 _queryParams["wait_for_data"] = waitForData.toString();
             }
+            if (sse != null) {
+                _queryParams["sse"] = sse.toString();
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -561,7 +614,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -582,7 +635,7 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.createEvent("session_id", {
+     *     await client.sessions.createEvent("sess_123yz", {
      *         kind: "message",
      *         source: "customer",
      *         message: "Hello, I need help with my order"
@@ -590,19 +643,18 @@ class Sessions {
      */
     createEvent(sessionId, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { moderation } = request, _body = __rest(request, ["moderation"]);
             const _queryParams = {};
             if (moderation != null) {
-                _queryParams["moderation"] = moderation;
+                _queryParams["moderation"] = serializers.ModerationDto.jsonOrThrow(moderation, {
+                    unrecognizedObjectKeys: "strip",
+                });
             }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "POST",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -639,7 +691,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling POST /sessions/{session_id}/events.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -660,23 +712,20 @@ class Sessions {
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.deleteEvents("session_id", {
-     *         minOffset: 1
+     *     await client.sessions.deleteEvents("sess_123yz", {
+     *         minOffset: 0
      *     })
      */
     deleteEvents(sessionId, request, requestOptions) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const { minOffset } = request;
             const _queryParams = {};
             _queryParams["min_offset"] = minOffset.toString();
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events`),
                 method: "DELETE",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
                 queryParameters: _queryParams,
                 requestType: "json",
@@ -707,7 +756,7 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling DELETE /sessions/{session_id}/events.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,
@@ -716,39 +765,66 @@ class Sessions {
         });
     }
     /**
-     * Retrieves detailed inspection information about an event.
+     * Reads a single event from a session.
      *
-     * For AI agent message events, includes information about message generation,
-     * tool calls, and preparation iterations.
+     * This endpoint retrieves a specific event by its ID and optionally waits
+     * for the event to complete (useful for streaming messages).
+     *
+     * Args:
+     *     wait_for_completion: If true, wait for the event to complete (for streaming events,
+     *         this means waiting until chunks contains None terminator)
+     *     wait_for_data: Timeout in seconds for wait_for_completion
+     *     sse: If true, stream event updates via Server-Sent Events until completion
+     *
+     * Notes:
+     *     For streaming message events (events with 'chunks' property):
+     *     - The event is considered complete when chunks contains a None terminator
+     *     - Use wait_for_completion=true to wait for the full message
+     *     - Use sse=true to stream updates as chunks are added
+     *
+     *     SSE Mode (when sse=true):
+     *     - Returns a text/event-stream response
+     *     - Sends the event each time it's updated
+     *     - Closes when the event is complete (chunks ends with None)
      *
      * @param {string} sessionId - Unique identifier for the session
      * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.SessionsReadEventRequest} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
      * @throws {@link Parlant.UnprocessableEntityError}
      *
      * @example
-     *     await client.sessions.inspectEvent("session_id", "event_id")
+     *     await client.sessions.readEvent("sess_123yz", "evt_123xyz")
      */
-    inspectEvent(sessionId, eventId, requestOptions) {
-        return __awaiter(this, void 0, void 0, function* () {
+    readEvent(sessionId_1, eventId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, eventId, request = {}, requestOptions) {
+            var _a;
+            const { waitForCompletion, waitForData, sse } = request;
+            const _queryParams = {};
+            if (waitForCompletion != null) {
+                _queryParams["wait_for_completion"] = waitForCompletion.toString();
+            }
+            if (waitForData != null) {
+                _queryParams["wait_for_data"] = waitForData.toString();
+            }
+            if (sse != null) {
+                _queryParams["sse"] = sse.toString();
+            }
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
                 method: "GET",
-                headers: {
-                    "X-Fern-Language": "JavaScript",
-                    "X-Fern-Runtime": core.RUNTIME.type,
-                    "X-Fern-Runtime-Version": core.RUNTIME.version,
-                },
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
                 contentType: "application/json",
+                queryParameters: _queryParams,
                 requestType: "json",
                 timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
                 maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.EventInspectionResult.parseOrThrow(_response.body, {
+                return serializers.Event.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -775,7 +851,83 @@ class Sessions {
                         body: _response.error.rawBody,
                     });
                 case "timeout":
-                    throw new errors.ParlantTimeoutError();
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling GET /sessions/{session_id}/events/{event_id}.");
+                case "unknown":
+                    throw new errors.ParlantError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        });
+    }
+    /**
+     * Updates an event's properties.
+     *
+     * Currently only supports updating metadata. Other event properties cannot be modified.
+     * This API is designed to be extensible for future event property updates.
+     *
+     * @param {string} sessionId - Unique identifier for the session
+     * @param {string} eventId - Unique identifier for the event
+     * @param {Parlant.EventUpdateParams} request
+     * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sessions.updateEvent("sess_123yz", "evt_123xyz", {
+     *         metadata: {
+     *             set: {
+     *                 "agent_id": "agent_123",
+     *                 "category": "support",
+     *                 "priority": "high"
+     *             },
+     *             unset: ["old_priority"]
+     *         }
+     *     })
+     */
+    updateEvent(sessionId_1, eventId_1) {
+        return __awaiter(this, arguments, void 0, function* (sessionId, eventId, request = {}, requestOptions) {
+            var _a;
+            const _response = yield core.fetcher({
+                url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), `sessions/${encodeURIComponent(sessionId)}/events/${encodeURIComponent(eventId)}`),
+                method: "PATCH",
+                headers: Object.assign({ "X-Fern-Language": "JavaScript", "X-Fern-Runtime": core.RUNTIME.type, "X-Fern-Runtime-Version": core.RUNTIME.version }, requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.headers),
+                contentType: "application/json",
+                requestType: "json",
+                body: serializers.EventUpdateParams.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+                timeoutMs: (requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.timeoutInSeconds) != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.maxRetries,
+                abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.Event.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 404:
+                        throw new Parlant.NotFoundError(_response.error.body);
+                    case 422:
+                        throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    default:
+                        throw new errors.ParlantError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.ParlantError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.ParlantTimeoutError("Timeout exceeded when calling PATCH /sessions/{session_id}/events/{event_id}.");
                 case "unknown":
                     throw new errors.ParlantError({
                         message: _response.error.errorMessage,

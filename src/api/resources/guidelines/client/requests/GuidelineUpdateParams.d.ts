@@ -5,26 +5,42 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         connections: {
- *             add: [{
- *                     source: "guide_123xyz",
- *                     target: "guide_789xyz"
- *                 }],
- *             remove: ["guide_456xyz"]
- *         },
+ *         condition: "when the customer asks about pricing",
+ *         action: "provide current pricing information",
  *         toolAssociations: {
  *             add: [{
- *                     serviceName: "pricing_service",
- *                     toolName: "get_prices"
+ *                     serviceName: "new_service",
+ *                     toolName: "new_tool"
  *                 }],
  *             remove: [{
  *                     serviceName: "old_service",
  *                     toolName: "old_tool"
  *                 }]
+ *         },
+ *         enabled: true,
+ *         metadata: {
+ *             set: {
+ *                 "key1": "value1",
+ *                 "key2": "value2"
+ *             },
+ *             unset: ["key3", "key4"]
  *         }
  *     }
  */
 export interface GuidelineUpdateParams {
-    connections?: Parlant.GuidelineConnectionUpdateParams;
+    /** If this condition is satisfied, the action will be performed */
+    condition?: string;
+    /** This action will be performed if the condition is satisfied */
+    action?: string;
+    /** Optional description providing additional context for the guideline */
+    description?: string;
+    criticality?: Parlant.CriticalityDto;
     toolAssociations?: Parlant.GuidelineToolAssociationUpdateParams;
+    /** Whether the guideline is enabled */
+    enabled?: boolean;
+    tags?: Parlant.GuidelineTagsUpdateParams;
+    metadata?: Parlant.GuidelineMetadataUpdateParams;
+    compositionMode?: Parlant.CompositionModeDto;
+    labels?: Parlant.GuidelineLabelsUpdateParams;
+    priority?: number;
 }
