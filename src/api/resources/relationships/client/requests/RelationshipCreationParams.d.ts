@@ -5,21 +5,22 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
- *         sourceGuideline: "gid_123",
- *         targetTag: "tid_456",
+ *         sourceRule: "gid_123",
+ *         targetGroup: "tid_456",
  *         kind: "entailment"
  *     }
  */
 export interface RelationshipCreationParams {
-    /** Unique identifier for the guideline */
-    sourceGuideline?: string;
-    /** Unique identifier for the tag */
-    sourceTag?: string;
+    /** Unique identifier for the rule */
+    sourceRule?: string;
+    /** Unique identifier for the group */
+    sourceGroup?: string;
     sourceTool?: Parlant.ToolId;
-    /** Unique identifier for the guideline */
-    targetGuideline?: string;
-    /** Unique identifier for the tag */
-    targetTag?: string;
+    /** Unique identifier for the rule */
+    targetRule?: string;
+    /** Unique identifier for the group */
+    targetGroup?: string;
     targetTool?: Parlant.ToolId;
     kind: Parlant.RelationshipKindDto;
+    groupId?: string;
 }

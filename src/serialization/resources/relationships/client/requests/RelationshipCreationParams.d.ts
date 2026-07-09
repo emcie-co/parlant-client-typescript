@@ -9,12 +9,13 @@ import { RelationshipKindDto } from "../../../../types/RelationshipKindDto";
 export declare const RelationshipCreationParams: core.serialization.Schema<serializers.RelationshipCreationParams.Raw, Parlant.RelationshipCreationParams>;
 export declare namespace RelationshipCreationParams {
     interface Raw {
-        source_guideline?: string | null;
-        source_tag?: string | null;
+        source_rule?: string | null;
+        source_group?: string | null;
         source_tool?: ToolId.Raw | null;
-        target_guideline?: string | null;
-        target_tag?: string | null;
+        target_rule?: string | null;
+        target_group?: string | null;
         target_tool?: ToolId.Raw | null;
         kind: RelationshipKindDto.Raw;
+        group_id?: string | null;
     }
 }

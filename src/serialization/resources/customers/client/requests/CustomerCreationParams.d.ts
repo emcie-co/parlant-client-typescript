@@ -10,6 +10,6 @@ export declare namespace CustomerCreationParams {
         name: string;
         id?: string | null;
         metadata?: Record<string, string | null | undefined> | null;
-        tags?: string[] | null;
+        groups?: string[] | null;
     }
 }

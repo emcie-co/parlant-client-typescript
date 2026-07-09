@@ -12,9 +12,9 @@ import * as Parlant from "../../../../index";
  *             toolName: "balance_checker"
  *         },
  *         freshnessRules: "0 8,20 * * *",
- *         tags: {
- *             add: ["tag:123", "tag:456"],
- *             remove: ["tag:789", "tag:012"]
+ *         groups: {
+ *             add: ["group:123", "group:456"],
+ *             remove: ["group:789", "group:012"]
  *         }
  *     }
  */
@@ -26,5 +26,5 @@ export interface ContextVariableUpdateParams {
     toolId?: Parlant.ToolId;
     /** Cron expression defining the freshness rules */
     freshnessRules?: string;
-    tags?: Parlant.ContextVariableTagsUpdateParams;
+    groups?: Parlant.ContextVariableTagsUpdateParams;
 }

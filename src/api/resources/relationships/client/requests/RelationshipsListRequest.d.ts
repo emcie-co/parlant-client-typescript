@@ -12,7 +12,7 @@ export interface RelationshipsListRequest {
      * Whether to include indirect relationships
      */
     indirect?: boolean;
-    guidelineId?: string;
-    tagId?: string;
+    ruleId?: string;
+    groupId?: string;
     toolId?: string;
 }

@@ -135,7 +135,8 @@ class Agents {
      *         maxEngineIterations: 3,
      *         compositionMode: "fluid",
      *         messageOutputMode: "block",
-     *         tags: ["tag1", "tag2"]
+     *         effort: "medium",
+     *         groups: ["group1", "group2"]
      *     })
      */
     create(request, requestOptions) {
@@ -325,7 +326,8 @@ class Agents {
      *         description: "Technical Support Assistant",
      *         maxEngineIterations: 3,
      *         compositionMode: "fluid",
-     *         messageOutputMode: "block"
+     *         messageOutputMode: "block",
+     *         effort: "medium"
      *     })
      */
     update(agentId_1) {

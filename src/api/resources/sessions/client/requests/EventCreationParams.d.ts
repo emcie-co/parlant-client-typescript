@@ -22,7 +22,7 @@ export interface EventCreationParams {
     data?: unknown;
     /** Metadata associated with the event */
     metadata?: Record<string, unknown>;
-    guidelines?: Parlant.AgentMessageGuideline[];
+    rules?: Parlant.AgentMessageRule[];
     participant?: Parlant.Participant;
     status?: Parlant.SessionStatusDto;
 }

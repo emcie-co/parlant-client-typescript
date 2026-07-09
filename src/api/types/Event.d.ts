@@ -14,10 +14,10 @@ export interface Event {
     offset: number;
     /** UTC timestamp of when the event was created */
     creationUtc: Date;
+    /** UTC timestamp of when the event was last modified */
+    modifiedUtc: Date;
     /** ID linking related events together */
     traceId: string;
-    /** ID linking related events together */
-    correlationId: string;
     data?: unknown;
     /** Metadata associated with the event */
     metadata: Record<string, unknown>;

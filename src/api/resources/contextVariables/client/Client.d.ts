@@ -24,7 +24,7 @@ export declare class ContextVariables {
     protected readonly _options: ContextVariables.Options;
     constructor(_options: ContextVariables.Options);
     /**
-     * Lists all context variables set for the provided tag or all context variables if no tag is provided
+     * Lists all context variables set for the provided group or all context variables if no group is provided
      *
      * @param {Parlant.ContextVariablesListRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -63,7 +63,7 @@ export declare class ContextVariables {
      */
     create(request: Parlant.ContextVariableCreationParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable>;
     /**
-     * Deletes all context variables for the provided tag
+     * Deletes all context variables for the provided group
      *
      * @param {Parlant.ContextVariablesDeleteManyRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -78,7 +78,7 @@ export declare class ContextVariables {
     /**
      * Retrieves a context variable's details and optionally its values.
      *
-     * Can return all customer or tag values for this variable type if include_values=True.
+     * Can return all customer or group values for this variable type if include_values=True.
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariablesRetrieveRequest} request
@@ -127,15 +127,15 @@ export declare class ContextVariables {
      *             toolName: "balance_checker"
      *         },
      *         freshnessRules: "0 8,20 * * *",
-     *         tags: {
-     *             add: ["tag:123", "tag:456"],
-     *             remove: ["tag:789", "tag:012"]
+     *         groups: {
+     *             add: ["group:123", "group:456"],
+     *             remove: ["group:789", "group:012"]
      *         }
      *     })
      */
     update(variableId: string, request?: Parlant.ContextVariableUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariable>;
     /**
-     * Retrieves a customer or tag value for the provided context variable
+     * Retrieves a customer or group value for the provided context variable
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
@@ -149,7 +149,7 @@ export declare class ContextVariables {
      */
     getValue(variableId: string, key: string, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValue>;
     /**
-     * Updates a customer or tag value for the provided context variable
+     * Updates a customer or group value for the provided context variable
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
@@ -171,7 +171,7 @@ export declare class ContextVariables {
      */
     setValue(variableId: string, key: string, request: Parlant.ContextVariableValueUpdateParams, requestOptions?: ContextVariables.RequestOptions): Promise<Parlant.ContextVariableValue>;
     /**
-     * Deletes a customer or tag value for the provided context variable
+     * Deletes a customer or group value for the provided context variable
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value

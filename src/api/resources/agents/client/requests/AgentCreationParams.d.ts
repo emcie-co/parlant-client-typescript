@@ -10,7 +10,8 @@ import * as Parlant from "../../../../index";
  *         maxEngineIterations: 3,
  *         compositionMode: "fluid",
  *         messageOutputMode: "block",
- *         tags: ["tag1", "tag2"]
+ *         effort: "medium",
+ *         groups: ["group1", "group2"]
  *     }
  */
 export interface AgentCreationParams {
@@ -24,6 +25,7 @@ export interface AgentCreationParams {
     maxEngineIterations?: number;
     compositionMode?: Parlant.CompositionModeDto;
     messageOutputMode?: Parlant.MessageOutputModeDto;
-    /** List of tag IDs associated with the agent */
-    tags?: string[];
+    effort?: Parlant.EffortDto;
+    /** List of group IDs associated with the agent */
+    groups?: string[];
 }

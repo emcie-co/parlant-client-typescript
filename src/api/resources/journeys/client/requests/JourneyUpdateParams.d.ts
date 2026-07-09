@@ -13,8 +13,8 @@ export interface JourneyUpdateParams {
     /** The title of the journey */
     title?: string;
     description?: string;
-    conditions?: Parlant.JourneyConditionUpdateParams;
-    tags?: Parlant.JourneyTagUpdateParams;
+    triggers?: Parlant.JourneyTriggerUpdateParams;
+    groups?: Parlant.JourneyGroupUpdateParams;
     compositionMode?: Parlant.CompositionModeDto;
     labels?: Parlant.JourneyLabelsUpdateParams;
     priority?: number;

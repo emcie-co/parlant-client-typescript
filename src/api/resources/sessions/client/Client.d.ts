@@ -39,15 +39,20 @@ export declare class Sessions {
      *         agentId: "ag_123xyz",
      *         customerId: "cust_123xy",
      *         limit: 10,
-     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI=",
+     *         minModifiedUtc: "2024-03-24T12:00:00Z"
      *     })
      */
     list(request?: Parlant.SessionsListRequest, requestOptions?: Sessions.RequestOptions): Promise<Parlant.SessionsListResponse>;
     /**
      * Creates a new session between an agent and customer.
      *
-     * The session will be initialized with the specified agent and optional customer.
-     * If no customer_id is provided, a guest customer will be created.
+     * The session's customer identity is derived from the authenticated
+     * principal when one is present: customer tokens bind the session to the
+     * token's customer; guest tokens (or anonymous callers, for whom a guest
+     * token is minted and returned via a response header) bind it to the guest
+     * customer, tagged with the owning guest instance. Policies without
+     * authentication (e.g. development) trust the request body as-is.
      *
      * @param {Parlant.SessionCreationParams} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -179,8 +184,7 @@ export declare class Sessions {
      * @example
      *     await client.sessions.listEvents("sess_123yz", {
      *         minOffset: 0,
-     *         correlationId: "corr_13xyz",
-     *         traceId: "corr_13xyz",
+     *         traceId: "trace_13xyz",
      *         kinds: "message,tool"
      *     })
      */
@@ -195,7 +199,9 @@ export declare class Sessions {
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.ConflictError}
      * @throws {@link Parlant.UnprocessableEntityError}
+     * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
      *     await client.sessions.createEvent("sess_123yz", {

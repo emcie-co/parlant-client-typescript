@@ -39,11 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CannedResponseUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const CannedResponseField_1 = require("../../../../types/CannedResponseField");
-const CannedResponseTagUpdateParams_1 = require("../../../../types/CannedResponseTagUpdateParams");
+const CannedResponseGroupUpdateParams_1 = require("../../../../types/CannedResponseGroupUpdateParams");
 const CannedResponseMetadataUpdateParams_1 = require("../../../../types/CannedResponseMetadataUpdateParams");
 exports.CannedResponseUpdateParams = core.serialization.object({
     value: core.serialization.string().optional(),
     fields: core.serialization.list(CannedResponseField_1.CannedResponseField).optional(),
-    tags: CannedResponseTagUpdateParams_1.CannedResponseTagUpdateParams.optional(),
+    groups: CannedResponseGroupUpdateParams_1.CannedResponseGroupUpdateParams.optional(),
     metadata: CannedResponseMetadataUpdateParams_1.CannedResponseMetadataUpdateParams.optional(),
 });

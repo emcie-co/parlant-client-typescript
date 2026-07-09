@@ -38,10 +38,10 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CapabilityUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
-const CapabilityTagUpdateParams_1 = require("../../../../types/CapabilityTagUpdateParams");
+const CapabilityGroupUpdateParams_1 = require("../../../../types/CapabilityGroupUpdateParams");
 exports.CapabilityUpdateParams = core.serialization.object({
     title: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     signals: core.serialization.list(core.serialization.string()).optional(),
-    tags: CapabilityTagUpdateParams_1.CapabilityTagUpdateParams.optional(),
+    groups: CapabilityGroupUpdateParams_1.CapabilityGroupUpdateParams.optional(),
 });

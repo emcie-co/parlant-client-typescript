@@ -17,5 +17,5 @@ export interface CapabilityUpdateParams {
     description?: string;
     /** Example signals that this capability can handle */
     signals?: string[];
-    tags?: Parlant.CapabilityTagUpdateParams;
+    groups?: Parlant.CapabilityGroupUpdateParams;
 }

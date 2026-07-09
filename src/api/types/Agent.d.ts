@@ -21,6 +21,7 @@ export interface Agent {
     maxEngineIterations?: number;
     compositionMode: Parlant.CompositionModeDto;
     messageOutputMode: Parlant.MessageOutputModeDto;
-    /** List of tag IDs associated with the agent */
-    tags?: string[];
+    effort: Parlant.EffortDto;
+    /** List of group IDs associated with the agent */
+    groups?: string[];
 }

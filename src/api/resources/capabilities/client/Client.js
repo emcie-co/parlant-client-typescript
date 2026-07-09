@@ -75,10 +75,10 @@ class Capabilities {
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { tagId } = request;
+            const { groupId } = request;
             const _queryParams = {};
-            if (tagId != null) {
-                _queryParams["tag_id"] = tagId;
+            if (groupId != null) {
+                _queryParams["group_id"] = groupId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "capabilities"),
@@ -128,7 +128,7 @@ class Capabilities {
     /**
      * Creates a new capability in the system.
      *
-     * The capability will be initialized with the provided title, description, signals, and optional tags.
+     * The capability will be initialized with the provided title, description, signals, and optional groups.
      * A unique identifier will be automatically generated.
      *
      * Default behaviors:
@@ -144,7 +144,7 @@ class Capabilities {
      *         title: "Provide Replacement Phone",
      *         description: "Provide a replacement phone when a customer needs repair for their phone.",
      *         signals: ["My phone is broken", "I need a replacement while my phone is being repaired"],
-     *         tags: ["tag1", "tag2"]
+     *         groups: ["group1", "group2"]
      *     })
      */
     create(request, requestOptions) {

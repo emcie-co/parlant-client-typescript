@@ -6,6 +6,7 @@ import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { CompositionModeDto } from "./CompositionModeDto";
 import { MessageOutputModeDto } from "./MessageOutputModeDto";
+import { EffortDto } from "./EffortDto";
 export declare const Agent: core.serialization.ObjectSchema<serializers.Agent.Raw, Parlant.Agent>;
 export declare namespace Agent {
     interface Raw {
@@ -15,6 +16,7 @@ export declare namespace Agent {
         max_engine_iterations?: number | null;
         composition_mode: CompositionModeDto.Raw;
         message_output_mode: MessageOutputModeDto.Raw;
-        tags?: string[] | null;
+        effort: EffortDto.Raw;
+        groups?: string[] | null;
     }
 }

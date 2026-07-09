@@ -23,8 +23,8 @@ export interface CannedResponseCreationParams {
     value: string;
     /** A sequence of canned response fields associated with the canned response. */
     fields: Parlant.CannedResponseField[];
-    /** Collection of tag IDs associated with the canned response. */
-    tags?: string[];
+    /** Collection of group IDs associated with the canned response. */
+    groups?: string[];
     /** A sequence of signals associated with the canned response, to help with filtering and matching. */
     signals?: string[];
     /** Additional metadata associated with the canned response. */

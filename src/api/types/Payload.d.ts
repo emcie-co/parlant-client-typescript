@@ -4,5 +4,5 @@
 import * as Parlant from "../index";
 export interface Payload {
     kind: Parlant.PayloadKindDto;
-    guideline?: Parlant.GuidelinePayload;
+    rule?: Parlant.RulePayload;
 }

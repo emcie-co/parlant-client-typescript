@@ -38,4 +38,4 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PayloadKindDto = void 0;
 const core = __importStar(require("../../core"));
-exports.PayloadKindDto = core.serialization.stringLiteral("guideline");
+exports.PayloadKindDto = core.serialization.stringLiteral("rule");

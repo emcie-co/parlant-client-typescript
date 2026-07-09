@@ -45,5 +45,5 @@ exports.ContextVariableUpdateParams = core.serialization.object({
     description: core.serialization.string().optional(),
     toolId: core.serialization.property("tool_id", ToolId_1.ToolId.optional()),
     freshnessRules: core.serialization.property("freshness_rules", core.serialization.string().optional()),
-    tags: ContextVariableTagsUpdateParams_1.ContextVariableTagsUpdateParams.optional(),
+    groups: ContextVariableTagsUpdateParams_1.ContextVariableTagsUpdateParams.optional(),
 });

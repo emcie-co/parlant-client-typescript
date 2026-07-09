@@ -45,6 +45,7 @@ exports.Session = core.serialization.object({
     agentId: core.serialization.property("agent_id", core.serialization.string()),
     customerId: core.serialization.property("customer_id", core.serialization.string()),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
+    modifiedUtc: core.serialization.property("modified_utc", core.serialization.date()),
     title: core.serialization.string().optional(),
     mode: SessionModeDto_1.SessionModeDto,
     consumptionOffsets: core.serialization.property("consumption_offsets", ConsumptionOffsets_1.ConsumptionOffsets),

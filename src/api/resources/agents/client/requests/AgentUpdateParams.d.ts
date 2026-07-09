@@ -9,7 +9,8 @@ import * as Parlant from "../../../../index";
  *         description: "Technical Support Assistant",
  *         maxEngineIterations: 3,
  *         compositionMode: "fluid",
- *         messageOutputMode: "block"
+ *         messageOutputMode: "block",
+ *         effort: "medium"
  *     }
  */
 export interface AgentUpdateParams {
@@ -21,5 +22,6 @@ export interface AgentUpdateParams {
     maxEngineIterations?: number;
     compositionMode?: Parlant.CompositionModeDto;
     messageOutputMode?: Parlant.MessageOutputModeDto;
-    tags?: Parlant.AgentTagUpdateParams;
+    effort?: Parlant.EffortDto;
+    groups?: Parlant.AgentGroupUpdateParams;
 }

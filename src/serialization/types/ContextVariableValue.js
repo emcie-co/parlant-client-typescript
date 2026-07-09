@@ -40,6 +40,6 @@ exports.ContextVariableValue = void 0;
 const core = __importStar(require("../../core"));
 exports.ContextVariableValue = core.serialization.object({
     id: core.serialization.string(),
-    lastModified: core.serialization.property("last_modified", core.serialization.date()),
+    modifiedUtc: core.serialization.property("modified_utc", core.serialization.date()),
     data: core.serialization.unknown(),
 });

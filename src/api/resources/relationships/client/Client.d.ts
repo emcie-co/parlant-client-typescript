@@ -26,7 +26,7 @@ export declare class Relationships {
     /**
      * List relationships.
      *
-     * Either `guideline_id` or `tag_id` or `tool_id` must be provided.
+     * Either `rule_id` or `group_id` or `tool_id` must be provided.
      *
      * @param {Parlant.RelationshipsListRequest} request
      * @param {Relationships.RequestOptions} requestOptions - Request-specific configuration.
@@ -40,8 +40,8 @@ export declare class Relationships {
     /**
      * Create a relationship.
      *
-     * A relationship is a relationship between a guideline and a tag.
-     * It can be created between a guideline and a tag, or between two guidelines, or between two tags.
+     * A relationship is a relationship between a rule and a group.
+     * It can be created between a rule and a group, or between two rules, or between two groups.
      *
      * @param {Parlant.RelationshipCreationParams} request
      * @param {Relationships.RequestOptions} requestOptions - Request-specific configuration.
@@ -50,8 +50,8 @@ export declare class Relationships {
      *
      * @example
      *     await client.relationships.create({
-     *         sourceGuideline: "gid_123",
-     *         targetTag: "tid_456",
+     *         sourceRule: "gid_123",
+     *         targetGroup: "tid_456",
      *         kind: "entailment"
      *     })
      */

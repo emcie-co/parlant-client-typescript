@@ -14,6 +14,8 @@ export interface Session {
     customerId: string;
     /** UTC timestamp of when the session was created */
     creationUtc: Date;
+    /** UTC timestamp of when the session was last modified */
+    modifiedUtc: Date;
     /** Descriptive title for the session */
     title?: string;
     /** The mode of the session, either 'auto' or 'manual'. In manual mode, events added to a session will not be responded to automatically by the agent. */

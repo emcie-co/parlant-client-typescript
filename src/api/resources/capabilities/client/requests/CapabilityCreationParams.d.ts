@@ -7,7 +7,7 @@
  *         title: "Provide Replacement Phone",
  *         description: "Provide a replacement phone when a customer needs repair for their phone.",
  *         signals: ["My phone is broken", "I need a replacement while my phone is being repaired"],
- *         tags: ["tag1", "tag2"]
+ *         groups: ["group1", "group2"]
  *     }
  */
 export interface CapabilityCreationParams {
@@ -17,6 +17,6 @@ export interface CapabilityCreationParams {
     description: string;
     /** Example signals that this capability can handle */
     signals: string[];
-    /** List of tag IDs associated with the capability */
-    tags?: string[];
+    /** List of group IDs associated with the capability */
+    groups?: string[];
 }

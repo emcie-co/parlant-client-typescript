@@ -5,15 +5,16 @@ import * as core from "./core";
 import { Agents } from "./api/resources/agents/client/Client";
 import { Sessions } from "./api/resources/sessions/client/Client";
 import { Services } from "./api/resources/services/client/Client";
-import { Tags } from "./api/resources/tags/client/Client";
+import { Groups } from "./api/resources/groups/client/Client";
 import { Glossary } from "./api/resources/glossary/client/Client";
 import { Customers } from "./api/resources/customers/client/Client";
 import { CannedResponses } from "./api/resources/cannedResponses/client/Client";
 import { ContextVariables } from "./api/resources/contextVariables/client/Client";
-import { Guidelines } from "./api/resources/guidelines/client/Client";
+import { Rules } from "./api/resources/rules/client/Client";
 import { Relationships } from "./api/resources/relationships/client/Client";
 import { Journeys } from "./api/resources/journeys/client/Client";
 import { Evaluations } from "./api/resources/evaluations/client/Client";
+import { Train } from "./api/resources/train/client/Client";
 import { Capabilities } from "./api/resources/capabilities/client/Client";
 export declare namespace ParlantClient {
     interface Options {
@@ -37,29 +38,31 @@ export declare class ParlantClient {
     protected _agents: Agents | undefined;
     protected _sessions: Sessions | undefined;
     protected _services: Services | undefined;
-    protected _tags: Tags | undefined;
+    protected _groups: Groups | undefined;
     protected _glossary: Glossary | undefined;
     protected _customers: Customers | undefined;
     protected _cannedResponses: CannedResponses | undefined;
     protected _contextVariables: ContextVariables | undefined;
-    protected _guidelines: Guidelines | undefined;
+    protected _rules: Rules | undefined;
     protected _relationships: Relationships | undefined;
     protected _journeys: Journeys | undefined;
     protected _evaluations: Evaluations | undefined;
+    protected _train: Train | undefined;
     protected _capabilities: Capabilities | undefined;
     constructor(_options: ParlantClient.Options);
     get agents(): Agents;
     get sessions(): Sessions;
     get services(): Services;
-    get tags(): Tags;
+    get groups(): Groups;
     get glossary(): Glossary;
     get customers(): Customers;
     get cannedResponses(): CannedResponses;
     get contextVariables(): ContextVariables;
-    get guidelines(): Guidelines;
+    get rules(): Rules;
     get relationships(): Relationships;
     get journeys(): Journeys;
     get evaluations(): Evaluations;
+    get train(): Train;
     get capabilities(): Capabilities;
     /**
      * @param {ParlantClient.RequestOptions} requestOptions - Request-specific configuration.

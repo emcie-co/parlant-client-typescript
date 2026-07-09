@@ -13,6 +13,6 @@ export interface Capability {
     description: string;
     /** Example signals that this capability can handle */
     signals: string[];
-    /** List of tag IDs associated with the capability */
-    tags?: string[];
+    /** List of group IDs associated with the capability */
+    groups?: string[];
 }

@@ -10,6 +10,6 @@ export declare namespace CapabilityCreationParams {
         title: string;
         description: string;
         signals: string[];
-        tags?: string[] | null;
+        groups?: string[] | null;
     }
 }

@@ -40,5 +40,6 @@ exports.EvaluationCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const Payload_1 = require("../../../../types/Payload");
 exports.EvaluationCreationParams = core.serialization.object({
+    agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     payloads: core.serialization.list(Payload_1.Payload),
 });

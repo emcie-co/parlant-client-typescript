@@ -6,7 +6,8 @@ import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { CompositionModeDto } from "../../../../types/CompositionModeDto";
 import { MessageOutputModeDto } from "../../../../types/MessageOutputModeDto";
-import { AgentTagUpdateParams } from "../../../../types/AgentTagUpdateParams";
+import { EffortDto } from "../../../../types/EffortDto";
+import { AgentGroupUpdateParams } from "../../../../types/AgentGroupUpdateParams";
 export declare const AgentUpdateParams: core.serialization.Schema<serializers.AgentUpdateParams.Raw, Parlant.AgentUpdateParams>;
 export declare namespace AgentUpdateParams {
     interface Raw {
@@ -15,6 +16,7 @@ export declare namespace AgentUpdateParams {
         max_engine_iterations?: number | null;
         composition_mode?: CompositionModeDto.Raw | null;
         message_output_mode?: MessageOutputModeDto.Raw | null;
-        tags?: AgentTagUpdateParams.Raw | null;
+        effort?: EffortDto.Raw | null;
+        groups?: AgentGroupUpdateParams.Raw | null;
     }
 }

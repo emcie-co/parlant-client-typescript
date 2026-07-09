@@ -38,17 +38,18 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relationship = void 0;
 const core = __importStar(require("../../core"));
-const Guideline_1 = require("./Guideline");
-const Tag_1 = require("./Tag");
+const Rule_1 = require("./Rule");
+const Group_1 = require("./Group");
 const Tool_1 = require("./Tool");
 const RelationshipKindDto_1 = require("./RelationshipKindDto");
 exports.Relationship = core.serialization.object({
     id: core.serialization.string(),
-    sourceGuideline: core.serialization.property("source_guideline", Guideline_1.Guideline.optional()),
-    sourceTag: core.serialization.property("source_tag", Tag_1.Tag.optional()),
-    targetGuideline: core.serialization.property("target_guideline", Guideline_1.Guideline.optional()),
-    targetTag: core.serialization.property("target_tag", Tag_1.Tag.optional()),
+    sourceRule: core.serialization.property("source_rule", Rule_1.Rule.optional()),
+    sourceGroup: core.serialization.property("source_group", Group_1.Group.optional()),
+    targetRule: core.serialization.property("target_rule", Rule_1.Rule.optional()),
+    targetGroup: core.serialization.property("target_group", Group_1.Group.optional()),
     sourceTool: core.serialization.property("source_tool", Tool_1.Tool.optional()),
     targetTool: core.serialization.property("target_tool", Tool_1.Tool.optional()),
     kind: RelationshipKindDto_1.RelationshipKindDto,
+    groupId: core.serialization.property("group_id", core.serialization.string().optional()),
 });

@@ -35,9 +35,10 @@ export declare class Evaluations {
      *
      * @example
      *     await client.evaluations.create({
+     *         agentId: "a1g2e3n4t5",
      *         payloads: [{
-     *                 kind: "guideline",
-     *                 guideline: {
+     *                 kind: "rule",
+     *                 rule: {
      *                     content: {
      *                         condition: "when customer asks about pricing"
      *                     },

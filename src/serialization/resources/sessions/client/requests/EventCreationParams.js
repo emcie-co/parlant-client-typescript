@@ -40,7 +40,7 @@ exports.EventCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const EventKindDto_1 = require("../../../../types/EventKindDto");
 const EventSourceDto_1 = require("../../../../types/EventSourceDto");
-const AgentMessageGuideline_1 = require("../../../../types/AgentMessageGuideline");
+const AgentMessageRule_1 = require("../../../../types/AgentMessageRule");
 const Participant_1 = require("../../../../types/Participant");
 const SessionStatusDto_1 = require("../../../../types/SessionStatusDto");
 exports.EventCreationParams = core.serialization.object({
@@ -49,7 +49,7 @@ exports.EventCreationParams = core.serialization.object({
     message: core.serialization.string().optional(),
     data: core.serialization.unknown().optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    guidelines: core.serialization.list(AgentMessageGuideline_1.AgentMessageGuideline).optional(),
+    rules: core.serialization.list(AgentMessageRule_1.AgentMessageRule).optional(),
     participant: Participant_1.Participant.optional(),
     status: SessionStatusDto_1.SessionStatusDto.optional(),
 });

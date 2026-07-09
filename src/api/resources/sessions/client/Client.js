@@ -85,13 +85,14 @@ class Sessions {
      *         agentId: "ag_123xyz",
      *         customerId: "cust_123xy",
      *         limit: 10,
-     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+     *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI=",
+     *         minModifiedUtc: "2024-03-24T12:00:00Z"
      *     })
      */
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { agentId, customerId, labels, limit, cursor, sort } = request;
+            const { agentId, customerId, labels, limit, cursor, sort, minModifiedUtc } = request;
             const _queryParams = {};
             if (agentId != null) {
                 _queryParams["agent_id"] = agentId;
@@ -115,6 +116,9 @@ class Sessions {
             }
             if (sort != null) {
                 _queryParams["sort"] = serializers.SortDirectionDto.jsonOrThrow(sort, { unrecognizedObjectKeys: "strip" });
+            }
+            if (minModifiedUtc != null) {
+                _queryParams["min_modified_utc"] = minModifiedUtc.toISOString();
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "sessions"),
@@ -164,8 +168,12 @@ class Sessions {
     /**
      * Creates a new session between an agent and customer.
      *
-     * The session will be initialized with the specified agent and optional customer.
-     * If no customer_id is provided, a guest customer will be created.
+     * The session's customer identity is derived from the authenticated
+     * principal when one is present: customer tokens bind the session to the
+     * token's customer; guest tokens (or anonymous callers, for whom a guest
+     * token is minted and returned via a response header) bind it to the guest
+     * customer, tagged with the owning guest instance. Policies without
+     * authentication (e.g. development) trust the request body as-is.
      *
      * @param {Parlant.SessionCreationParams} request
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
@@ -540,15 +548,14 @@ class Sessions {
      * @example
      *     await client.sessions.listEvents("sess_123yz", {
      *         minOffset: 0,
-     *         correlationId: "corr_13xyz",
-     *         traceId: "corr_13xyz",
+     *         traceId: "trace_13xyz",
      *         kinds: "message,tool"
      *     })
      */
     listEvents(sessionId_1) {
         return __awaiter(this, arguments, void 0, function* (sessionId, request = {}, requestOptions) {
             var _a;
-            const { minOffset, source, correlationId, traceId, kinds, waitForData, sse } = request;
+            const { minOffset, source, traceId, kinds, waitForData, sse } = request;
             const _queryParams = {};
             if (minOffset != null) {
                 _queryParams["min_offset"] = minOffset.toString();
@@ -557,9 +564,6 @@ class Sessions {
                 _queryParams["source"] = serializers.EventSourceDto.jsonOrThrow(source, {
                     unrecognizedObjectKeys: "strip",
                 });
-            }
-            if (correlationId != null) {
-                _queryParams["correlation_id"] = correlationId;
             }
             if (traceId != null) {
                 _queryParams["trace_id"] = traceId;
@@ -632,7 +636,9 @@ class Sessions {
      * @param {Sessions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Parlant.NotFoundError}
+     * @throws {@link Parlant.ConflictError}
      * @throws {@link Parlant.UnprocessableEntityError}
+     * @throws {@link Parlant.GatewayTimeoutError}
      *
      * @example
      *     await client.sessions.createEvent("sess_123yz", {
@@ -675,8 +681,12 @@ class Sessions {
                 switch (_response.error.statusCode) {
                     case 404:
                         throw new Parlant.NotFoundError(_response.error.body);
+                    case 409:
+                        throw new Parlant.ConflictError(_response.error.body);
                     case 422:
                         throw new Parlant.UnprocessableEntityError(_response.error.body);
+                    case 504:
+                        throw new Parlant.GatewayTimeoutError(_response.error.body);
                     default:
                         throw new errors.ParlantError({
                             statusCode: _response.error.statusCode,

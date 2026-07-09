@@ -5,11 +5,11 @@ import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
 import { PayloadKindDto } from "./PayloadKindDto";
-import { GuidelinePayload } from "./GuidelinePayload";
+import { RulePayload } from "./RulePayload";
 export declare const Payload: core.serialization.ObjectSchema<serializers.Payload.Raw, Parlant.Payload>;
 export declare namespace Payload {
     interface Raw {
         kind: PayloadKindDto.Raw;
-        guideline?: GuidelinePayload.Raw | null;
+        rule?: RulePayload.Raw | null;
     }
 }

@@ -8,9 +8,9 @@ import * as Parlant from "../../../../index";
  *         name: "Gas",
  *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
  *         synonyms: ["Transaction Fee", "Blockchain Fuel"],
- *         tags: {
- *             add: ["tag1", "tag2"],
- *             remove: ["tag3", "tag4"]
+ *         groups: {
+ *             add: ["group1", "group2"],
+ *             remove: ["group3", "group4"]
  *         }
  *     }
  */
@@ -21,5 +21,5 @@ export interface TermUpdateParams {
     description?: string;
     /** A list of synonyms for the term, including alternate contexts if applicable. */
     synonyms?: string[];
-    tags?: Parlant.TermTagsUpdateParams;
+    groups?: Parlant.TermGroupsUpdateParams;
 }

@@ -42,9 +42,9 @@ const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
 exports.JourneyCreationParams = core.serialization.object({
     title: core.serialization.string(),
     description: core.serialization.string(),
-    conditions: core.serialization.list(core.serialization.string()),
+    triggers: core.serialization.list(core.serialization.string()),
     id: core.serialization.string().optional(),
-    tags: core.serialization.list(core.serialization.string()).optional(),
+    groups: core.serialization.list(core.serialization.string()).optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     labels: core.serialization.list(core.serialization.string()).optional(),
     priority: core.serialization.number().optional(),

@@ -45,5 +45,6 @@ exports.ContextVariable = core.serialization.object({
     description: core.serialization.string().optional(),
     toolId: core.serialization.property("tool_id", ToolId_1.ToolId.optional()),
     freshnessRules: core.serialization.property("freshness_rules", core.serialization.string().optional()),
-    tags: core.serialization.list(core.serialization.string()).optional(),
+    groups: core.serialization.list(core.serialization.string()).optional(),
+    modifiedUtc: core.serialization.property("modified_utc", core.serialization.date()),
 });

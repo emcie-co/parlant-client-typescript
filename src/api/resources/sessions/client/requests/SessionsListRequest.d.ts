@@ -8,7 +8,8 @@ import * as Parlant from "../../../../index";
  *         agentId: "ag_123xyz",
  *         customerId: "cust_123xy",
  *         limit: 10,
- *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI="
+ *         cursor: "AAABjnBU9gBl/0BQt1axI0VniQI=",
+ *         minModifiedUtc: "2024-03-24T12:00:00Z"
  *     }
  */
 export interface SessionsListRequest {
@@ -18,4 +19,5 @@ export interface SessionsListRequest {
     limit?: number;
     cursor?: string;
     sort?: Parlant.SortDirectionDto;
+    minModifiedUtc?: Date;
 }

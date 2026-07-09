@@ -22,6 +22,6 @@ export interface ContextVariableCreationParams {
     toolId?: Parlant.ToolId;
     /** Cron expression defining the freshness rules */
     freshnessRules?: string;
-    /** List of tags associated with the context variable */
-    tags?: string[];
+    /** List of groups associated with the context variable */
+    groups?: string[];
 }

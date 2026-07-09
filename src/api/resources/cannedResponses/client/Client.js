@@ -59,7 +59,7 @@ class CannedResponses {
         this._options = _options;
     }
     /**
-     * Lists all canned responses, optionally filtered by tags.
+     * Lists all canned responses, optionally filtered by groups.
      *
      * @param {Parlant.CannedResponsesListRequest} request
      * @param {CannedResponses.RequestOptions} requestOptions - Request-specific configuration.
@@ -72,14 +72,14 @@ class CannedResponses {
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { tags } = request;
+            const { groups } = request;
             const _queryParams = {};
-            if (tags != null) {
-                if (Array.isArray(tags)) {
-                    _queryParams["tags"] = tags.map((item) => item);
+            if (groups != null) {
+                if (Array.isArray(groups)) {
+                    _queryParams["groups"] = groups.map((item) => item);
                 }
                 else {
-                    _queryParams["tags"] = tags;
+                    _queryParams["groups"] = groups;
                 }
             }
             const _response = yield core.fetcher({
@@ -316,7 +316,7 @@ class CannedResponses {
      *
      * Only provided attributes will be updated; others remain unchanged.
      * The canned response's ID and creation timestamp cannot be modified.
-     * Extra metadata and tags can be added or removed independently.
+     * Extra metadata and groups can be added or removed independently.
      *
      * @param {string} cannedResponseId
      * @param {Parlant.CannedResponseUpdateParams} request

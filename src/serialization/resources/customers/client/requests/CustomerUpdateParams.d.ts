@@ -5,12 +5,12 @@ import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { CustomerMetadataUpdateParams } from "../../../../types/CustomerMetadataUpdateParams";
-import { CustomerTagUpdateParams } from "../../../../types/CustomerTagUpdateParams";
+import { CustomerGroupUpdateParams } from "../../../../types/CustomerGroupUpdateParams";
 export declare const CustomerUpdateParams: core.serialization.Schema<serializers.CustomerUpdateParams.Raw, Parlant.CustomerUpdateParams>;
 export declare namespace CustomerUpdateParams {
     interface Raw {
         name?: string | null;
         metadata?: CustomerMetadataUpdateParams.Raw | null;
-        tags?: CustomerTagUpdateParams.Raw | null;
+        groups?: CustomerGroupUpdateParams.Raw | null;
     }
 }

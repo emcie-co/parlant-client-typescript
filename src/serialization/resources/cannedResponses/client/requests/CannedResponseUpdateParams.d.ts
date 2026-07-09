@@ -5,14 +5,14 @@ import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { CannedResponseField } from "../../../../types/CannedResponseField";
-import { CannedResponseTagUpdateParams } from "../../../../types/CannedResponseTagUpdateParams";
+import { CannedResponseGroupUpdateParams } from "../../../../types/CannedResponseGroupUpdateParams";
 import { CannedResponseMetadataUpdateParams } from "../../../../types/CannedResponseMetadataUpdateParams";
 export declare const CannedResponseUpdateParams: core.serialization.Schema<serializers.CannedResponseUpdateParams.Raw, Parlant.CannedResponseUpdateParams>;
 export declare namespace CannedResponseUpdateParams {
     interface Raw {
         value?: string | null;
         fields?: CannedResponseField.Raw[] | null;
-        tags?: CannedResponseTagUpdateParams.Raw | null;
+        groups?: CannedResponseGroupUpdateParams.Raw | null;
         metadata?: CannedResponseMetadataUpdateParams.Raw | null;
     }
 }

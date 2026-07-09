@@ -39,8 +39,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Payload = void 0;
 const core = __importStar(require("../../core"));
 const PayloadKindDto_1 = require("./PayloadKindDto");
-const GuidelinePayload_1 = require("./GuidelinePayload");
+const RulePayload_1 = require("./RulePayload");
 exports.Payload = core.serialization.object({
     kind: PayloadKindDto_1.PayloadKindDto,
-    guideline: GuidelinePayload_1.GuidelinePayload.optional(),
+    rule: RulePayload_1.RulePayload.optional(),
 });

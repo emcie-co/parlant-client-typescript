@@ -4,6 +4,6 @@
 /**
  * The kind of payload.
  *
- * At this point only `"guideline"` is supported.
+ * At this point only `"rule"` is supported.
  */
-export type PayloadKindDto = "guideline";
+export type PayloadKindDto = "rule";

@@ -16,7 +16,7 @@ export interface TermCreationParams {
     description: string;
     /** A list of synonyms for the term, including alternate contexts if applicable. */
     synonyms?: string[];
-    /** List of tag IDs associated with the term */
-    tags?: string[];
+    /** List of group IDs associated with the term */
+    groups?: string[];
     id?: string;
 }

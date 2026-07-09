@@ -59,7 +59,8 @@ export declare class Agents {
      *         maxEngineIterations: 3,
      *         compositionMode: "fluid",
      *         messageOutputMode: "block",
-     *         tags: ["tag1", "tag2"]
+     *         effort: "medium",
+     *         groups: ["group1", "group2"]
      *     })
      */
     create(request: Parlant.AgentCreationParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;
@@ -111,7 +112,8 @@ export declare class Agents {
      *         description: "Technical Support Assistant",
      *         maxEngineIterations: 3,
      *         compositionMode: "fluid",
-     *         messageOutputMode: "block"
+     *         messageOutputMode: "block",
+     *         effort: "medium"
      *     })
      */
     update(agentId: string, request?: Parlant.AgentUpdateParams, requestOptions?: Agents.RequestOptions): Promise<Parlant.Agent>;

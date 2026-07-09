@@ -7,7 +7,7 @@
  */
 export interface CannedResponsesListRequest {
     /**
-     * Filter canned responses by tags
+     * Filter canned responses by groups
      */
-    tags?: string | string[];
+    groups?: string | string[];
 }

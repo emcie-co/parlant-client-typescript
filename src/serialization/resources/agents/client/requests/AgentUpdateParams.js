@@ -40,12 +40,14 @@ exports.AgentUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
 const MessageOutputModeDto_1 = require("../../../../types/MessageOutputModeDto");
-const AgentTagUpdateParams_1 = require("../../../../types/AgentTagUpdateParams");
+const EffortDto_1 = require("../../../../types/EffortDto");
+const AgentGroupUpdateParams_1 = require("../../../../types/AgentGroupUpdateParams");
 exports.AgentUpdateParams = core.serialization.object({
     name: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     messageOutputMode: core.serialization.property("message_output_mode", MessageOutputModeDto_1.MessageOutputModeDto.optional()),
-    tags: AgentTagUpdateParams_1.AgentTagUpdateParams.optional(),
+    effort: EffortDto_1.EffortDto.optional(),
+    groups: AgentGroupUpdateParams_1.AgentGroupUpdateParams.optional(),
 });

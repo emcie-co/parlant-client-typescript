@@ -59,7 +59,7 @@ class ContextVariables {
         this._options = _options;
     }
     /**
-     * Lists all context variables set for the provided tag or all context variables if no tag is provided
+     * Lists all context variables set for the provided group or all context variables if no group is provided
      *
      * @param {Parlant.ContextVariablesListRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -73,10 +73,10 @@ class ContextVariables {
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { tagId } = request;
+            const { groupId } = request;
             const _queryParams = {};
-            if (tagId != null) {
-                _queryParams["tag_id"] = tagId;
+            if (groupId != null) {
+                _queryParams["group_id"] = groupId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "context-variables"),
@@ -201,7 +201,7 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes all context variables for the provided tag
+     * Deletes all context variables for the provided group
      *
      * @param {Parlant.ContextVariablesDeleteManyRequest} request
      * @param {ContextVariables.RequestOptions} requestOptions - Request-specific configuration.
@@ -215,10 +215,10 @@ class ContextVariables {
     deleteMany() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { tagId } = request;
+            const { groupId } = request;
             const _queryParams = {};
-            if (tagId != null) {
-                _queryParams["tag_id"] = tagId;
+            if (groupId != null) {
+                _queryParams["group_id"] = groupId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "context-variables"),
@@ -265,7 +265,7 @@ class ContextVariables {
     /**
      * Retrieves a context variable's details and optionally its values.
      *
-     * Can return all customer or tag values for this variable type if include_values=True.
+     * Can return all customer or group values for this variable type if include_values=True.
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {Parlant.ContextVariablesRetrieveRequest} request
@@ -411,9 +411,9 @@ class ContextVariables {
      *             toolName: "balance_checker"
      *         },
      *         freshnessRules: "0 8,20 * * *",
-     *         tags: {
-     *             add: ["tag:123", "tag:456"],
-     *             remove: ["tag:789", "tag:012"]
+     *         groups: {
+     *             add: ["group:123", "group:456"],
+     *             remove: ["group:789", "group:012"]
      *         }
      *     })
      */
@@ -468,7 +468,7 @@ class ContextVariables {
         });
     }
     /**
-     * Retrieves a customer or tag value for the provided context variable
+     * Retrieves a customer or group value for the provided context variable
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
@@ -530,7 +530,7 @@ class ContextVariables {
         });
     }
     /**
-     * Updates a customer or tag value for the provided context variable
+     * Updates a customer or group value for the provided context variable
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value
@@ -603,7 +603,7 @@ class ContextVariables {
         });
     }
     /**
-     * Deletes a customer or tag value for the provided context variable
+     * Deletes a customer or group value for the provided context variable
      *
      * @param {string} variableId - Unique identifier for the context variable
      * @param {string} key - Key for the variable value

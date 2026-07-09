@@ -15,6 +15,8 @@ export interface ContextVariable {
     toolId?: Parlant.ToolId;
     /** Cron expression defining the freshness rules */
     freshnessRules?: string;
-    /** List of tags associated with the context variable */
-    tags?: string[];
+    /** List of groups associated with the context variable */
+    groups?: string[];
+    /** UTC timestamp of the last modification to the context variable */
+    modifiedUtc: Date;
 }

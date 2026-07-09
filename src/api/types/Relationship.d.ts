@@ -5,18 +5,19 @@ import * as Parlant from "../index";
 /**
  * Represents a relationship.
  *
- * Only one of `source_guideline` and `source_tag` can have a value.
- * Only one of `target_guideline` and `target_tag` can have a value.
+ * Only one of `source_rule` and `source_group` can have a value.
+ * Only one of `target_rule` and `target_group` can have a value.
  * Only one of `source_tool` and `target_tool` can have a value.
  */
 export interface Relationship {
     /** Unique identifier for the relationship */
     id: string;
-    sourceGuideline?: Parlant.Guideline;
-    sourceTag?: Parlant.Tag;
-    targetGuideline?: Parlant.Guideline;
-    targetTag?: Parlant.Tag;
+    sourceRule?: Parlant.Rule;
+    sourceGroup?: Parlant.Group;
+    targetRule?: Parlant.Rule;
+    targetGroup?: Parlant.Group;
     sourceTool?: Parlant.Tool;
     targetTool?: Parlant.Tool;
     kind: Parlant.RelationshipKindDto;
+    groupId?: string;
 }

@@ -42,9 +42,10 @@ const CannedResponseField_1 = require("./CannedResponseField");
 exports.CannedResponse = core.serialization.object({
     id: core.serialization.string(),
     creationUtc: core.serialization.property("creation_utc", core.serialization.date()),
+    modifiedUtc: core.serialization.property("modified_utc", core.serialization.date()),
     value: core.serialization.string(),
     fields: core.serialization.list(CannedResponseField_1.CannedResponseField),
-    tags: core.serialization.list(core.serialization.string()),
+    groups: core.serialization.list(core.serialization.string()),
     signals: core.serialization.list(core.serialization.string()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     fieldDependencies: core.serialization.property("field_dependencies", core.serialization.list(core.serialization.string()).optional()),

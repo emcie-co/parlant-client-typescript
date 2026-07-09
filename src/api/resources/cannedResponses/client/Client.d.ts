@@ -24,7 +24,7 @@ export declare class CannedResponses {
     protected readonly _options: CannedResponses.Options;
     constructor(_options: CannedResponses.Options);
     /**
-     * Lists all canned responses, optionally filtered by tags.
+     * Lists all canned responses, optionally filtered by groups.
      *
      * @param {Parlant.CannedResponsesListRequest} request
      * @param {CannedResponses.RequestOptions} requestOptions - Request-specific configuration.
@@ -86,7 +86,7 @@ export declare class CannedResponses {
      *
      * Only provided attributes will be updated; others remain unchanged.
      * The canned response's ID and creation timestamp cannot be modified.
-     * Extra metadata and tags can be added or removed independently.
+     * Extra metadata and groups can be added or removed independently.
      *
      * @param {string} cannedResponseId
      * @param {Parlant.CannedResponseUpdateParams} request

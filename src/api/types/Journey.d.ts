@@ -5,7 +5,7 @@ import * as Parlant from "../index";
 /**
  * A journey represents a guided interaction path for specific user scenarios.
  *
- * Each journey is triggered by a condition and contains steps to guide the interaction.
+ * Each journey is activated by one or more triggers and contains steps to guide the interaction.
  */
 export interface Journey {
     /** Unique identifier for the journey */
@@ -13,11 +13,13 @@ export interface Journey {
     /** The title of the journey */
     title: string;
     description: string;
-    conditions: string[];
-    /** List of tag IDs associated with the journey */
-    tags?: string[];
+    triggers: string[];
+    /** List of group IDs associated with the journey */
+    groups?: string[];
     compositionMode?: Parlant.CompositionModeDto;
     /** Labels associated with the journey */
     labels?: string[];
     priority?: number;
+    /** UTC timestamp of the last modification to the journey */
+    modifiedUtc: Date;
 }

@@ -6,9 +6,9 @@ import * as Parlant from "../../../../index";
  * @example
  *     {
  *         name: "Scooby",
- *         tags: {
- *             add: ["t9a8g703f4", "tag_456abc"],
- *             remove: ["tag_789def", "tag_012ghi"]
+ *         groups: {
+ *             add: ["t9a8g703f4", "group_456abc"],
+ *             remove: ["group_789def", "group_012ghi"]
  *         }
  *     }
  */
@@ -16,5 +16,5 @@ export interface CustomerUpdateParams {
     /** An arbitrary string that identifies and/or describes the customer */
     name?: string;
     metadata?: Parlant.CustomerMetadataUpdateParams;
-    tags?: Parlant.CustomerTagUpdateParams;
+    groups?: Parlant.CustomerGroupUpdateParams;
 }

@@ -41,7 +41,7 @@ export declare class Capabilities {
     /**
      * Creates a new capability in the system.
      *
-     * The capability will be initialized with the provided title, description, signals, and optional tags.
+     * The capability will be initialized with the provided title, description, signals, and optional groups.
      * A unique identifier will be automatically generated.
      *
      * Default behaviors:
@@ -57,7 +57,7 @@ export declare class Capabilities {
      *         title: "Provide Replacement Phone",
      *         description: "Provide a replacement phone when a customer needs repair for their phone.",
      *         signals: ["My phone is broken", "I need a replacement while my phone is being repaired"],
-     *         tags: ["tag1", "tag2"]
+     *         groups: ["group1", "group2"]
      *     })
      */
     create(request: Parlant.CapabilityCreationParams, requestOptions?: Capabilities.RequestOptions): Promise<Parlant.Capability>;

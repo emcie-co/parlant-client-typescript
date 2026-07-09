@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./UnprocessableEntityError"), exports);
 __exportStar(require("./NotFoundError"), exports);
 __exportStar(require("./GatewayTimeoutError"), exports);
+__exportStar(require("./ConflictError"), exports);
 __exportStar(require("./ServiceUnavailableError"), exports);

@@ -4,8 +4,8 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { JourneyConditionUpdateParams } from "../../../../types/JourneyConditionUpdateParams";
-import { JourneyTagUpdateParams } from "../../../../types/JourneyTagUpdateParams";
+import { JourneyTriggerUpdateParams } from "../../../../types/JourneyTriggerUpdateParams";
+import { JourneyGroupUpdateParams } from "../../../../types/JourneyGroupUpdateParams";
 import { CompositionModeDto } from "../../../../types/CompositionModeDto";
 import { JourneyLabelsUpdateParams } from "../../../../types/JourneyLabelsUpdateParams";
 export declare const JourneyUpdateParams: core.serialization.Schema<serializers.JourneyUpdateParams.Raw, Parlant.JourneyUpdateParams>;
@@ -13,8 +13,8 @@ export declare namespace JourneyUpdateParams {
     interface Raw {
         title?: string | null;
         description?: string | null;
-        conditions?: JourneyConditionUpdateParams.Raw | null;
-        tags?: JourneyTagUpdateParams.Raw | null;
+        triggers?: JourneyTriggerUpdateParams.Raw | null;
+        groups?: JourneyGroupUpdateParams.Raw | null;
         composition_mode?: CompositionModeDto.Raw | null;
         labels?: JourneyLabelsUpdateParams.Raw | null;
         priority?: number | null;

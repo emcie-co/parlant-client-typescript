@@ -5,9 +5,10 @@ import * as Parlant from "../../../../index";
 /**
  * @example
  *     {
+ *         agentId: "a1g2e3n4t5",
  *         payloads: [{
- *                 kind: "guideline",
- *                 guideline: {
+ *                 kind: "rule",
+ *                 rule: {
  *                     content: {
  *                         condition: "when customer asks about pricing"
  *                     },
@@ -22,5 +23,7 @@ import * as Parlant from "../../../../index";
  *     }
  */
 export interface EvaluationCreationParams {
+    /** Agent context to use when evaluating agent-dependent propositions such as rule signals. */
+    agentId?: string;
     payloads: Parlant.Payload[];
 }

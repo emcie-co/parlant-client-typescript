@@ -8,7 +8,7 @@ export declare const ContextVariableValue: core.serialization.ObjectSchema<seria
 export declare namespace ContextVariableValue {
     interface Raw {
         id: string;
-        last_modified: string;
+        modified_utc: string;
         data?: unknown;
     }
 }

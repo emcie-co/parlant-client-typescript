@@ -5,7 +5,7 @@
  * Represents a customer in the system.
  *
  * Customers are entities that interact with agents through sessions. Each customer
- * can have metadata stored in the metadata field and can be tagged for categorization.
+ * can have metadata stored in the metadata field and can be grouped for categorization.
  */
 export interface Customer {
     /** Unique identifier for the customer */
@@ -16,6 +16,6 @@ export interface Customer {
     name: string;
     /** Key-value pairs (`str: str`) to describe the customer */
     metadata: Record<string, string>;
-    /** Collection of ids of tags that describe the customer */
-    tags: string[];
+    /** Collection of ids of groups that describe the customer */
+    groups: string[];
 }

@@ -72,10 +72,10 @@ class Journeys {
     list() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { tagId } = request;
+            const { groupId } = request;
             const _queryParams = {};
-            if (tagId != null) {
-                _queryParams["tag_id"] = tagId;
+            if (groupId != null) {
+                _queryParams["group_id"] = groupId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "journeys"),
@@ -125,7 +125,7 @@ class Journeys {
     /**
      * Creates a new journey in the system.
      *
-     * The journey will be initialized with the provided title, description, and conditions.
+     * The journey will be initialized with the provided title, description, and triggers.
      * A unique identifier will be automatically generated unless a custom ID is provided.
      *
      * @param {Parlant.JourneyCreationParams} request
@@ -137,9 +137,9 @@ class Journeys {
      *     await client.journeys.create({
      *         title: "Customer Onboarding",
      *         description: "1. Customer wants to lock their card\n2. Customer reports that their card doesn't work\n3. Customer suspects their card has been stolen",
-     *         conditions: ["customer needs unlocking their card", "customer needs help with card"],
+     *         triggers: ["customer needs unlocking their card", "customer needs help with card"],
      *         id: "IUCGT-lvpS",
-     *         tags: ["tag1", "tag2"],
+     *         groups: ["group1", "group2"],
      *         labels: ["vip", "priority"]
      *     })
      */
@@ -217,7 +217,7 @@ class Journeys {
                 abortSignal: requestOptions === null || requestOptions === void 0 ? void 0 : requestOptions.abortSignal,
             });
             if (_response.ok) {
-                return serializers.Journey.parseOrThrow(_response.body, {
+                return serializers.JourneyGraph.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -255,7 +255,7 @@ class Journeys {
     /**
      * Deletes a journey from the system.
      *
-     * Also deletes the associated guideline.
+     * Also deletes the associated rule.
      * Deleting a non-existent journey will return 404.
      * No content will be returned from a successful deletion.
      *

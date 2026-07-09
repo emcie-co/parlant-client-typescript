@@ -13,6 +13,6 @@ export declare namespace ContextVariableUpdateParams {
         description?: string | null;
         tool_id?: ToolId.Raw | null;
         freshness_rules?: string | null;
-        tags?: ContextVariableTagsUpdateParams.Raw | null;
+        groups?: ContextVariableTagsUpdateParams.Raw | null;
     }
 }

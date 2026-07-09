@@ -4,13 +4,13 @@
 import * as serializers from "../../../../index";
 import * as Parlant from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { CapabilityTagUpdateParams } from "../../../../types/CapabilityTagUpdateParams";
+import { CapabilityGroupUpdateParams } from "../../../../types/CapabilityGroupUpdateParams";
 export declare const CapabilityUpdateParams: core.serialization.Schema<serializers.CapabilityUpdateParams.Raw, Parlant.CapabilityUpdateParams>;
 export declare namespace CapabilityUpdateParams {
     interface Raw {
         title?: string | null;
         description?: string | null;
         signals?: string[] | null;
-        tags?: CapabilityTagUpdateParams.Raw | null;
+        groups?: CapabilityGroupUpdateParams.Raw | null;
     }
 }

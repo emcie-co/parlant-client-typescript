@@ -43,5 +43,5 @@ exports.Capability = core.serialization.object({
     title: core.serialization.string(),
     description: core.serialization.string(),
     signals: core.serialization.list(core.serialization.string()),
-    tags: core.serialization.list(core.serialization.string()).optional(),
+    groups: core.serialization.list(core.serialization.string()).optional(),
 });

@@ -8,6 +8,7 @@ exports.RelationshipKindDto = {
     Entailment: "entailment",
     Priority: "priority",
     Dependency: "dependency",
+    DependencyAny: "dependency_any",
     Disambiguation: "disambiguation",
     Overlap: "overlap",
     Reevaluation: "reevaluation",

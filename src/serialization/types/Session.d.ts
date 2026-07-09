@@ -13,6 +13,7 @@ export declare namespace Session {
         agent_id: string;
         customer_id: string;
         creation_utc: string;
+        modified_utc: string;
         title?: string | null;
         mode: SessionModeDto.Raw;
         consumption_offsets: ConsumptionOffsets.Raw;

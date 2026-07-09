@@ -10,9 +10,10 @@ export declare namespace CannedResponse {
     interface Raw {
         id: string;
         creation_utc: string;
+        modified_utc: string;
         value: string;
         fields: CannedResponseField.Raw[];
-        tags: string[];
+        groups: string[];
         signals: string[];
         metadata: Record<string, unknown>;
         field_dependencies?: string[] | null;

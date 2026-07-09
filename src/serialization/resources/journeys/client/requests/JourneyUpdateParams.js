@@ -38,15 +38,15 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JourneyUpdateParams = void 0;
 const core = __importStar(require("../../../../../core"));
-const JourneyConditionUpdateParams_1 = require("../../../../types/JourneyConditionUpdateParams");
-const JourneyTagUpdateParams_1 = require("../../../../types/JourneyTagUpdateParams");
+const JourneyTriggerUpdateParams_1 = require("../../../../types/JourneyTriggerUpdateParams");
+const JourneyGroupUpdateParams_1 = require("../../../../types/JourneyGroupUpdateParams");
 const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
 const JourneyLabelsUpdateParams_1 = require("../../../../types/JourneyLabelsUpdateParams");
 exports.JourneyUpdateParams = core.serialization.object({
     title: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
-    conditions: JourneyConditionUpdateParams_1.JourneyConditionUpdateParams.optional(),
-    tags: JourneyTagUpdateParams_1.JourneyTagUpdateParams.optional(),
+    triggers: JourneyTriggerUpdateParams_1.JourneyTriggerUpdateParams.optional(),
+    groups: JourneyGroupUpdateParams_1.JourneyGroupUpdateParams.optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     labels: JourneyLabelsUpdateParams_1.JourneyLabelsUpdateParams.optional(),
     priority: core.serialization.number().optional(),

@@ -11,10 +11,11 @@ export declare namespace Journey {
         id: string;
         title: string;
         description: string;
-        conditions: string[];
-        tags?: string[] | null;
+        triggers: string[];
+        groups?: string[] | null;
         composition_mode?: CompositionModeDto.Raw | null;
         labels?: string[] | null;
         priority?: number | null;
+        modified_utc: string;
     }
 }

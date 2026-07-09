@@ -4,10 +4,10 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { GuidelineInvoiceData } from "./GuidelineInvoiceData";
+import { RuleInvoiceData } from "./RuleInvoiceData";
 export declare const InvoiceData: core.serialization.ObjectSchema<serializers.InvoiceData.Raw, Parlant.InvoiceData>;
 export declare namespace InvoiceData {
     interface Raw {
-        guideline?: GuidelineInvoiceData.Raw | null;
+        rule?: RuleInvoiceData.Raw | null;
     }
 }

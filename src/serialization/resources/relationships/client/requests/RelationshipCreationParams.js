@@ -41,11 +41,12 @@ const core = __importStar(require("../../../../../core"));
 const ToolId_1 = require("../../../../types/ToolId");
 const RelationshipKindDto_1 = require("../../../../types/RelationshipKindDto");
 exports.RelationshipCreationParams = core.serialization.object({
-    sourceGuideline: core.serialization.property("source_guideline", core.serialization.string().optional()),
-    sourceTag: core.serialization.property("source_tag", core.serialization.string().optional()),
+    sourceRule: core.serialization.property("source_rule", core.serialization.string().optional()),
+    sourceGroup: core.serialization.property("source_group", core.serialization.string().optional()),
     sourceTool: core.serialization.property("source_tool", ToolId_1.ToolId.optional()),
-    targetGuideline: core.serialization.property("target_guideline", core.serialization.string().optional()),
-    targetTag: core.serialization.property("target_tag", core.serialization.string().optional()),
+    targetRule: core.serialization.property("target_rule", core.serialization.string().optional()),
+    targetGroup: core.serialization.property("target_group", core.serialization.string().optional()),
     targetTool: core.serialization.property("target_tool", ToolId_1.ToolId.optional()),
     kind: RelationshipKindDto_1.RelationshipKindDto,
+    groupId: core.serialization.property("group_id", core.serialization.string().optional()),
 });

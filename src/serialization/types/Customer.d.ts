@@ -11,6 +11,6 @@ export declare namespace Customer {
         creation_utc: string;
         name: string;
         metadata: Record<string, string>;
-        tags: string[];
+        groups: string[];
     }
 }

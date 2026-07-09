@@ -10,9 +10,9 @@ export declare namespace JourneyCreationParams {
     interface Raw {
         title: string;
         description: string;
-        conditions: string[];
+        triggers: string[];
         id?: string | null;
-        tags?: string[] | null;
+        groups?: string[] | null;
         composition_mode?: CompositionModeDto.Raw | null;
         labels?: string[] | null;
         priority?: number | null;

@@ -7,7 +7,7 @@
  */
 export interface ContextVariablesDeleteManyRequest {
     /**
-     * The tag ID to filter context variables by
+     * The group ID to filter context variables by
      */
-    tagId?: string;
+    groupId?: string;
 }

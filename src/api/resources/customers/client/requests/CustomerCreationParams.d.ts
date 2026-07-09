@@ -18,6 +18,6 @@ export interface CustomerCreationParams {
     id?: string;
     /** Key-value pairs (`str: str`) to describe the customer */
     metadata?: Record<string, string | undefined>;
-    /** Collection of ids of tags that describe the customer */
-    tags?: string[];
+    /** Collection of ids of groups that describe the customer */
+    groups?: string[];
 }

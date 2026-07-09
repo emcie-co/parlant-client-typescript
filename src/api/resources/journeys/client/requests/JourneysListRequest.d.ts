@@ -7,7 +7,7 @@
  */
 export interface JourneysListRequest {
     /**
-     * The tag ID to filter journeys by
+     * The group ID to filter journeys by
      */
-    tagId?: string;
+    groupId?: string;
 }

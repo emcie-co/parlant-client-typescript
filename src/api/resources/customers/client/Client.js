@@ -145,7 +145,7 @@ class Customers {
      * Creates a new customer in the system.
      *
      * A customer may be created with as little as a `name`.
-     * `metadata` key-value pairs and additional `tags` may be attached to a customer.
+     * `metadata` key-value pairs and additional `groups` may be attached to a customer.
      *
      * @param {Parlant.CustomerCreationParams} request
      * @param {Customers.RequestOptions} requestOptions - Request-specific configuration.
@@ -212,7 +212,7 @@ class Customers {
     /**
      * Retrieves details of a specific customer by ID.
      *
-     * Returns a complete customer object including their metadata and tags.
+     * Returns a complete customer object including their metadata and groups.
      * The customer must exist in the system.
      *
      * @param {string} customerId - Unique identifier for the customer
@@ -337,7 +337,7 @@ class Customers {
      *
      * Only provided attributes will be updated; others remain unchanged.
      * The customer's ID and creation timestamp cannot be modified.
-     * Extra metadata and tags can be added or removed independently.
+     * Extra metadata and groups can be added or removed independently.
      *
      * @param {string} customerId - Unique identifier for the customer
      * @param {Parlant.CustomerUpdateParams} request
@@ -349,9 +349,9 @@ class Customers {
      * @example
      *     await client.customers.update("ck_IdAXUtp", {
      *         name: "Scooby",
-     *         tags: {
-     *             add: ["t9a8g703f4", "tag_456abc"],
-     *             remove: ["tag_789def", "tag_012ghi"]
+     *         groups: {
+     *             add: ["t9a8g703f4", "group_456abc"],
+     *             remove: ["group_789def", "group_012ghi"]
      *         }
      *     })
      */

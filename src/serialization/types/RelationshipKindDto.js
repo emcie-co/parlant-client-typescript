@@ -38,4 +38,12 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelationshipKindDto = void 0;
 const core = __importStar(require("../../core"));
-exports.RelationshipKindDto = core.serialization.enum_(["entailment", "priority", "dependency", "disambiguation", "overlap", "reevaluation"]);
+exports.RelationshipKindDto = core.serialization.enum_([
+    "entailment",
+    "priority",
+    "dependency",
+    "dependency_any",
+    "disambiguation",
+    "overlap",
+    "reevaluation",
+]);

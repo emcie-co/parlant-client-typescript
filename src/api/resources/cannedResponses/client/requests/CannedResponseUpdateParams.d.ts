@@ -25,6 +25,6 @@ export interface CannedResponseUpdateParams {
     value?: string;
     /** A sequence of canned response fields associated with the canned response. */
     fields?: Parlant.CannedResponseField[];
-    tags?: Parlant.CannedResponseTagUpdateParams;
+    groups?: Parlant.CannedResponseGroupUpdateParams;
     metadata?: Parlant.CannedResponseMetadataUpdateParams;
 }

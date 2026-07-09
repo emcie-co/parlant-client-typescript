@@ -10,7 +10,7 @@ export declare namespace TermCreationParams {
         name: string;
         description: string;
         synonyms?: string[] | null;
-        tags?: string[] | null;
+        groups?: string[] | null;
         id?: string | null;
     }
 }

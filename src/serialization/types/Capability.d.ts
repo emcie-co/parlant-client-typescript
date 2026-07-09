@@ -11,6 +11,6 @@ export declare namespace Capability {
         title: string;
         description: string;
         signals: string[];
-        tags?: string[] | null;
+        groups?: string[] | null;
     }
 }

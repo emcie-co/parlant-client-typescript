@@ -43,9 +43,10 @@ exports.Journey = core.serialization.object({
     id: core.serialization.string(),
     title: core.serialization.string(),
     description: core.serialization.string(),
-    conditions: core.serialization.list(core.serialization.string()),
-    tags: core.serialization.list(core.serialization.string()).optional(),
+    triggers: core.serialization.list(core.serialization.string()),
+    groups: core.serialization.list(core.serialization.string()).optional(),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     labels: core.serialization.list(core.serialization.string()).optional(),
     priority: core.serialization.number().optional(),
+    modifiedUtc: core.serialization.property("modified_utc", core.serialization.date()),
 });

@@ -7,7 +7,7 @@
  */
 export interface CapabilitiesListRequest {
     /**
-     * The tag ID to filter capabilities by
+     * The group ID to filter capabilities by
      */
-    tagId?: string;
+    groupId?: string;
 }

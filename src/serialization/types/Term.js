@@ -43,5 +43,6 @@ exports.Term = core.serialization.object({
     name: core.serialization.string(),
     description: core.serialization.string(),
     synonyms: core.serialization.list(core.serialization.string()).optional(),
-    tags: core.serialization.list(core.serialization.string()),
+    groups: core.serialization.list(core.serialization.string()),
+    modifiedUtc: core.serialization.property("modified_utc", core.serialization.date()),
 });

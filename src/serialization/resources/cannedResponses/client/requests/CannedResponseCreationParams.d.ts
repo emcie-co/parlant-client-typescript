@@ -10,7 +10,7 @@ export declare namespace CannedResponseCreationParams {
     interface Raw {
         value: string;
         fields: CannedResponseField.Raw[];
-        tags?: string[] | null;
+        groups?: string[] | null;
         signals?: string[] | null;
         metadata?: Record<string, unknown> | null;
         field_dependencies?: string[] | null;

@@ -3,16 +3,18 @@
  */
 import * as Parlant from "../index";
 export interface CannedResponse {
-    /** Unique identifier for the tag */
+    /** Unique identifier for the group */
     id: string;
     /** UTC timestamp of when the canned response was created */
     creationUtc: Date;
+    /** UTC timestamp of the last modification to the canned response */
+    modifiedUtc: Date;
     /** The textual content of the canned response. */
     value: string;
     /** A sequence of canned response fields associated with the canned response. */
     fields: Parlant.CannedResponseField[];
-    /** Collection of tag IDs associated with the canned response. */
-    tags: string[];
+    /** Collection of group IDs associated with the canned response. */
+    groups: string[];
     /** A sequence of signals associated with the canned response, to help with filtering and matching. */
     signals: string[];
     /** Additional metadata associated with the canned response. */

@@ -15,6 +15,8 @@ export interface Term {
     description: string;
     /** A list of synonyms for the term, including alternate contexts if applicable. */
     synonyms?: string[];
-    /** List of tag IDs associated with the term */
-    tags: string[];
+    /** List of group IDs associated with the term */
+    groups: string[];
+    /** UTC timestamp of the last modification to the term */
+    modifiedUtc: Date;
 }

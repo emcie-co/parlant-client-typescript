@@ -75,10 +75,10 @@ class Glossary {
     listTerms() {
         return __awaiter(this, arguments, void 0, function* (request = {}, requestOptions) {
             var _a;
-            const { tagId } = request;
+            const { groupId } = request;
             const _queryParams = {};
-            if (tagId != null) {
-                _queryParams["tag_id"] = tagId;
+            if (groupId != null) {
+                _queryParams["group_id"] = groupId;
             }
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)((_a = (yield core.Supplier.get(this._options.baseUrl))) !== null && _a !== void 0 ? _a : (yield core.Supplier.get(this._options.environment)), "terms"),
@@ -332,9 +332,9 @@ class Glossary {
      *         name: "Gas",
      *         description: "A unit in Ethereum that measures the computational effort to execute transactions or smart contracts",
      *         synonyms: ["Transaction Fee", "Blockchain Fuel"],
-     *         tags: {
-     *             add: ["tag1", "tag2"],
-     *             remove: ["tag3", "tag4"]
+     *         groups: {
+     *             add: ["group1", "group2"],
+     *             remove: ["group3", "group4"]
      *         }
      *     })
      */

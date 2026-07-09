@@ -4,20 +4,21 @@
 import * as serializers from "../index";
 import * as Parlant from "../../api/index";
 import * as core from "../../core";
-import { Guideline } from "./Guideline";
-import { Tag } from "./Tag";
+import { Rule } from "./Rule";
+import { Group } from "./Group";
 import { Tool } from "./Tool";
 import { RelationshipKindDto } from "./RelationshipKindDto";
 export declare const Relationship: core.serialization.ObjectSchema<serializers.Relationship.Raw, Parlant.Relationship>;
 export declare namespace Relationship {
     interface Raw {
         id: string;
-        source_guideline?: Guideline.Raw | null;
-        source_tag?: Tag.Raw | null;
-        target_guideline?: Guideline.Raw | null;
-        target_tag?: Tag.Raw | null;
+        source_rule?: Rule.Raw | null;
+        source_group?: Group.Raw | null;
+        target_rule?: Rule.Raw | null;
+        target_group?: Group.Raw | null;
         source_tool?: Tool.Raw | null;
         target_tool?: Tool.Raw | null;
         kind: RelationshipKindDto.Raw;
+        group_id?: string | null;
     }
 }

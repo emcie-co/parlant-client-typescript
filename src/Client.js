@@ -56,16 +56,17 @@ const errors = __importStar(require("./errors/index"));
 const Client_1 = require("./api/resources/agents/client/Client");
 const Client_2 = require("./api/resources/sessions/client/Client");
 const Client_3 = require("./api/resources/services/client/Client");
-const Client_4 = require("./api/resources/tags/client/Client");
+const Client_4 = require("./api/resources/groups/client/Client");
 const Client_5 = require("./api/resources/glossary/client/Client");
 const Client_6 = require("./api/resources/customers/client/Client");
 const Client_7 = require("./api/resources/cannedResponses/client/Client");
 const Client_8 = require("./api/resources/contextVariables/client/Client");
-const Client_9 = require("./api/resources/guidelines/client/Client");
+const Client_9 = require("./api/resources/rules/client/Client");
 const Client_10 = require("./api/resources/relationships/client/Client");
 const Client_11 = require("./api/resources/journeys/client/Client");
 const Client_12 = require("./api/resources/evaluations/client/Client");
-const Client_13 = require("./api/resources/capabilities/client/Client");
+const Client_13 = require("./api/resources/train/client/Client");
+const Client_14 = require("./api/resources/capabilities/client/Client");
 class ParlantClient {
     constructor(_options) {
         this._options = _options;
@@ -82,9 +83,9 @@ class ParlantClient {
         var _a;
         return ((_a = this._services) !== null && _a !== void 0 ? _a : (this._services = new Client_3.Services(this._options)));
     }
-    get tags() {
+    get groups() {
         var _a;
-        return ((_a = this._tags) !== null && _a !== void 0 ? _a : (this._tags = new Client_4.Tags(this._options)));
+        return ((_a = this._groups) !== null && _a !== void 0 ? _a : (this._groups = new Client_4.Groups(this._options)));
     }
     get glossary() {
         var _a;
@@ -102,9 +103,9 @@ class ParlantClient {
         var _a;
         return ((_a = this._contextVariables) !== null && _a !== void 0 ? _a : (this._contextVariables = new Client_8.ContextVariables(this._options)));
     }
-    get guidelines() {
+    get rules() {
         var _a;
-        return ((_a = this._guidelines) !== null && _a !== void 0 ? _a : (this._guidelines = new Client_9.Guidelines(this._options)));
+        return ((_a = this._rules) !== null && _a !== void 0 ? _a : (this._rules = new Client_9.Rules(this._options)));
     }
     get relationships() {
         var _a;
@@ -118,9 +119,13 @@ class ParlantClient {
         var _a;
         return ((_a = this._evaluations) !== null && _a !== void 0 ? _a : (this._evaluations = new Client_12.Evaluations(this._options)));
     }
+    get train() {
+        var _a;
+        return ((_a = this._train) !== null && _a !== void 0 ? _a : (this._train = new Client_13.Train(this._options)));
+    }
     get capabilities() {
         var _a;
-        return ((_a = this._capabilities) !== null && _a !== void 0 ? _a : (this._capabilities = new Client_13.Capabilities(this._options)));
+        return ((_a = this._capabilities) !== null && _a !== void 0 ? _a : (this._capabilities = new Client_14.Capabilities(this._options)));
     }
     /**
      * @param {ParlantClient.RequestOptions} requestOptions - Request-specific configuration.

@@ -40,6 +40,7 @@ exports.AgentCreationParams = void 0;
 const core = __importStar(require("../../../../../core"));
 const CompositionModeDto_1 = require("../../../../types/CompositionModeDto");
 const MessageOutputModeDto_1 = require("../../../../types/MessageOutputModeDto");
+const EffortDto_1 = require("../../../../types/EffortDto");
 exports.AgentCreationParams = core.serialization.object({
     name: core.serialization.string(),
     id: core.serialization.string().optional(),
@@ -47,5 +48,6 @@ exports.AgentCreationParams = core.serialization.object({
     maxEngineIterations: core.serialization.property("max_engine_iterations", core.serialization.number().optional()),
     compositionMode: core.serialization.property("composition_mode", CompositionModeDto_1.CompositionModeDto.optional()),
     messageOutputMode: core.serialization.property("message_output_mode", MessageOutputModeDto_1.MessageOutputModeDto.optional()),
-    tags: core.serialization.list(core.serialization.string()).optional(),
+    effort: EffortDto_1.EffortDto.optional(),
+    groups: core.serialization.list(core.serialization.string()).optional(),
 });

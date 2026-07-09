@@ -38,7 +38,7 @@ export declare class Journeys {
     /**
      * Creates a new journey in the system.
      *
-     * The journey will be initialized with the provided title, description, and conditions.
+     * The journey will be initialized with the provided title, description, and triggers.
      * A unique identifier will be automatically generated unless a custom ID is provided.
      *
      * @param {Parlant.JourneyCreationParams} request
@@ -50,9 +50,9 @@ export declare class Journeys {
      *     await client.journeys.create({
      *         title: "Customer Onboarding",
      *         description: "1. Customer wants to lock their card\n2. Customer reports that their card doesn't work\n3. Customer suspects their card has been stolen",
-     *         conditions: ["customer needs unlocking their card", "customer needs help with card"],
+     *         triggers: ["customer needs unlocking their card", "customer needs help with card"],
      *         id: "IUCGT-lvpS",
-     *         tags: ["tag1", "tag2"],
+     *         groups: ["group1", "group2"],
      *         labels: ["vip", "priority"]
      *     })
      */
@@ -69,11 +69,11 @@ export declare class Journeys {
      * @example
      *     await client.journeys.retrieve("IUCGT-lvpS")
      */
-    retrieve(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<Parlant.Journey>;
+    retrieve(journeyId: string, requestOptions?: Journeys.RequestOptions): Promise<Parlant.JourneyGraph>;
     /**
      * Deletes a journey from the system.
      *
-     * Also deletes the associated guideline.
+     * Also deletes the associated rule.
      * Deleting a non-existent journey will return 404.
      * No content will be returned from a successful deletion.
      *

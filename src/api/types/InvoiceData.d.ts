@@ -5,8 +5,8 @@ import * as Parlant from "../index";
 /**
  * Contains the relevant invoice data.
  *
- * At this point only `guideline` is supported.
+ * At this point only `rule` is supported.
  */
 export interface InvoiceData {
-    guideline?: Parlant.GuidelineInvoiceData;
+    rule?: Parlant.RuleInvoiceData;
 }

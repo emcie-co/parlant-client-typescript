@@ -7,7 +7,7 @@
  */
 export interface GlossaryListTermsRequest {
     /**
-     * Filter terms by tag ID
+     * Filter terms by group ID
      */
-    tagId?: string;
+    groupId?: string;
 }

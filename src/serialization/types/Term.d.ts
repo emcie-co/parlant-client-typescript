@@ -11,6 +11,7 @@ export declare namespace Term {
         name: string;
         description: string;
         synonyms?: string[] | null;
-        tags: string[];
+        groups: string[];
+        modified_utc: string;
     }
 }
